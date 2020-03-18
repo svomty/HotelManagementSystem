@@ -1,0 +1,475 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url("../img/map.png");
+    background-size: cover;
+    background-origin: border-box;
+    background-clip: border-box;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100%;
+    min-width: 400px;
+    position: relative;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.top-menu {
+    padding: 4px 0 8px 0;
+    width: 100%;
+    background: rgba(234, 234, 234, 1);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.top-menu__itm {
+    display: inline-block;
+    margin-left: 25px;
+}
+
+.fa-phone {
+    color: darkgreen;
+}
+
+#logo {
+    font-weight: bold;
+}
+
+.fa-map-marker {
+    color: darkred;
+}
+
+.fa-envelope-o {
+    color: cornflowerblue;
+}
+
+.top-menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.header-wrap {
+    width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.top-menu ul {
+    padding: 0;
+    margin: 0;
+}
+
+.nav-tgl {
+    display: block;
+    width: 100%;
+}
+
+.nav-tgl img {
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    font-family: 'Merriweather', serif;
+    position: fixed;
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+    border-bottom: 1px solid #ededed;
+    z-index: 1;
+}
+
+.active {
+    display: none;
+}
+
+header a {
+    text-decoration: none;
+}
+
+.header__itm {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.header h1 {
+    display: none;
+}
+
+footer {
+    display: flex;
+    width: 100%;
+    background: #0074E8;
+    position: absolute;
+    bottom: 0;
+}
+
+footer div {
+    flex-wrap: wrap;
+}
+
+.footer__log a, .footer__text {
+    color: white;
+}
+
+.content {
+    padding-bottom: 3rem;
+}
+
+.top-menu img {
+    display: none;
+}
+
+header .header-wrap {
+    display: flex;
+}
+
+nav {
+    width: 100%;
+}
+
+.btn:hover {
+    background-color: #BEB3A6;
+    color: #252C29;
+}
+
+nav ul {
+    margin: 0;
+}
+ul li ul {
+    margin: 0;
+    position: absolute;
+    padding-left: 9px;
+    background-color: white;
+    display: none;
+}
+
+ul li ul li{
+    display: flex;
+    flex-wrap: wrap;
+    position: static;
+    margin-left: -10px;
+}
+
+#admin_panel:hover{
+    background-color: #BEB3A6;
+}
+
+/*Цвет шрифта шапки*/
+nav a{
+    color: rgb(101, 132, 189);
+}
+
+#admin_panel:hover >a{
+    color: #252C29;
+}
+
+#admin_panel ul li :hover {
+    background-color: #BEB3A6;
+    color: #252C29;
+} 
+
+#admin_panel ul li {
+    width: 100%;
+}
+
+#admin_panel ul li a {
+    display: block;
+    width: 100%;
+}
+
+.btn-red, .btn {
+    display: flex;
+    padding: 10px;
+    align-items: stretch;
+    transition: .8s linear;
+    position: sticky;
+}
+
+.btn-red {
+    color: rgb(237, 237, 243);
+    background-color: rgb(126, 47, 47);
+}
+
+.btn-red:hover {
+    color: rgb(237, 237, 243);
+    text-shadow: 0 0 5px white, 0 0 10px rgb(117, 53, 53), 0 0 20px rgb(126, 47, 47);
+}
+
+main {
+    margin-top: 2.2rem;
+}
+
+#slider {
+    margin-top: 10px;
+    display: block;
+    position: relative;
+}
+
+#slider img {
+    width: 100%;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#slider .tagline {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 20px;
+}
+
+#slider .tagline span {
+    padding-left: 5px;
+    padding-right: 5px;
+    display: block;
+    color: white;
+    font-weight: bold;
+    font-size: xx-large;
+    letter-spacing: -1px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.center {
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#slider .booking {
+    background: rgba(126, 47, 47, 0.8);
+    padding: 10px;
+    bottom: 20px;
+    position: absolute;
+    box-shadow: 0 0 10px 0 rgba(126, 47, 47, 0.6), 0 0 6px 0 rgba(126, 47, 47, 0.8), 0 0 10px 0 rgba(126, 47, 47, 0.6);
+}
+
+#slider .booking form {
+    display: flex;
+}
+
+#slider .booking legend {
+    color: white;
+}
+
+#slider .booking form p {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    color: white;
+}
+
+#slider .booking fieldset {
+    padding: 0 15px 15px 15px;
+    border: 2px solid rgba(39, 15, 15, 0.7);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#slider .booking input, #slider .booking select {
+    border: 2px solid rgba(126, 47, 47, 0.8);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+#slider .booking {
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px 30px 0px 30px
+}
+
+#slider .booking form input[type=submit] {
+    padding: 10px;
+    width: 100%;
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    color: white;
+    background-color: rgba(126, 47, 47, 0.8);
+    font-weight: 600;
+}
+
+#slider .booking form input[type=submit]:hover {
+    background-color: rgba(63, 25, 25, 0.8);
+}
+.headline {
+    text-align: center;
+}
+
+.contacts {
+    width: 100%;
+}
+
+.contacts .block {
+    display: flex;
+    flex-direction: row;
+}
+
+.contacts .contacts__table {
+    width: 100%;
+    display: flex;
+    align-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contacts section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.contacts section a {
+    font-size: 14pt;
+    color: rgb(50, 105, 116);
+}
+
+.active__submenu{
+    display: block;
+}
+@media screen and (max-width: 950px) {
+    .header-wrap {
+        width: 97%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .tagline {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 880px) {
+    .active {
+        display: flex;
+    }
+    body {
+        overflow: auto !important;
+    }
+}
+
+@media screen and (max-width: 880px) {
+    main {
+        margin-top: 5px;
+    }
+    .active {
+        display: none;
+    }
+    nav {
+        width: 100vw;
+        height: 100vh;
+        background: url("../img/map.png") rgb(99, 10, 10);
+        background-blend-mode: hard-light, multiply, normal;
+    }
+    .header__itm {
+        display: inline;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    .header__itm a {
+        flex-direction: column;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .header h1 {
+        display: flex;
+        justify-content: center;
+    }
+    .top-menu .header-wrap {
+        display: grid;
+        grid-template-columns: 10% 90%;
+    }
+    .top-menu__itm {
+        display: block;
+    }
+    .top-menu img {
+        display: inline-block;
+        max-width: 54px;
+        max-height: 54px;
+    }
+    .header ul {
+        margin: 0px;
+        padding: 0;
+    }
+    #logo {
+        display: none;
+    }
+    .contacts .block {
+        flex-direction: column;
+        max-width: 100%;
+    }
+    .contacts .block .contacts__table {
+        border: 1px solid;
+        display: inline;
+        text-align: center;
+    }
+    .contacts #contacts__map img {
+        width: 100%;
+    }
+
+    #contacts__map {
+        margin-top: 20px;
+    }
+    .contacts__table {
+        background-color: white;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+    }
+    #admin_panel:hover ul {
+        width: 100%;
+    }
+
+    .active__submenu{
+        display: block;
+        width: 100%;
+        background-color: rgba(97, 97, 97, 0.692);
+        
+    }
+
+    .active__submenu a{
+        color: white;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #slider .booking {
+        position: static;
+        margin-top: 20px;
+        padding: 30px;
+    }
+    #slider .booking form input, #slider .booking form select {
+        padding: 5px;
+    }
+    #slider .booking form input[type=submit] {
+        padding: 10px;
+    }
+    .tagline {
+        display: block;
+    }
+}
