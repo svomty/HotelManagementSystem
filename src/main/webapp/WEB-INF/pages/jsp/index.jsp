@@ -9,21 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>АСОИ "Гостиница"</title>
-    <style>
-        <%@include file="/WEB-INF/css/main.css"%>
-    </style>
-    <style>
-        <%@include file="/WEB-INF/css/font-awesome.css"%>
-    </style>
-    <script type="text/javascript">
-        <%@include file="/WEB-INF/js/nav.js"%>
-    </script>
-    <script type="text/javascript">
-        <%@include file="/WEB-INF/js/jquery.min.js"%>
-    </script>
-    <script type="text/javascript">
-        <%@include file="/WEB-INF/js/slider.js"%>
-    </script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+    <link href="<c:url value="${pageContext.request.contextPath}/css/font-awesome.css"/>" rel="stylesheet">
+    <script src="<c:url value="${pageContext.request.contextPath}/js/nav.js"/>"></script>
+    <script src="<c:url value="${pageContext.request.contextPath}/js/jquery.min.js"/>"></script>
 </head>
 
 <body>
@@ -139,6 +128,5 @@
         </div>
     </footer>
 </body>
-<spring:url value="/js/slider.js" var="sliderJs" />
-<script href="${sliderJs}"></script>
+<script src="<c:url value="${pageContext.request.contextPath}/js/slider.js"/>"></script>
 </html>

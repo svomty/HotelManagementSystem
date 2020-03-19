@@ -16,7 +16,7 @@ window.setInterval(function() {
     span.textContent = tagline[i];
 
     i++;
-    if (i == images.length) {
+    if (i === images.length) {
         i = 0;
     }
 }, 3000);
