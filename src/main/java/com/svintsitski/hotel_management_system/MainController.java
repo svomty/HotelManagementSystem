@@ -1,5 +1,7 @@
 package com.svintsitski.hotel_management_system;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,14 +9,13 @@ import java.util.Map;
 
 @Controller
 public class MainController {
-    // Обычно я использую интерфейс Model, но в целом разницы нет,
-    // т.к. используется реализация LinkedHashMap(Key, Val)
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
+
     @RequestMapping("/")
-    public String welcome(Map<String, Object> model) {
+    public String welcome() {
+        LOGGER.info("return index");
         return "index";
     }
-    @RequestMapping("/greeting")
-    public String greeting(Map<String, Object> model) {
-        return "greeting";
-    }
+
 }
