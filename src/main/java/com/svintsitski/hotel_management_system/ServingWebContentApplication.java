@@ -12,7 +12,7 @@ public class ServingWebContentApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ServingWebContentApplication.class, args);
-        LOGGER.info("http://localhost:8081/");
+        LOGGER.info("http://localhost:8184/");
     }
 
 }
