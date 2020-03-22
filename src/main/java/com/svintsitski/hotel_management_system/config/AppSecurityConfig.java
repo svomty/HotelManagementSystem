@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system;
+package com.svintsitski.hotel_management_system.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

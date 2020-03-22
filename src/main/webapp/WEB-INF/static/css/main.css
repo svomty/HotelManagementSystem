@@ -5,7 +5,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background: url("../img/map.png");
+    /*background: url("../img/map.png");*/
     background-size: cover;
     background-origin: border-box;
     background-clip: border-box;

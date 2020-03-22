@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system;
+package com.svintsitski.hotel_management_system.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

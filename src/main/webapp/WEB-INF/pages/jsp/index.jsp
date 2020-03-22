@@ -55,12 +55,14 @@
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                             <ul class="submenu">
-                                <li><a href="#" class="submenu__item btn">Изменить информацию о номерах</a></li>
-                                <li><a href="#" class="submenu__item btn">Изменить информацию о ценах</a></li>
+                                <li><a href="#" class="submenu__item btn">Статус гостиницы</a></li>
+                                <li><a href="#" class="submenu__item btn">Номера</a></li>
+                                <li><a href="#" class="submenu__item btn">Цены</a></li>
                                 <li><a href="#" class="submenu__item btn">Система онлайн бронирования</a></li>
-                                <li><a href="#" class="submenu__item btn">Изменить информацию о клиентах</a></li>
-                                <li><a href="#" class="submenu__item btn">Добавить данные о заселении</a></li>
+                                <li><a href="#" class="submenu__item btn">Клиенты</a></li>
+                                <li><a href="#" class="submenu__item btn">Заселение</a></li>
                                 <li><a href="#" class="submenu__item btn">Отчетность</a></li>
+                                <li><a href="#" class="submenu__item btn">Конфигурация главного меню</a></li>
                             </ul>
                         </li>
                     </c:if>
@@ -130,12 +132,12 @@
         <div class="footer__log">
             <c:choose>
                 <c:when test="${isAdmin}">
-                    <a class="login" href="${pageContext.request.contextPath}/logout" target="_blank">
+                    <a class="login" href="${pageContext.request.contextPath}/logout">
                         <i class="fa fa-sign-in" aria-hidden="true"></i>
                         &nbsp;Выйти</a>
                 </c:when>
                 <c:otherwise>
-                    <a class="login" href="${pageContext.request.contextPath}/login" target="_blank">
+                    <a class="login" href="${pageContext.request.contextPath}/login">
                         <i class="fa fa-sign-in" aria-hidden="true"></i>
                         &nbsp;Войти</a>
                 </c:otherwise>
