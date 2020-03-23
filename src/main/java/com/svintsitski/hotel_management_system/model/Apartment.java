@@ -6,18 +6,18 @@ public class Apartment {
     private byte number;
     private byte rooms_number;
     private byte places_number;
-    private float price;
+    private byte price_id;
     private String description;
 
-    public Apartment(byte number, byte rooms_number, byte places_number, float price, String description) {
+    public Apartment() {
+    }
+
+    public Apartment(byte number, byte rooms_number, byte places_number, byte price_id, String description) {
         this.number = number;
         this.rooms_number = rooms_number;
         this.places_number = places_number;
-        this.price = price;
+        this.price_id = price_id;
         this.description = description;
-    }
-
-    public Apartment() {
     }
 
     public byte getNumber() {
@@ -48,14 +48,12 @@ public class Apartment {
         }
     }
 
-    public float getPrice() {
-        return price;
+    public byte getPrice_id() {
+        return price_id;
     }
 
-    public void setPrice(float price) {
-        if (price > 0) {
-            this.price = price;
-        }
+    public void setPrice_id(byte price_id) {
+        this.price_id = price_id;
     }
 
     public String getDescription() {
@@ -74,13 +72,13 @@ public class Apartment {
         return number == apartment.number &&
                 rooms_number == apartment.rooms_number &&
                 places_number == apartment.places_number &&
-                Float.compare(apartment.price, price) == 0 &&
+                price_id == apartment.price_id &&
                 Objects.equals(description, apartment.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, rooms_number, places_number, price, description);
+        return Objects.hash(number, rooms_number, places_number, price_id, description);
     }
 
     @Override
@@ -89,7 +87,7 @@ public class Apartment {
                 "number=" + number +
                 ", rooms_number=" + rooms_number +
                 ", places_number=" + places_number +
-                ", price=" + price +
+                ", price_id=" + price_id +
                 ", description='" + description + '\'' +
                 '}';
     }
