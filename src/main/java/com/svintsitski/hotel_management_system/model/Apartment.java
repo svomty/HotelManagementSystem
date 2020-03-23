@@ -1,22 +1,21 @@
 package com.svintsitski.hotel_management_system.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class Apartment {
-    private byte number;
-    private byte rooms_number;
-    private byte places_number;
-    private byte price_id;
+    private @Id @GeneratedValue byte number;
+    private byte type_id;
     private String description;
 
     public Apartment() {
     }
 
-    public Apartment(byte number, byte rooms_number, byte places_number, byte price_id, String description) {
-        this.number = number;
-        this.rooms_number = rooms_number;
-        this.places_number = places_number;
-        this.price_id = price_id;
+    public Apartment(byte type_id, String description) {
+        this.type_id = type_id;
         this.description = description;
     }
 
@@ -28,32 +27,12 @@ public class Apartment {
         this.number = number;
     }
 
-    public byte getRooms_number() {
-        return rooms_number;
+    public byte getType_id() {
+        return type_id;
     }
 
-    public void setRooms_number(byte rooms_number) {
-        if (rooms_number > 0 && rooms_number < 10) {
-            this.rooms_number = rooms_number;
-        }
-    }
-
-    public byte getPlaces_number() {
-        return places_number;
-    }
-
-    public void setPlaces_number(byte places_number) {
-        if (places_number > 0 && places_number < 10) {
-            this.places_number = places_number;
-        }
-    }
-
-    public byte getPrice_id() {
-        return price_id;
-    }
-
-    public void setPrice_id(byte price_id) {
-        this.price_id = price_id;
+    public void setType_id(byte type_id) {
+        this.type_id = type_id;
     }
 
     public String getDescription() {
@@ -70,24 +49,20 @@ public class Apartment {
         if (o == null || getClass() != o.getClass()) return false;
         Apartment apartment = (Apartment) o;
         return number == apartment.number &&
-                rooms_number == apartment.rooms_number &&
-                places_number == apartment.places_number &&
-                price_id == apartment.price_id &&
+                type_id == apartment.type_id &&
                 Objects.equals(description, apartment.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, rooms_number, places_number, price_id, description);
+        return Objects.hash(number, type_id, description);
     }
 
     @Override
     public String toString() {
         return "Apartment{" +
                 "number=" + number +
-                ", rooms_number=" + rooms_number +
-                ", places_number=" + places_number +
-                ", price_id=" + price_id +
+                ", type_id=" + type_id +
                 ", description='" + description + '\'' +
                 '}';
     }
