@@ -14,8 +14,8 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService  {
     private ApartmentTypeDaoImpl apartmentDao;
 
     @Override
-    public List<ApartmentType> getAll() {
-        return apartmentDao.getAll();
+    public List<ApartmentType> findAll() {
+        return apartmentDao.findAll();
     }
 
     @Override

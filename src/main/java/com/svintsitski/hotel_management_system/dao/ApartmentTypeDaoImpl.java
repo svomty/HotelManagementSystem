@@ -20,7 +20,7 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ApartmentType> getAll() {
+    public List<ApartmentType> findAll() {
         String sql = "SELECT * FROM apartment_type;";
         List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ApartmentType.class));

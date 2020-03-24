@@ -1,8 +1,6 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.dao.ApartmentTypeDaoImpl;
 import com.svintsitski.hotel_management_system.model.ApartmentType;
-import com.svintsitski.hotel_management_system.service.ApartmentTypeService;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +21,8 @@ public class ApartmentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping(value = {"/", "/list", ""})
-    public String getAll(Model model) {
-        List<ApartmentType> list = apartmentService.getAll();
+    public String findAll(Model model) {
+        List<ApartmentType> list = apartmentService.findAll();
         model.addAttribute("apartment_list", list);
         return "apartment_list";
     }

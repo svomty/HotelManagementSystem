@@ -5,7 +5,7 @@ import com.svintsitski.hotel_management_system.model.ApartmentType;
 import java.util.List;
 
 public interface ApartmentTypeDao {
-    List<ApartmentType> getAll();
+    List<ApartmentType> findAll();
 
     ApartmentType findById(int id);
 
