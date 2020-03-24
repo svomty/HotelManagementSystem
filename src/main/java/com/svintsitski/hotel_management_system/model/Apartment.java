@@ -8,13 +8,13 @@ import java.util.Objects;
 @Entity
 public class Apartment {
     private @Id @GeneratedValue byte number;
-    private byte type_id;
+    private int type_id;
     private String description;
 
     public Apartment() {
     }
 
-    public Apartment(byte type_id, String description) {
+    public Apartment(int type_id, String description) {
         this.type_id = type_id;
         this.description = description;
     }
@@ -27,11 +27,11 @@ public class Apartment {
         this.number = number;
     }
 
-    public byte getType_id() {
+    public int getType_id() {
         return type_id;
     }
 
-    public void setType_id(byte type_id) {
+    public void setType_id(int type_id) {
         this.type_id = type_id;
     }
 

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 public class ApartmentType {
-    private @Id @GeneratedValue byte id;
+    private @Id @GeneratedValue int id;
     private float price;
     private byte rooms_number;
     private byte places_number;
@@ -25,11 +25,11 @@ public class ApartmentType {
         this.description = description;
     }
 
-    public byte getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(byte id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -74,7 +74,7 @@ public class ApartmentType {
     }
 
     public void setDescription(String description) {
-        this.description = description.trim().substring(0, 44);
+        this.description = description.trim();
     }
 
     @Override
