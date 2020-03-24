@@ -34,7 +34,9 @@
                                                                       aria-hidden="true"></i>&nbsp;г.Могилев, ул.
                         Комсомольская, 10</a></li>
                     <li class="top-menu__itm"><a href="mailto:best-hotel@mail.ru"><i class="fa fa-envelope-o"
-                                                                                     aria-hidden="true"></i>&nbsp;best-hotel<small>@mail.ru</small></a>
+                                                                                     aria-hidden="true">
+
+                    </i>&nbsp;best-hotel<small>@mail.ru</small></a>
                     </li>
                 </ul>
             </div>
@@ -56,7 +58,7 @@
                         </a>
                             <ul class="submenu">
                                 <li><a href="#" class="submenu__item btn">Статус гостиницы</a></li>
-                                <li><a href="#" class="submenu__item btn">Номера</a></li>
+                                <li><a href="/admin/apartment/" class="submenu__item btn">Апартаменты</a></li>
                                 <li><a href="#" class="submenu__item btn">Цены</a></li>
                                 <li><a href="#" class="submenu__item btn">Система онлайн бронирования</a></li>
                                 <li><a href="#" class="submenu__item btn">Клиенты</a></li>
