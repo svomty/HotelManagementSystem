@@ -28,7 +28,8 @@
 <div class="content">
     <div class="top-menu">
         <div class="header-wrap">
-            <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img" src="${pageContext.request.contextPath}/img/menu.png"></a>
+            <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img"
+                                                                 src="${pageContext.request.contextPath}/img/menu.png"></a>
             <div id="logo"><a href="#">Гостиница "Комсомолка"</a></div>
             <div id="top-menu__nav">
                 <ul>
@@ -92,66 +93,78 @@
                     </div>
                 </div>
                 <c:forEach items="${apartment_list}" var="apartment">
-                <div class="divTableBody">
-                    <div class="divTableRow">
-                        <div class="divTableCell">${apartment.id}</div>
-                        <div class="divTableCell">${apartment.price }</div>
-                        <div class="divTableCell">${apartment.rooms_number}</div>
-                        <div class="divTableCell">${apartment.places_number }</div>
-                        <div class="divTableCell">${apartment.type }</div>
-                        <div class="divTableCell">${apartment.description }</div>
-                        <div class="divTableCell">
-                            <spring:url value="/admin/apartment/update/${apartment.id }" var="updateURL"/>
-                            <a class="btn btn-primary" href="${updateURL }" role="button">
-                                <i class="fa fa-pencil-square" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <div class="divTableCell">
-                            <spring:url value="/admin/apartment/delete/${apartment.id }" var="deleteURL"/>
-                            <a class="btn btn-primary" href="${deleteURL }" role="button">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            </a>
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell">${apartment.id}</div>
+                            <div class="divTableCell">${apartment.price }</div>
+                            <div class="divTableCell">${apartment.rooms_number}</div>
+                            <div class="divTableCell">${apartment.places_number }</div>
+                            <div class="divTableCell">${apartment.type }</div>
+                            <div class="divTableCell">${apartment.description }</div>
+                            <div class="divTableCell">
+                                <spring:url value="/admin/apartment/update/${apartment.id }" var="updateURL"/>
+                                <a class="btn btn-primary" href="${updateURL }" role="button">
+                                    <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="divTableCell">
+                                <spring:url value="/admin/apartment/delete/${apartment.id }" var="deleteURL"/>
+                                <a class="btn btn-primary" href="${deleteURL }" role="button">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </c:forEach>
-                <div class="divTableFoot">
-                    <div class="divTableRow">
-                        <div class="divTableCell">id</div>
-                        <div class="divTableCell">price</div>
-                        <div class="divTableCell">rooms_number</div>
-                        <div class="divTableCell">places_number</div>
-                        <div class="divTableCell">type</div>
-                        <div class="divTableCell">description</div>
-                        <div class="divTableCell">Edit</div>
-                        <div class="divTableCell">Delete</div>
-                    </div>
+            </div>
+
+            <c:if test="${total_page != 1}">
+                <div class="pagination">
+                    <c:if test="${current_page != 1}">
+                        <a href="${path}?page=${current_page-1}">«</a>
+                        <a href="${path}?page=1">1</a>
+                    </c:if>
+                    <c:if test="${current_page == 1}">
+                        <a class="inactive">«</a>
+                        <a class="active">1</a>
+                    </c:if>
+
+                    <c:if test="${total_page >= 3}">
+
+                        <c:if test="${current_page - 2 > 2}">
+                            <a href="#">..</a>
+                        </c:if>
+
+                        <c:forEach begin="${start_page}" end="${current_page + 2}" var="p">
+                            <c:choose>
+                                <c:when test="${current_page == p && p > 1 && p < total_page}">
+                                    <a class="active">${p}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${p > 1 && p < total_page}">
+                                        <a href="${path}?page=${p}">${p}</a>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+
+                        <c:if test="${current_page + 2 < total_page - 1}">
+                            <a href="#">..</a>
+                        </c:if>
+
+                    </c:if>
+
+                    <c:if test="${current_page != total_page}">
+                        <a href="${path}?page=${total_page}">${total_page}</a>
+                        <a href="${path}?page=${current_page + 1}">»</a>
+                    </c:if>
+                    <c:if test="${current_page == total_page}">
+                        <a class="active">${total_page}</a>
+                        <a class="inactive">»</a>
+                    </c:if>
                 </div>
-            </div>
-            <c:forEach begin="1" end="${total_page}" var="p">
-                <c:choose>
-                    <c:when test="${current_page.toString() eq p.toString()}">
-                        <a style="font-size: 120%; color: green">${p}</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${path}?page=${p}">${p}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-            <div class="pagination">
-                <a href="#">«</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a class = "active" href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">7</a>
-                <a href="#">8</a>
-                <a href="#">9</a>
-                <a href="#">10</a>
-                <a href="#">»</a>
-            </div>
+            </c:if>
+
         </div>
     </main>
 </div>
