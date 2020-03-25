@@ -358,6 +358,7 @@ main {
 }
 .divTableRow {
     display: table-row;
+    text-align: center;
 }
 .divTableHeading {
     background-color: #EEE;
