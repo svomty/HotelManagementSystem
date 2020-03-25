@@ -17,6 +17,7 @@
     <title>Цены на апартаменты</title>
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
+
     <script src="${pageContext.request.contextPath}/js/nav.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
@@ -81,13 +82,13 @@
                 <div class="divTableHeading">
                     <div class="divTableRow">
                         <div class="divTableCell">id</div>
-                        <div class="divTableCell">price</div>
-                        <div class="divTableCell">rooms_number</div>
-                        <div class="divTableCell">places_number</div>
-                        <div class="divTableCell">type</div>
-                        <div class="divTableCell">description</div>
-                        <div class="divTableCell">Edit</div>
-                        <div class="divTableCell">Delete</div>
+                        <div class="divTableCell">Стоимость места</div>
+                        <div class="divTableCell">Кол-во комнат</div>
+                        <div class="divTableCell">Кол-во мест</div>
+                        <div class="divTableCell">Тип номера</div>
+                        <div class="divTableCell">Описание</div>
+                        <div class="divTableCell">Изменить</div>
+                        <div class="divTableCell">Удалить</div>
                     </div>
                 </div>
                 <c:forEach items="${apartment_list}" var="apartment">
@@ -101,11 +102,15 @@
                         <div class="divTableCell">${apartment.description }</div>
                         <div class="divTableCell">
                             <spring:url value="/admin/apartment/update/${apartment.id }" var="updateURL"/>
-                            <a class="btn btn-primary" href="${updateURL }" role="button">Update</a>
+                            <a class="btn btn-primary" href="${updateURL }" role="button">
+                                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                            </a>
                         </div>
                         <div class="divTableCell">
                             <spring:url value="/admin/apartment/delete/${apartment.id }" var="deleteURL"/>
-                            <a class="btn btn-primary" href="${deleteURL }" role="button">Delete</a>
+                            <a class="btn btn-primary" href="${deleteURL }" role="button">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
