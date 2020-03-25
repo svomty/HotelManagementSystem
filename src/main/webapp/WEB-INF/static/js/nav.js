@@ -1,11 +1,11 @@
 function openMenu() {
     let navWrapper = document.querySelector('nav');
     let bodyWrapper = document.querySelector('body');
-    if (navWrapper.className.indexOf('active') === -1) {
-        navWrapper.classList.add('active');
+    if (navWrapper.className.indexOf('header-active') === -1) {
+        navWrapper.classList.add('header-active');
         bodyWrapper.classList.remove('overflow-hidden');
     } else {
-        navWrapper.classList.remove('active');
+        navWrapper.classList.remove('header-active');
         bodyWrapper.classList.add('overflow-hidden');
     }
 }

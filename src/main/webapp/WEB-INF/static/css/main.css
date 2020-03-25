@@ -90,10 +90,6 @@ header {
     z-index: 1;
 }
 
-.active {
-    display: none;
-}
-
 header a {
     text-decoration: none;
 }
@@ -437,7 +433,7 @@ main {
     main {
         padding-top: 1em;
     }
-    .active {
+    .header-active {
         display: none;
     }
     nav {
@@ -514,6 +510,35 @@ main {
 
     .active__submenu a{
         color: white;
+    }
+
+
+    .pagination {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 1em;
+    }
+
+    .pagination a {
+        font-weight:bold;
+        font-size:20px;
+        color: #5597E2;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+    .pagination a.active {
+        border-radius:5px;
+        background-color:#5197E6;
+        color: white;
+    }
+    .pagination a.inactive {
+        color: #6B6E6E;
+    }
+    .pagination a:hover:not(.active), .pagination a:hover:not(.inactive) {
+        background-color: #d4d5d2;
+        border-radius:5px;
     }
 }
 

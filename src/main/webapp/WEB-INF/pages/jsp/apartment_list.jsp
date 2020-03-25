@@ -30,7 +30,7 @@
         <div class="header-wrap">
             <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img"
                                                                  src="${pageContext.request.contextPath}/img/menu.png"></a>
-            <div id="logo"><a href="#">Гостиница "Комсомолка"</a></div>
+            <div id="logo"><a href="/">Гостиница "Комсомолка"</a></div>
             <div id="top-menu__nav">
                 <ul>
                     <li class="top-menu__itm"><a href="tel:80291233300"><i class="fa fa-phone"
@@ -50,10 +50,10 @@
     </div>
     <header class="header">
         <div class="header-wrap">
-            <nav class="active">
+            <nav class="header-active">
                 <h1>Гостиница "Комсомолка"</h1>
                 <ul>
-                    <li class="header__itm"><a href="#" class="btn">Об отеле</a></li>
+                    <li class="header__itm"><a href="/" class="btn">Об отеле</a></li>
                     <li class="header__itm"><a href="#" class="btn">Номера и цены</a></li>
                     <li class="header__itm"><a href="#" class="btn-red">Бронирование</a></li>
                     <c:if test="${isAdmin}">
