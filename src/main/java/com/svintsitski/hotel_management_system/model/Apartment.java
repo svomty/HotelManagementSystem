@@ -7,14 +7,16 @@ import java.util.Objects;
 
 @Entity
 public class Apartment {
-    private @Id @GeneratedValue byte number;
+    private @Id @GeneratedValue int id;
+    private byte number;
     private int type_id;
     private String description;
 
     public Apartment() {
     }
 
-    public Apartment(int type_id, String description) {
+    public Apartment(byte number, int type_id, String description) {
+        this.number = number;
         this.type_id = type_id;
         this.description = description;
     }
@@ -48,20 +50,22 @@ public class Apartment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Apartment apartment = (Apartment) o;
-        return number == apartment.number &&
+        return id == apartment.id &&
+                number == apartment.number &&
                 type_id == apartment.type_id &&
                 Objects.equals(description, apartment.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, type_id, description);
+        return Objects.hash(id, number, type_id, description);
     }
 
     @Override
     public String toString() {
         return "Apartment{" +
-                "number=" + number +
+                "id=" + id +
+                ", number=" + number +
                 ", type_id=" + type_id +
                 ", description='" + description + '\'' +
                 '}';

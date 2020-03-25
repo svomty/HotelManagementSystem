@@ -209,7 +209,7 @@ nav a{
 }
 
 main {
-    margin-top: 2.2rem;
+    padding-top: 3em;
 }
 
 #slider {
@@ -351,6 +351,37 @@ main {
 .active__submenu{
     display: block;
 }
+
+.divTable{
+    display: table;
+    width: 100%;
+}
+.divTableRow {
+    display: table-row;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+}
+.divTableCell, .divTableHead {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
+}
+.divTableFoot {
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
+}
+.divTableBody {
+    display: table-row-group;
+}
+
 @media screen and (max-width: 950px) {
     .header-wrap {
         width: 97%;
@@ -375,7 +406,7 @@ main {
 
 @media screen and (max-width: 880px) {
     main {
-        margin-top: 5px;
+        padding-top: 1em;
     }
     .active {
         display: none;
@@ -463,11 +494,11 @@ main {
         margin-top: 20px;
         padding: 30px;
     }
-    #slider .booking form input, #slider .booking form select {
-        padding: 5px;
+    .booking, .booking form {
+        width: 100%;
     }
-    #slider .booking form input[type=submit] {
-        padding: 10px;
+    #slider .booking fieldset {
+        width: 100%;
     }
     .tagline {
         display: block;

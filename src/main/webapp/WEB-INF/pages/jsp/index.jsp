@@ -23,7 +23,7 @@
 <div class="content">
     <div class="top-menu">
         <div class="header-wrap">
-            <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img" src="../img/menu.png"></a>
+            <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img" src="${pageContext.request.contextPath}/img/menu.png"></a>
             <div id="logo"><a href="#">Гостиница "Комсомолка"</a></div>
             <div id="top-menu__nav">
                 <ul>
@@ -48,7 +48,6 @@
                 <h1>Гостиница "Комсомолка"</h1>
                 <ul>
                     <li class="header__itm"><a href="#" class="btn">Об отеле</a></li>
-                    <!--Услуги Контакты Достопримечательности Отзывы-->
                     <li class="header__itm"><a href="#" class="btn">Номера и цены</a></li>
                     <li class="header__itm"><a href="#" class="btn-red">Бронирование</a></li>
                     <c:if test="${isAdmin}">
@@ -98,8 +97,8 @@
                         </form>
                     </div>
                 </div>
-
             </div>
+
             <div class="contacts">
                 <h1 class="headline">Наши контакты</h1>
                 <div class="block">
