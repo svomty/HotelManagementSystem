@@ -1,6 +1,7 @@
 package com.svintsitski.hotel_management_system.dao;
 
 import com.svintsitski.hotel_management_system.model.ApartmentType;
+import com.svintsitski.hotel_management_system.model.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,16 +21,26 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ApartmentType> findAll() {
-        String sql = "SELECT * FROM apartment_type;";
+    public ResultQuery findAll (int start, int total) {
+        String sql = "SELECT * FROM apartment_type LIMIT " + (start-1) + "," + total + ";";
         List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ApartmentType.class));
-        return apartmentTypeList;
+        String sql2 = "SELECT COUNT(*) FROM apartment_type;";
+        int count = jdbcTemplate.queryForObject(sql2, Integer.class);
+        return new ResultQuery(count, apartmentTypeList);
     }
 
     @Override
-    public ApartmentType findById(int id) {
+    public List<ApartmentType> findById(int id) {
         return null;
+    }
+
+    @Override
+    public List<ApartmentType> findByType(String type, int start, int total) {
+        String sql = "SELECT * FROM apartment_type WHERE type LIKE '%"+type+"%';";
+        List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(ApartmentType.class));
+        return apartmentTypeList;
     }
 
     @Override

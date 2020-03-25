@@ -47,5 +47,15 @@
     </c:forEach>
     </tbody>
 </table>
+<c:forEach begin="1" end="${total_page}" var="p">
+    <c:choose>
+    <c:when test="${current_page.toString() eq p.toString()}">
+        <a style="font-size: 120%; color: green">${p}</a>
+    </c:when>
+    <c:otherwise>
+        <a href="${path}?page=${p}">${p}</a>
+    </c:otherwise>
+    </c:choose>
+</c:forEach>
 </body>
 </html>
