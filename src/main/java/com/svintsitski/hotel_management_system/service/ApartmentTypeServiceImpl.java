@@ -15,8 +15,8 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService  {
     private ApartmentTypeDaoImpl apartmentDao;
 
     @Override
-    public ResultQuery findAll(int start, int total) {
-        return apartmentDao.findAll(start, total);
+    public ResultQuery findAll(int start, int total, String sort) {
+        return apartmentDao.findAll(start, total, sort);
     }
 
     @Override

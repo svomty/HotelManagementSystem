@@ -17,7 +17,7 @@
     <title>Цены на апартаменты</title>
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
-
+    <script src="${pageContext.request.contextPath}/js/btn-active.js"></script>
     <script src="${pageContext.request.contextPath}/js/nav.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
@@ -82,12 +82,24 @@
             <div class="divTable" style="border: 1px solid #000;">
                 <div class="divTableHeading">
                     <div class="divTableRow">
-                        <div class="divTableCell">id</div>
-                        <div class="divTableCell">Стоимость места</div>
-                        <div class="divTableCell">Кол-во комнат</div>
-                        <div class="divTableCell">Кол-во мест</div>
-                        <div class="divTableCell">Тип номера</div>
-                        <div class="divTableCell">Описание</div>
+                        <div class="divTableCell">
+                            <a id="id" href="${path}?page=1&sort=id">id</a>
+                        </div>
+                        <div class="divTableCell">
+                            <a id="price" href="${path}?page=1&sort=price">Стоимость места</a>
+                        </div>
+                        <div class="divTableCell">
+                            <a id="rooms_number" href="${path}?page=1&sort=rooms_number">Кол-во комнат</a>
+                        </div>
+                        <div class="divTableCell">
+                            <a id="places_number" href="${path}?page=1&sort=places_number">Кол-во мест</a>
+                        </div>
+                        <div class="divTableCell">
+                            <a id="name_type" href="${path}?page=1&sort=name_type">Тип номера</a>
+                        </div>
+                        <div class="divTableCell">
+                            <a id="description" href="${path}?page=1&sort=description">Описание</a>
+                        </div>
                         <div class="divTableCell">Изменить</div>
                         <div class="divTableCell">Удалить</div>
                     </div>
@@ -121,8 +133,8 @@
             <c:if test="${total_page != 1}">
                 <div class="pagination">
                     <c:if test="${current_page != 1}">
-                        <a href="${path}?page=${current_page-1}">«</a>
-                        <a href="${path}?page=1">1</a>
+                        <a href="${path}?page=${current_page-1}&sort=${sort}">«</a>
+                        <a href="${path}?page=1&sort=${sort}">1</a>
                     </c:if>
                     <c:if test="${current_page == 1}">
                         <a class="inactive">«</a>
@@ -142,7 +154,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <c:if test="${p > 1 && p < total_page}">
-                                        <a href="${path}?page=${p}">${p}</a>
+                                        <a href="${path}?page=${p}&sort=${sort}">${p}</a>
                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
@@ -155,8 +167,8 @@
                     </c:if>
 
                     <c:if test="${current_page != total_page}">
-                        <a href="${path}?page=${total_page}">${total_page}</a>
-                        <a href="${path}?page=${current_page + 1}">»</a>
+                        <a href="${path}?page=${total_page}&sort=${sort}">${total_page}</a>
+                        <a href="${path}?page=${current_page + 1}&sort=${sort}">»</a>
                     </c:if>
                     <c:if test="${current_page == total_page}">
                         <a class="active">${total_page}</a>
@@ -192,4 +204,7 @@
     </div>
 </footer>
 </body>
+<script>
+    btnActive("${sort}");
+</script>
 </html>

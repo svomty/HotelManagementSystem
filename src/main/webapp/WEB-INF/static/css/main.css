@@ -186,12 +186,17 @@ nav a{
     width: 100%;
 }
 
-.btn-red, .btn {
-    display: flex;
+.btn-red, .btn, .btn-active {
+    display: block;
     padding: 10px;
     align-items: stretch;
     transition: .8s linear;
     position: sticky;
+}
+
+.btn-active {
+    color: rgb(237, 237, 243);
+    background-color: #0000EF;
 }
 
 .btn-red {
@@ -364,7 +369,9 @@ main {
     border: 1px solid #999999;
     display: table-cell;
     padding: 3px 10px;
+    vertical-align: center;
 }
+
 .divTableHeading {
     background-color: #EEE;
     display: table-header-group;
@@ -378,6 +385,11 @@ main {
 .divTableBody {
     display: table-row-group;
 }
+
+.divTableCell a {
+    text-decoration: none;
+}
+
 
 .pagination {
     display: block;

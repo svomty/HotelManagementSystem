@@ -6,7 +6,7 @@ import com.svintsitski.hotel_management_system.model.ResultQuery;
 import java.util.List;
 
 public interface ApartmentTypeDao {
-    ResultQuery findAll(int start, int total);
+    ResultQuery findAll(int start, int total, String sort);
 
     List<ApartmentType> findById(int id);
 

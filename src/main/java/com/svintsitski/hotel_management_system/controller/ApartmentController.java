@@ -28,14 +28,15 @@ public class ApartmentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping(value = {"/", "/list", ""})
-    public String findAll(@RequestParam Optional<Integer> page, Model model, HttpServletRequest request) {
+    public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
 
         int try_page = page.orElse(1);
+        String sorting = sort.orElse("id");
         int start_page = (try_page - 2) < 0 ? 0 : try_page - 2;
-        int elemCount = 2;
+        int elemCount = 10;
         int start = 1 + (try_page - 1) * elemCount;
 
-        ResultQuery result = apartmentService.findAll(start, elemCount);
+        ResultQuery result = apartmentService.findAll(start, elemCount, sorting);
         int full_elem_count = result.getCount();
         List<ApartmentType> list = result.getApartmentTypeList();
 
@@ -56,6 +57,7 @@ public class ApartmentController {
         model.addAttribute("total_page", total_page);
         model.addAttribute("path", url);
         model.addAttribute("start_page", start_page);
+        model.addAttribute("sort", sorting);
 
         return "apartment_list";
     }
