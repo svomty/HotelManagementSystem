@@ -33,7 +33,7 @@ public class ApartmentController {
         int try_page = page.orElse(1);
         String sorting = sort.orElse("id");
         int start_page = (try_page - 2) < 0 ? 0 : try_page - 2;
-        int elemCount = 10;
+        int elemCount = 5;
         int start = 1 + (try_page - 1) * elemCount;
 
         ResultQuery result = apartmentService.findAll(start, elemCount, sorting);

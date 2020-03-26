@@ -100,8 +100,7 @@
                         <div class="divTableCell">
                             <a id="description" href="${path}?page=1&sort=description">Описание</a>
                         </div>
-                        <div class="divTableCell">Изменить</div>
-                        <div class="divTableCell">Удалить</div>
+                        <div class="divTableCell">Опции</div>
                     </div>
                 </div>
                 <c:forEach items="${apartment_list}" var="apartment">
@@ -116,13 +115,11 @@
                             <div class="divTableCell">
                                 <spring:url value="/admin/apartment/update/${apartment.id }" var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
-                                    <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                    <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
-                            </div>
-                            <div class="divTableCell">
                                 <spring:url value="/admin/apartment/delete/${apartment.id }" var="deleteURL"/>
                                 <a class="btn btn-primary" href="${deleteURL }" role="button">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>

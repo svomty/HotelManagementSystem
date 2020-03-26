@@ -369,7 +369,7 @@ main {
     border: 1px solid #999999;
     display: table-cell;
     padding: 3px 10px;
-    vertical-align: center;
+    vertical-align: middle;
 }
 
 .divTableHeading {
@@ -389,7 +389,6 @@ main {
 .divTableCell a {
     text-decoration: none;
 }
-
 
 .pagination {
     display: block;
