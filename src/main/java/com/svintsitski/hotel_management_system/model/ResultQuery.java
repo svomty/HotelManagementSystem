@@ -11,9 +11,6 @@ public class ResultQuery {
         this.apartmentTypeList = apartmentTypeList;
     }
 
-    public ResultQuery() {
-    }
-
     public int getCount() {
         return count;
     }

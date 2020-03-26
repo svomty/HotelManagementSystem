@@ -8,10 +8,6 @@ import java.util.List;
 public interface ApartmentTypeDao {
     ResultQuery findAll(int start, int total, String sort);
 
-    List<ApartmentType> findById(int id);
-
-    List<ApartmentType> findByType(String type, int start, int total);
-
     void add(ApartmentType apartmentType);
 
     void update(ApartmentType apartmentType);

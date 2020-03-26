@@ -64,7 +64,7 @@
                             <ul class="submenu">
                                 <li><a href="#" class="submenu__item btn">Статус гостиницы</a></li>
                                 <li><a href="/admin/apartment/" class="submenu__item btn">Апартаменты</a></li>
-                                <li><a href="#" class="submenu__item btn">Цены</a></li>
+                                <li><a href="/admin/apartment/price/list/" class="submenu__item btn">Цены</a></li>
                                 <li><a href="#" class="submenu__item btn">Система онлайн бронирования</a></li>
                                 <li><a href="#" class="submenu__item btn">Клиенты</a></li>
                                 <li><a href="#" class="submenu__item btn">Заселение</a></li>
@@ -78,6 +78,22 @@
         </div>
     </header>
     <main>
+        <div class="popupbg" id="popupbg">
+            <div class="answer-popup">
+                <span>Панель администратора</span>
+                <a href="#">Статус гостиницы</a>
+                <a href="#">Апартаменты</a>
+                <a class="answer-popup__active" href="/admin/apartment/price/list/">Цены</a>
+                <a href="#">Система онлайн бронирования</a>
+                <a href="#">Клиенты</a>
+                <a href="#">Заселение</a>
+                <a href="#">Конфигурация главного меню</a>
+                <span>Отчетность</span>
+                <a href="#">Отчет о заселении</a>
+                <a href="#">Отчет о доходности</a>
+                <a href="#">Отчет о клиентах</a>
+            </div>
+        </div>
         <div class="header-wrap">
             <div class="divTable" style="border: 1px solid #000;">
                 <div class="divTableHeading">
@@ -95,7 +111,7 @@
                             <a id="places_number" href="${path}?page=1&sort=places_number">Кол-во мест</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="name_type" href="${path}?page=1&sort=name_type">Тип номера</a>
+                            <a id="type" href="${path}?page=1&sort=type">Тип номера</a>
                         </div>
                         <div class="divTableCell">
                             <a id="description" href="${path}?page=1&sort=description">Описание</a>
@@ -113,11 +129,11 @@
                             <div class="divTableCell">${apartment.type }</div>
                             <div class="divTableCell">${apartment.description }</div>
                             <div class="divTableCell">
-                                <spring:url value="/admin/apartment/update/${apartment.id }" var="updateURL"/>
+                                <spring:url value="/admin/apartment/price/update/${apartment.id }" var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
-                                <spring:url value="/admin/apartment/delete/${apartment.id }" var="deleteURL"/>
+                                <spring:url value="/admin/apartment/price/delete/${apartment.id }" var="deleteURL"/>
                                 <a class="btn btn-primary" href="${deleteURL }" role="button">
                                     <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>

@@ -58,7 +58,7 @@
                             <ul class="submenu">
                                 <li><a href="#" class="submenu__item btn">Статус гостиницы</a></li>
                                 <li><a href="/admin/apartment/" class="submenu__item btn">Апартаменты</a></li>
-                                <li><a href="#" class="submenu__item btn">Цены</a></li>
+                                <li><a href="/admin/apartment/price/list/" class="submenu__item btn">Цены</a></li>
                                 <li><a href="#" class="submenu__item btn">Система онлайн бронирования</a></li>
                                 <li><a href="#" class="submenu__item btn">Клиенты</a></li>
                                 <li><a href="#" class="submenu__item btn">Заселение</a></li>

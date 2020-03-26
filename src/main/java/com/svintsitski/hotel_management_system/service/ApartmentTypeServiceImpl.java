@@ -20,17 +20,6 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService  {
     }
 
     @Override
-    public ApartmentType findById(int id) {
-        //return apartmentDao.findById(id);
-        return null;
-    }
-
-    @Override
-    public List<ApartmentType> findByType(String type, int start, int total) {
-        return apartmentDao.findByType(type, start, total);
-    }
-
-    @Override
     public void add(ApartmentType apartmentType) {
         //apartmentDao.add(apartmentType);
     }

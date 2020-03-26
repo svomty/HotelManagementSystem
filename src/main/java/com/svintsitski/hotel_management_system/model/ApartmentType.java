@@ -18,11 +18,11 @@ public class ApartmentType {
     }
 
     public ApartmentType(float price, byte rooms_number, byte places_number, String type, String description) {
-        this.price = price;
-        this.rooms_number = rooms_number;
-        this.places_number = places_number;
-        this.type = type;
-        this.description = description;
+        this.setPrice(price);
+        this.setRooms_number(rooms_number);
+        this.setPlaces_number(places_number);
+        this.setType(type);
+        this.setDescription(description);
     }
 
     public int getId() {
@@ -48,6 +48,8 @@ public class ApartmentType {
     public void setRooms_number(byte rooms_number) {
         if (rooms_number > 0 && rooms_number < 10) {
             this.rooms_number = rooms_number;
+        } else {
+            this.rooms_number = 1;
         }
     }
 
@@ -66,7 +68,12 @@ public class ApartmentType {
     }
 
     public void setType(String type) {
-        this.type = type;
+        if (type != null){
+            this.type = type.trim();
+        }
+        if (this.type == null ||  this.type.equals("")) {
+            this.type = "простой";
+        }
     }
 
     public String getDescription() {

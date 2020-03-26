@@ -27,13 +27,14 @@ public class ApartmentController {
     private ApartmentTypeServiceImpl apartmentService;
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
-    @GetMapping(value = {"/", "/list", ""})
-    public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
+    @GetMapping(value = {"/price/list/", "/price/list"})
+    public String findAll(@RequestParam Optional<Integer> page,
+                          @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
 
         int try_page = page.orElse(1);
         String sorting = sort.orElse("id");
         int start_page = (try_page - 2) < 0 ? 0 : try_page - 2;
-        int elemCount = 5;
+        int elemCount = 100;
         int start = 1 + (try_page - 1) * elemCount;
 
         ResultQuery result = apartmentService.findAll(start, elemCount, sorting);
@@ -43,7 +44,7 @@ public class ApartmentController {
         int total_page = (int) Math.ceil((float)full_elem_count/(float)elemCount);
         total_page = Math.max(total_page, 1);
 
-        String url = "http://localhost:8184/admin/apartment/";
+        String url = "http://localhost:8184/admin/apartment/price/list/";
         String ip = request.getRemoteAddr();
 
         LOGGER.info("[" + ip + "] requested apartment_list.jsp");
@@ -62,10 +63,4 @@ public class ApartmentController {
         return "apartment_list";
     }
 
-    @GetMapping(value = {"/find/", "/find"})
-    public String find(@RequestParam int start, @RequestParam int total, Model model) {
-        List<ApartmentType> list = apartmentService.findByType("простой", start, total);
-        model.addAttribute("apartment_list", list);
-        return "apartment_list";
-    }
 }

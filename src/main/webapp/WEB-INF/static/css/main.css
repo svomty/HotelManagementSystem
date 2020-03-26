@@ -196,7 +196,8 @@ nav a{
 
 .btn-active {
     color: rgb(237, 237, 243);
-    background-color: #0000EF;
+    background-color: #5197E6;
+    border-radius: 5px;
 }
 
 .btn-red {
@@ -416,6 +417,61 @@ main {
 .pagination a:hover:not(.active), .pagination a:hover:not(.inactive) {
     background-color: #d4d5d2;
     border-radius:5px;
+}
+
+
+
+.popupbg{
+     position: fixed;
+     height: 70%;
+     width: 300px;
+    background-color: #FFF8C5;
+     overflow-y: scroll;
+ }
+
+.answer-popup{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* The navigation menu links */
+.answer-popup a {
+    padding: 0 5px 10px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+.answer-popup span {
+    padding: 0 6px 20px 16px;
+    font-size: 25px;
+    color: #000000;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+/* When you mouse over the navigation links, change their color */
+.answer-popup a:hover {
+     color: #000000;
+}
+
+.answer-popup .answer-popup__active {
+    color: #5197E6;
+    font-weight: bold;
+}
+.answer-popup .answer-popup__active:hover {
+    color: #5197E6;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1550px) {
+    .popupbg{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 950px) {

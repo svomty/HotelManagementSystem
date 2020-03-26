@@ -33,19 +33,6 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
     }
 
     @Override
-    public List<ApartmentType> findById(int id) {
-        return null;
-    }
-
-    @Override
-    public List<ApartmentType> findByType(String type, int start, int total) {
-        String sql = "SELECT * FROM apartment_type WHERE type LIKE '%"+type+"%';";
-        List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
-                BeanPropertyRowMapper.newInstance(ApartmentType.class));
-        return apartmentTypeList;
-    }
-
-    @Override
     public void add(ApartmentType apartmentType) {
 
     }
