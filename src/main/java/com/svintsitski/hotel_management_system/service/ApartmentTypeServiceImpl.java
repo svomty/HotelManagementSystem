@@ -20,17 +20,22 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService  {
     }
 
     @Override
+    public ApartmentType findById(int id) {
+        return apartmentDao.findById(id);
+    }
+
+    @Override
     public void add(ApartmentType apartmentType) {
-        //apartmentDao.add(apartmentType);
+        apartmentDao.add(apartmentType);
     }
 
     @Override
     public void update(ApartmentType apartmentType) {
-        //apartmentDao.update(apartmentType);
+        apartmentDao.update(apartmentType);
     }
 
     @Override
     public void delete(int id) {
-        //apartmentDao.delete(id);
+        apartmentDao.delete(id);
     }
 }

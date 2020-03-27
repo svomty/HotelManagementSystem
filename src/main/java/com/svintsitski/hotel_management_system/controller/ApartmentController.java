@@ -6,25 +6,25 @@ import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/admin/apartment")
+@RequestMapping("/admin/apartment/price")
 public class ApartmentController {
 
     @Autowired
     private ApartmentTypeServiceImpl apartmentService;
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
-    @GetMapping(value = {"/price/list/", "/price/list"})
+    @GetMapping(value = {"/list/", "/list", "/"})
     public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
 
@@ -56,7 +56,44 @@ public class ApartmentController {
         model.addAttribute("start_page", start_page);
         model.addAttribute("sort", sorting);
 
-        return "apartment_list";
+        return "admin_apartment_price";
     }
 
+    @GetMapping(value = "/update/{id}")
+    public ModelAndView edit(@PathVariable int id) {
+        ModelAndView model = new ModelAndView();
+        ApartmentType apartmentType = apartmentService.findById(id);
+
+        LOGGER.info("id =" + id);
+        LOGGER.info(apartmentType.toString());
+
+        model.addObject("apartmentType", apartmentType);
+        model.setViewName("admin_price_add");
+        return model;
+    }
+
+    @GetMapping(value = {"/add/", "/add"})
+    public ModelAndView add() {
+        ModelAndView model = new ModelAndView();
+        ApartmentType apartmentType = new ApartmentType();
+        model.addObject("apartmentType", apartmentType);
+        model.setViewName("admin_price_add");
+        return model;
+    }
+
+    @PostMapping(value = {"/add/", "/add"})
+    public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType) {
+        if (apartmentService.findById(apartmentType.getId()) != null) {
+            apartmentService.update(apartmentType);
+        } else {
+            apartmentService.add(apartmentType);
+        }
+        return new ModelAndView("redirect:/admin/apartment/price/");
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") int id) {
+        apartmentService.delete(id);
+        return new ModelAndView("redirect:/admin/apartment/price/");
+    }
 }

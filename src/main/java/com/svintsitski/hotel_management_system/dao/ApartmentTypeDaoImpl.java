@@ -32,18 +32,34 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
         return new ResultQuery(count, apartmentTypeList);
     }
 
+    public ApartmentType findById(int id) {
+        String sql = "SELECT * FROM apartment_type WHERE id=" + id + ";";
+        List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(ApartmentType.class));
+        ApartmentType apartmentType = apartmentTypeList.stream().findFirst().orElse(null);
+        return apartmentType;
+    }
+
     @Override
     public void add(ApartmentType apartmentType) {
-
+        String sql = "INSERT INTO `hotel`.`apartment_type` (`price`, `rooms_number`, `places_number`, `type`," +
+                " `description`) VALUES (?, ?, ?, ?, ?);";
+        jdbcTemplate.update(sql, apartmentType.getPrice(), apartmentType.getRooms_number(),
+                apartmentType.getPlaces_number(), apartmentType.getType(), apartmentType.getDescription());
     }
 
     @Override
     public void update(ApartmentType apartmentType) {
-
+        String sql = "UPDATE `hotel`.`apartment_type` SET `price` = ?, `rooms_number` = ?," +
+                " `places_number` = ?, `type` = ?, `description` = ? WHERE (`id` = ?);";
+        jdbcTemplate.update(sql, apartmentType.getPrice(), apartmentType.getRooms_number(),
+                apartmentType.getPlaces_number(), apartmentType.getType(), apartmentType.getDescription(),
+                apartmentType.getId());
     }
 
     @Override
     public void delete(int id) {
-
+        String sql = "DELETE FROM `hotel`.`apartment_type` WHERE (`id` = '" + id + "');";
+        jdbcTemplate.execute(sql);
     }
 }
