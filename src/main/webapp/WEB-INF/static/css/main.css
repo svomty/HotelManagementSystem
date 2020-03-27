@@ -350,6 +350,10 @@ main {
     color: rgb(50, 105, 116);
 }
 
+.contacts__table a {
+    text-decoration: none;
+}
+
 .active__submenu{
     display: block;
 }

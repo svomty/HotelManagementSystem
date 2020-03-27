@@ -112,7 +112,7 @@
                         </section>
                         <section id="contacts__mail">
                             <h3><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Email</h3>
-                            <a href="/contacts/">г.Могилев, ул. Комсомольская, 10</a>
+                            <a href="#">г.Могилев, ул. Комсомольская, 10</a>
                         </section>
                         <section id="contacts__address">
                             <h3><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;Адрес</h3>
