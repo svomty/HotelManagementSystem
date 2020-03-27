@@ -23,15 +23,16 @@
 <div class="content">
     <div class="top-menu">
         <div class="header-wrap">
-            <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img" src="${pageContext.request.contextPath}/img/menu.png"></a>
+            <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img"
+                                                                 src="${pageContext.request.contextPath}/img/menu.png"></a>
             <div id="logo"><a href="/">Гостиница "Комсомолка"</a></div>
             <div id="top-menu__nav">
                 <ul>
                     <li class="top-menu__itm"><a href="tel:80291233300"><i class="fa fa-phone"
                                                                            aria-hidden="true"></i>&nbsp;+375 29
                         12-33-300</a></li>
-                    <li class="top-menu__itm"><a href="/contacts/"><i class="fa fa-map-marker"
-                                                                      aria-hidden="true"></i>&nbsp;г.Могилев, ул.
+                    <li class="top-menu__itm"><a href="#"><i class="fa fa-map-marker"
+                                                             aria-hidden="true"></i>&nbsp;г.Могилев, ул.
                         Комсомольская, 10</a></li>
                     <li class="top-menu__itm"><a href="mailto:best-hotel@mail.ru"><i class="fa fa-envelope-o"
                                                                                      aria-hidden="true">
@@ -47,23 +48,25 @@
             <nav class="header-active">
                 <h1>Гостиница "Комсомолка"</h1>
                 <ul>
-                    <li class="header__itm"><a href="/" class="btn">Об отеле</a></li>
-                    <li class="header__itm"><a href="#" class="btn">Номера и цены</a></li>
-                    <li class="header__itm"><a href="#" class="btn-red">Бронирование</a></li>
+                    <li class="header__itm"><a href="${pageContext.request.contextPath}/" class="btn">Об отеле</a></li>
+                    <li class="header__itm"><a href="${pageContext.request.contextPath}/apartment" class="btn">Номера и цены</a></li>
+                    <li class="header__itm"><a href="${pageContext.request.contextPath}/reservation" class="btn-red">Бронирование</a></li>
                     <c:if test="${isAdmin}">
                         <li class="header__itm" id="admin_panel"><a href="javascript:openSubMenu()" class="btn">Панель
                             администратора
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                             <ul class="submenu">
-                                <li><a href="#" class="submenu__item btn">Статус гостиницы</a></li>
-                                <li><a href="/admin/apartment/" class="submenu__item btn">Апартаменты</a></li>
-                                <li><a href="/admin/apartment/price/list/" class="submenu__item btn">Цены</a></li>
-                                <li><a href="#" class="submenu__item btn">Система онлайн бронирования</a></li>
-                                <li><a href="#" class="submenu__item btn">Клиенты</a></li>
-                                <li><a href="#" class="submenu__item btn">Заселение</a></li>
-                                <li><a href="#" class="submenu__item btn">Отчетность</a></li>
-                                <li><a href="#" class="submenu__item btn">Конфигурация главного меню</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/status" class="submenu__item btn">Статус гостиницы</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/apartment/"
+                                       class="submenu__item btn">Апартаменты</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/apartment/price/list/"
+                                       class="submenu__item btn">Цены</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/reservation" class="submenu__item btn">Система онлайн бронирования</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/client" class="submenu__item btn">Клиенты</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/residence" class="submenu__item btn">Заселение</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/report" class="submenu__item btn">Отчетность</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/config" class="submenu__item btn">Конфигурация главного меню</a></li>
                             </ul>
                         </li>
                     </c:if>

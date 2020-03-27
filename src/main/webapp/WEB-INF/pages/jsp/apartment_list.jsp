@@ -53,25 +53,25 @@
             <nav class="header-active">
                 <h1>Гостиница "Комсомолка"</h1>
                 <ul>
-                    <li class="header__itm"><a href="/" class="btn">Об отеле</a></li>
-                    <li class="header__itm"><a href="#" class="btn">Номера и цены</a></li>
-                    <li class="header__itm"><a href="#" class="btn-red">Бронирование</a></li>
+                    <li class="header__itm"><a href="${pageContext.request.contextPath}/" class="btn">Об отеле</a></li>
+                    <li class="header__itm"><a href="${pageContext.request.contextPath}/apartment" class="btn">Номера и цены</a></li>
+                    <li class="header__itm"><a href="${pageContext.request.contextPath}/reservation" class="btn-red">Бронирование</a></li>
                     <c:if test="${isAdmin}">
                         <li class="header__itm" id="admin_panel"><a href="javascript:openSubMenu()" class="btn">Панель
                             администратора
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                             <ul class="submenu">
-                                <li><a href="#" class="submenu__item btn">Статус гостиницы</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/status" class="submenu__item btn">Статус гостиницы</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/apartment/"
                                        class="submenu__item btn">Апартаменты</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/apartment/price/list/"
                                        class="submenu__item btn">Цены</a></li>
-                                <li><a href="#" class="submenu__item btn">Система онлайн бронирования</a></li>
-                                <li><a href="#" class="submenu__item btn">Клиенты</a></li>
-                                <li><a href="#" class="submenu__item btn">Заселение</a></li>
-                                <li><a href="#" class="submenu__item btn">Отчетность</a></li>
-                                <li><a href="#" class="submenu__item btn">Конфигурация главного меню</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/reservation" class="submenu__item btn">Система онлайн бронирования</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/client" class="submenu__item btn">Клиенты</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/residence" class="submenu__item btn">Заселение</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/report" class="submenu__item btn">Отчетность</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/config" class="submenu__item btn">Конфигурация главного меню</a></li>
                             </ul>
                         </li>
                     </c:if>
@@ -83,17 +83,17 @@
         <div class="popupbg" id="popupbg">
             <div class="answer-popup">
                 <span>Панель администратора</span>
-                <a href="#">Статус гостиницы</a>
-                <a href="#">Апартаменты</a>
+                <a href="${pageContext.request.contextPath}/admin/status">Статус гостиницы</a>
+                <a href="${pageContext.request.contextPath}/admin/apartment/">Апартаменты</a>
                 <a class="answer-popup__active" href="${pageContext.request.contextPath}/admin/apartment/price/list/">Цены</a>
-                <a href="#">Система онлайн бронирования</a>
-                <a href="#">Клиенты</a>
-                <a href="#">Заселение</a>
-                <a href="#">Конфигурация главного меню</a>
+                <a href="${pageContext.request.contextPath}/admin/reservation">Система онлайн бронирования</a>
+                <a href="${pageContext.request.contextPath}/admin/client">Клиенты</a>
+                <a href="${pageContext.request.contextPath}/admin/residence">Заселение</a>
+                <a href="${pageContext.request.contextPath}/admin/config">Конфигурация главного меню</a>
                 <span>Отчетность</span>
-                <a href="#">Отчет о заселении</a>
-                <a href="#">Отчет о доходности</a>
-                <a href="#">Отчет о клиентах</a>
+                <a href="${pageContext.request.contextPath}/admin/report/residence">Отчет о заселении</a>
+                <a href="${pageContext.request.contextPath}/admin/report/profit">Отчет о доходности</a>
+                <a href="${pageContext.request.contextPath}/admin/report/client>Отчет о клиентах</a>
             </div>
         </div>
         <div class="header-wrap">
@@ -108,7 +108,7 @@
                 <div class="right">
                     <span>Количество элементов на странице: </span>
                     <input size="3" value="${size}" type="number" id="page_size" name="page_size" min="1"
-                           onsubmit="resizePage(" ${path}?page=${current_page}&sort=${sort}")">
+                           onsubmit="resizePage("${path}?page=${current_page}&sort=${sort}")">
                     <button type="button" class="btn-blue"
                             onclick=resizePage("${path}?page=${current_page}&sort=${sort}")>
                         Применить
