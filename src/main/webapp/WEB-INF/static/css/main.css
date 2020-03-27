@@ -372,7 +372,12 @@ main {
     padding: 3px 10px;
     vertical-align: middle;
 }
-
+.divTableHeading a{
+    color: #5597E2;
+}
+.divTableHeading .btn-active {
+    color: white;
+}
 .divTableHeading {
     background-color: #EEE;
     display: table-header-group;
