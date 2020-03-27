@@ -9,3 +9,13 @@ function btnActive(sort) {
         }
     }
 }
+
+function resizePage(href) {
+    let page_size = document.getElementById("page_size").value;
+    document.location.href = href + "&size=" + page_size;
+}
+
+function goToPage(href) {
+    let page = document.getElementById("pageNo").value;
+    document.location.href = href + "&page=" + page;
+}

@@ -95,6 +95,22 @@
             </div>
         </div>
         <div class="header-wrap">
+            <div class="tableTopBar">
+                <div>
+                    <spring:url value="/admin/apartment/price/create/" var="createURL"/>
+                    <form action="${createURL}">
+                        <button class="btn-green" type="submit">Добавить новую запись</button>
+                    </form>
+                </div>
+                <div class="right">
+                    <span>Количество элементов на странице: </span>
+                    <input size="3" value="${size}" type="number" id="page_size" name="page_size" min="1" >
+                    <button type="button" class="btn-blue" onclick=resizePage("${path}?page=${current_page}&sort=${sort}")>
+                        Применить
+                    </button>
+                </div>
+            </div>
+
             <div class="divTable" style="border: 1px solid #000;">
                 <div class="divTableHeading">
                     <div class="divTableRow">
@@ -143,52 +159,71 @@
                 </c:forEach>
             </div>
 
-            <c:if test="${total_page != 1}">
-                <div class="pagination">
-                    <c:if test="${current_page != 1}">
-                        <a href="${path}?page=${current_page-1}&sort=${sort}">«</a>
-                        <a href="${path}?page=1&sort=${sort}">1</a>
-                    </c:if>
-                    <c:if test="${current_page == 1}">
-                        <a class="inactive">«</a>
-                        <a class="active">1</a>
-                    </c:if>
+            <div class="tableBottomBar">
 
-                    <c:if test="${total_page >= 3}">
-
-                        <c:if test="${current_page - 2 > 2}">
-                            <a href="#">..</a>
-                        </c:if>
-
-                        <c:forEach begin="${start_page}" end="${current_page + 2}" var="p">
-                            <c:choose>
-                                <c:when test="${current_page == p && p > 1 && p < total_page}">
-                                    <a class="active">${p}</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:if test="${p > 1 && p < total_page}">
-                                        <a href="${path}?page=${p}&sort=${sort}">${p}</a>
-                                    </c:if>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-
-                        <c:if test="${current_page + 2 < total_page - 1}">
-                            <a href="#">..</a>
-                        </c:if>
-
-                    </c:if>
-
-                    <c:if test="${current_page != total_page}">
-                        <a href="${path}?page=${total_page}&sort=${sort}">${total_page}</a>
-                        <a href="${path}?page=${current_page + 1}&sort=${sort}">»</a>
-                    </c:if>
-                    <c:if test="${current_page == total_page}">
-                        <a class="active">${total_page}</a>
-                        <a class="inactive">»</a>
-                    </c:if>
+                <div>
+                    <spring:url value="/admin/apartment/price/create/" var="createURL"/>
+                    <form action="${createURL}">
+                        <button class="btn-green" type="submit">Добавить новую запись</button>
+                    </form>
                 </div>
-            </c:if>
+
+                <c:if test="${total_page != 1}">
+                    <div class="pagination">
+                        <c:if test="${current_page != 1}">
+                            <a href="${path}?page=${current_page-1}&sort=${sort}">«</a>
+                            <a href="${path}?page=1&sort=${sort}">1</a>
+                        </c:if>
+                        <c:if test="${current_page == 1}">
+                            <a class="inactive">«</a>
+                            <a class="active">1</a>
+                        </c:if>
+
+                        <c:if test="${total_page >= 3}">
+
+                            <c:if test="${current_page - 2 > 2}">
+                                <div>..</div>
+                            </c:if>
+
+                            <c:forEach begin="${start_page}" end="${current_page + 2}" var="p">
+                                <c:choose>
+                                    <c:when test="${current_page == p && p > 1 && p < total_page}">
+                                        <a class="active">${p}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:if test="${p > 1 && p < total_page}">
+                                            <a href="${path}?page=${p}&sort=${sort}">${p}</a>
+                                        </c:if>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+
+                            <c:if test="${current_page + 2 < total_page - 1}">
+                                <a href="#">..</a>
+                            </c:if>
+
+                        </c:if>
+
+                        <c:if test="${current_page != total_page}">
+                            <a href="${path}?page=${total_page}&sort=${sort}">${total_page}</a>
+                            <a href="${path}?page=${current_page + 1}&sort=${sort}">»</a>
+                        </c:if>
+                        <c:if test="${current_page == total_page}">
+                            <a class="active">${total_page}</a>
+                            <a class="inactive">»</a>
+                        </c:if>
+                    </div>
+                </c:if>
+
+                <div class="right">
+                    <span>стр. №</span>
+                    <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
+                    <button type="button" class="btn-blue" onclick=goToPage("${path}?sort=${sort}")>
+                        Перейти
+                    </button>
+                </div>
+
+            </div>
 
         </div>
     </main>

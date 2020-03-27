@@ -391,14 +391,26 @@ main {
     text-decoration: none;
 }
 
+.tableBottomBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+}
+
+.tableTopBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+}
+
 .pagination {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
     padding-top: 1em;
 }
 
-.pagination a {
+.pagination a,  .pagination div{
     font-weight:bold;
     font-size:20px;
     color: #5597E2;
@@ -418,8 +430,6 @@ main {
     background-color: #d4d5d2;
     border-radius:5px;
 }
-
-
 
 .popupbg{
      position: fixed;
@@ -459,13 +469,44 @@ main {
      color: #000000;
 }
 
-.answer-popup .answer-popup__active {
+.answer-popup .answer-popup__active, .answer-popup__active {
     color: #5197E6;
     font-weight: bold;
 }
-.answer-popup .answer-popup__active:hover {
+.answer-popup .answer-popup__active:hover, .answer-popup__active:hover {
     color: #5197E6;
     font-weight: bold;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+}
+
+.btn-blue, .btn-green{
+    font-weight: bold;
+    border-radius:5px;
+    height: 3em;
+}
+
+.btn-green {
+    color: #1D6F1D;
+    background-color: #6DC95A;
+}
+
+.btn-green:hover{
+    color: #DAFFD3;
+    background-color: #0A8A03;
+}
+
+.btn-blue {
+    color: #1D5D6F;
+    background-color: #5AA2C9;
+}
+
+.btn-blue:hover{
+    color: #D3F9FF;
+    background-color: #036D8A;
 }
 
 @media screen and (max-width: 1550px) {
@@ -578,7 +619,6 @@ main {
     .active__submenu a{
         color: white;
     }
-
 
     .pagination {
         display: block;

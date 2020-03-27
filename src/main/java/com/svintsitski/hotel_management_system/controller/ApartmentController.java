@@ -28,35 +28,34 @@ public class ApartmentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping(value = {"/price/list/", "/price/list"})
-    public String findAll(@RequestParam Optional<Integer> page,
+    public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
 
-        int try_page = page.orElse(1);
+        int current_page = page.orElse(1);
         String sorting = sort.orElse("id");
-        int start_page = (try_page - 2) < 0 ? 0 : try_page - 2;
-        int elemCount = 100;
-        int start = 1 + (try_page - 1) * elemCount;
+        int start_page = (current_page - 2) < 0 ? 0 : current_page - 2;
+        int default_page_size = 5;
+        int page_size = size.orElse(default_page_size);
+        page_size = (page_size < 1) ? default_page_size : page_size;
+        int start = 1 + (current_page - 1) * page_size;
 
-        ResultQuery result = apartmentService.findAll(start, elemCount, sorting);
+        ResultQuery result = apartmentService.findAll(start, page_size, sorting);
         int full_elem_count = result.getCount();
         List<ApartmentType> list = result.getApartmentTypeList();
 
-        int total_page = (int) Math.ceil((float)full_elem_count/(float)elemCount);
+        int total_page = (int) Math.ceil((float)full_elem_count/(float)page_size);
         total_page = Math.max(total_page, 1);
 
         String url = "http://localhost:8184/admin/apartment/price/list/";
         String ip = request.getRemoteAddr();
 
-        LOGGER.info("[" + ip + "] requested apartment_list.jsp");
-        LOGGER.info("URL = " + url);
-        LOGGER.info("total_page = " + total_page);
-        LOGGER.info("current_page = " + try_page);
-        LOGGER.info("full_elem_count = " + full_elem_count);
+        LOGGER.info("[" + ip + "] requested " + url);
 
         model.addAttribute("apartment_list", list);
-        model.addAttribute("current_page", try_page);
+        model.addAttribute("current_page", current_page);
         model.addAttribute("total_page", total_page);
         model.addAttribute("path", url);
+        model.addAttribute("size", page_size);
         model.addAttribute("start_page", start_page);
         model.addAttribute("sort", sorting);
 
