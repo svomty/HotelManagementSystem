@@ -93,7 +93,7 @@
                 <span>Отчетность</span>
                 <a href="${pageContext.request.contextPath}/admin/report/residence">Отчет о заселении</a>
                 <a href="${pageContext.request.contextPath}/admin/report/profit">Отчет о доходности</a>
-                <a href="${pageContext.request.contextPath}/admin/report/client>Отчет о клиентах</a>
+                <a href="${pageContext.request.contextPath}/admin/report/client">Отчет о клиентах</a>
             </div>
         </div>
         <div class="header-wrap">
