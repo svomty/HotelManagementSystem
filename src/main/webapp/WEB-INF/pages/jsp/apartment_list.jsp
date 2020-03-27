@@ -36,8 +36,8 @@
                     <li class="top-menu__itm"><a href="tel:80291233300"><i class="fa fa-phone"
                                                                            aria-hidden="true"></i>&nbsp;+375 29
                         12-33-300</a></li>
-                    <li class="top-menu__itm"><a href="/contacts/"><i class="fa fa-map-marker"
-                                                                      aria-hidden="true"></i>&nbsp;г.Могилев, ул.
+                    <li class="top-menu__itm"><a href="#"><i class="fa fa-map-marker"
+                                                             aria-hidden="true"></i>&nbsp;г.Могилев, ул.
                         Комсомольская, 10</a></li>
                     <li class="top-menu__itm"><a href="mailto:best-hotel@mail.ru"><i class="fa fa-envelope-o"
                                                                                      aria-hidden="true">
@@ -63,8 +63,10 @@
                         </a>
                             <ul class="submenu">
                                 <li><a href="#" class="submenu__item btn">Статус гостиницы</a></li>
-                                <li><a href="/admin/apartment/" class="submenu__item btn">Апартаменты</a></li>
-                                <li><a href="/admin/apartment/price/list/" class="submenu__item btn">Цены</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/apartment/"
+                                       class="submenu__item btn">Апартаменты</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/apartment/price/list/"
+                                       class="submenu__item btn">Цены</a></li>
                                 <li><a href="#" class="submenu__item btn">Система онлайн бронирования</a></li>
                                 <li><a href="#" class="submenu__item btn">Клиенты</a></li>
                                 <li><a href="#" class="submenu__item btn">Заселение</a></li>
@@ -83,7 +85,7 @@
                 <span>Панель администратора</span>
                 <a href="#">Статус гостиницы</a>
                 <a href="#">Апартаменты</a>
-                <a class="answer-popup__active" href="/admin/apartment/price/list/">Цены</a>
+                <a class="answer-popup__active" href="${pageContext.request.contextPath}/admin/apartment/price/list/">Цены</a>
                 <a href="#">Система онлайн бронирования</a>
                 <a href="#">Клиенты</a>
                 <a href="#">Заселение</a>
@@ -97,17 +99,21 @@
         <div class="header-wrap">
             <div class="tableTopBar">
                 <div>
-                    <spring:url value="/admin/apartment/price/create/" var="createURL"/>
+                    <spring:url value="${pageContext.request.contextPath}/admin/apartment/price/create/"
+                                var="createURL"/>
                     <form action="${createURL}">
                         <button class="btn-green" type="submit">Добавить новую запись</button>
                     </form>
                 </div>
                 <div class="right">
                     <span>Количество элементов на странице: </span>
-                    <input size="3" value="${size}" type="number" id="page_size" name="page_size" min="1" >
-                    <button type="button" class="btn-blue" onclick=resizePage("${path}?page=${current_page}&sort=${sort}")>
+                    <input size="3" value="${size}" type="number" id="page_size" name="page_size" min="1"
+                           onsubmit="resizePage(" ${path}?page=${current_page}&sort=${sort}")">
+                    <button type="button" class="btn-blue"
+                            onclick=resizePage("${path}?page=${current_page}&sort=${sort}")>
                         Применить
                     </button>
+
                 </div>
             </div>
 
@@ -115,22 +121,22 @@
                 <div class="divTableHeading">
                     <div class="divTableRow">
                         <div class="divTableCell">
-                            <a id="id" href="${path}?page=1&sort=id">id</a>
+                            <a id="id" href="${path}?page=1&sort=id&size=${size}">id</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="price" href="${path}?page=1&sort=price">Стоимость места</a>
+                            <a id="price" href="${path}?page=1&sort=price&size=${size}">Стоимость места</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="rooms_number" href="${path}?page=1&sort=rooms_number">Кол-во комнат</a>
+                            <a id="rooms_number" href="${path}?page=1&sort=rooms_number&size=${size}">Кол-во комнат</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="places_number" href="${path}?page=1&sort=places_number">Кол-во мест</a>
+                            <a id="places_number" href="${path}?page=1&sort=places_number&size=${size}">Кол-во мест</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="type" href="${path}?page=1&sort=type">Тип номера</a>
+                            <a id="type" href="${path}?page=1&sort=type&size=${size}">Тип номера</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="description" href="${path}?page=1&sort=description">Описание</a>
+                            <a id="description" href="${path}?page=1&sort=description&size=${size}">Описание</a>
                         </div>
                         <div class="divTableCell">Опции</div>
                     </div>
@@ -145,11 +151,15 @@
                             <div class="divTableCell">${apartment.type }</div>
                             <div class="divTableCell">${apartment.description }</div>
                             <div class="divTableCell">
-                                <spring:url value="/admin/apartment/price/update/${apartment.id }" var="updateURL"/>
+                                <spring:url
+                                        value="${pageContext.request.contextPath}/admin/apartment/price/update/${apartment.id }"
+                                        var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
-                                <spring:url value="/admin/apartment/price/delete/${apartment.id }" var="deleteURL"/>
+                                <spring:url
+                                        value="${pageContext.request.contextPath}/admin/apartment/price/delete/${apartment.id }"
+                                        var="deleteURL"/>
                                 <a class="btn btn-primary" href="${deleteURL }" role="button">
                                     <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>
@@ -162,7 +172,8 @@
             <div class="tableBottomBar">
 
                 <div>
-                    <spring:url value="/admin/apartment/price/create/" var="createURL"/>
+                    <spring:url value="${pageContext.request.contextPath}/admin/apartment/price/create/"
+                                var="createURL"/>
                     <form action="${createURL}">
                         <button class="btn-green" type="submit">Добавить новую запись</button>
                     </form>
@@ -171,8 +182,8 @@
                 <c:if test="${total_page != 1}">
                     <div class="pagination">
                         <c:if test="${current_page != 1}">
-                            <a href="${path}?page=${current_page-1}&sort=${sort}">«</a>
-                            <a href="${path}?page=1&sort=${sort}">1</a>
+                            <a href="${path}?page=${current_page-1}&sort=${sort}&size=${size}">«</a>
+                            <a href="${path}?page=1&sort=${sort}&size=${size}">1</a>
                         </c:if>
                         <c:if test="${current_page == 1}">
                             <a class="inactive">«</a>
@@ -192,7 +203,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <c:if test="${p > 1 && p < total_page}">
-                                            <a href="${path}?page=${p}&sort=${sort}">${p}</a>
+                                            <a href="${path}?page=${p}&sort=${sort}&size=${size}">${p}</a>
                                         </c:if>
                                     </c:otherwise>
                                 </c:choose>
@@ -205,8 +216,8 @@
                         </c:if>
 
                         <c:if test="${current_page != total_page}">
-                            <a href="${path}?page=${total_page}&sort=${sort}">${total_page}</a>
-                            <a href="${path}?page=${current_page + 1}&sort=${sort}">»</a>
+                            <a href="${path}?page=${total_page}&sort=${sort}&size=${size}">${total_page}</a>
+                            <a href="${path}?page=${current_page + 1}&sort=${sort}&size=${size}">»</a>
                         </c:if>
                         <c:if test="${current_page == total_page}">
                             <a class="active">${total_page}</a>
@@ -218,7 +229,7 @@
                 <div class="right">
                     <span>стр. №</span>
                     <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
-                    <button type="button" class="btn-blue" onclick=goToPage("${path}?sort=${sort}")>
+                    <button type="button" class="btn-blue" onclick=goToPage("${path}?sort=${sort}&size=${size}")>
                         Перейти
                     </button>
                 </div>

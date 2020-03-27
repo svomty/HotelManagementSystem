@@ -6,8 +6,6 @@ import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +38,7 @@ public class ApartmentController {
 
         ResultQuery result = apartmentService.findAll(start, page_size, sorting);
         int full_elem_count = result.getCount();
-        List<ApartmentType> list = result.getApartmentTypeList();
+        List<ApartmentType> list = result.getList();
 
         int total_page = (int) Math.ceil((float)full_elem_count/(float)page_size);
         total_page = Math.max(total_page, 1);

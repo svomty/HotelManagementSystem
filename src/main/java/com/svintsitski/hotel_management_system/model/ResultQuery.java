@@ -4,11 +4,11 @@ import java.util.List;
 
 public class ResultQuery {
     private int count;
-    private List<ApartmentType> apartmentTypeList;
+    private List list;
 
-    public ResultQuery(int count, List<ApartmentType> apartmentTypeList) {
+    public ResultQuery(int count, List apartmentTypeList) {
         this.count = count;
-        this.apartmentTypeList = apartmentTypeList;
+        this.list = apartmentTypeList;
     }
 
     public int getCount() {
@@ -19,11 +19,11 @@ public class ResultQuery {
         this.count = count;
     }
 
-    public List<ApartmentType> getApartmentTypeList() {
-        return apartmentTypeList;
+    public List getList() {
+        return list;
     }
 
-    public void setApartmentTypeList(List<ApartmentType> apartmentTypeList) {
-        this.apartmentTypeList = apartmentTypeList;
+    public void setList(List list) {
+        this.list = list;
     }
 }
