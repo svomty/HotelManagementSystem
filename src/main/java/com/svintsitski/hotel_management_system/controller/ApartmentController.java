@@ -51,7 +51,6 @@ public class ApartmentController {
         model.addAttribute("apartment_list", list);
         model.addAttribute("current_page", current_page);
         model.addAttribute("total_page", total_page);
-        model.addAttribute("path", url);
         model.addAttribute("size", page_size);
         model.addAttribute("start_page", start_page);
         model.addAttribute("sort", sorting);

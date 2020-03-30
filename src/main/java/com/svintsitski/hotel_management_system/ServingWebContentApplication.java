@@ -10,11 +10,14 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 public class ServingWebContentApplication {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServingWebContentApplication.class);
+    final static String DOMAIN = "localhost";
+    final static String PORT = "8184";
+    final static String DOMAIN_FULL = "http://"+DOMAIN+":"+PORT+"/";
 
     public static void main(String[] args) {
         SpringApplication.run(ServingWebContentApplication.class, args);
-        LOGGER.info("http://localhost:8184/");
+        LOGGER.info(DOMAIN_FULL);
     }
 
 }
