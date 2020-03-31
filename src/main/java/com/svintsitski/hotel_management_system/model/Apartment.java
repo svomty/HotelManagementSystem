@@ -20,6 +20,9 @@ public class Apartment {
         this.type_id = type_id;
         this.description = description;
     }
+    public int getId() {
+        return id;
+    }
 
     public byte getNumber() {
         return number;
@@ -42,7 +45,12 @@ public class Apartment {
     }
 
     public void setDescription(String description) {
-        this.description = description.trim().substring(0, 89);
+        if (description != null){
+            this.description = description.trim();
+        }
+        if (this.description == null ||  this.description.equals("")) {
+            this.description = "описание отсутсвует";
+        }
     }
 
     @Override

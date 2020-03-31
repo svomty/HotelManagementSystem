@@ -36,8 +36,7 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
         String sql = "SELECT * FROM apartment_type WHERE id=" + id + ";";
         List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ApartmentType.class));
-        ApartmentType apartmentType = apartmentTypeList.stream().findFirst().orElse(null);
-        return apartmentType;
+        return apartmentTypeList.stream().findFirst().orElse(null);
     }
 
     @Override
