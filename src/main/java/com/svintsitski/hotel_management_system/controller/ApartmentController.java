@@ -23,6 +23,8 @@ import java.util.Optional;
 public class ApartmentController {
     @Autowired
     private ApartmentServiceImpl apartmentService;
+    @Autowired
+    private ApartmentTypeServiceImpl apartmentTypeService;
     private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentController.class);
 
     String url;
@@ -69,6 +71,7 @@ public class ApartmentController {
     public ModelAndView edit(@PathVariable int id, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = apartmentService.findById(id);
+        List<ApartmentType> apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/update/" + id;
         ip = request.getRemoteAddr();
@@ -76,6 +79,7 @@ public class ApartmentController {
         LOGGER.info("[" + ip + "] requested " + url + ". Аpartment №" + apartment.getId() + " will be updated");
 
         model.addObject("apartment", apartment);
+        model.addObject("apartmentType", apartmentType);
         model.setViewName("admin_apart_add");
         return model;
     }
@@ -84,6 +88,7 @@ public class ApartmentController {
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = new Apartment();
+        List<ApartmentType> apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/add/";
         ip = request.getRemoteAddr();
@@ -91,6 +96,7 @@ public class ApartmentController {
         LOGGER.info("[" + ip + "] requested " + url + ". Аpartment will be added");
 
         model.addObject("apartment", apartment);
+        model.addObject("apartmentType", apartmentType);
         model.setViewName("admin_apart_add");
         return model;
     }
@@ -101,10 +107,10 @@ public class ApartmentController {
         ip = request.getRemoteAddr();
         if (apartmentService.findById(apartment.getId()) != null) {
             apartmentService.update(apartment);
-            LOGGER.info("[" + ip + "] requested " + url + ". Аpartment was created");
+            LOGGER.info("[" + ip + "] requested " + url + ". Аpartment №" + apartment.getId() + " was updated");
         } else {
             apartmentService.add(apartment);
-            LOGGER.info("[" + ip + "] requested " + url + ". Аpartment №" + apartment.getId() + " was updated");
+            LOGGER.info("[" + ip + "] requested " + url + ". Аpartment was created");
         }
         return new ModelAndView("redirect:/admin/apartment/");
     }

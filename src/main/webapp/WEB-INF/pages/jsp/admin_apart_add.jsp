@@ -48,8 +48,11 @@
                         <form:input path="number" cssClass="form-control" id="number"/>
                     </div>
                     <div class="form-group">
-                        <lable for="type_id">type_id</lable>
-                        <form:input path="type_id" cssClass="form-control" id="type_id"/>
+                        <select name="type_id" id="type_id" path="type_id">
+                            <c:forEach items="${apartmentType}" var="apartmentType">
+                                <option value="${apartmentType.id}">${apartmentType.toString()}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                     <div class="form-group">
                         <lable for="description">description</lable>
