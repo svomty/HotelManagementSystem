@@ -9,7 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Repository
@@ -17,17 +20,44 @@ public class ApartmentDaoImpl implements ApartmentDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private java.lang.Object Object;
 
     @Override
     public ResultQuery findAll(int start, int total, String sort) {
-        String sql = "SELECT * FROM apartments " +
+        String sql = "SELECT a.id, a.number, a.type_id, a.description AS desc_apart, a_t.price,\n" +
+                " a_t.rooms_number, a_t.places_number, a_t.type, a_t.description AS desc_type\n" +
+                "FROM hotel.apartments AS a\n" +
+                "LEFT JOIN hotel.apartment_type a_t ON a_t.id = a.type_id\n" +
                 "ORDER BY " + sort + " ASC " +
                 " LIMIT " + (start-1) + "," + total + ";";
-        List<Apartment> apartmentList = jdbcTemplate.query(sql,
-                BeanPropertyRowMapper.newInstance(Apartment.class));
-        String sql2 = "SELECT COUNT(*) FROM apartments;";
+
+        List<Map<String, java.lang.Object>> rows = jdbcTemplate.queryForList(sql, Object);
+
+        List<Apartment> apartmentList = new ArrayList<>();
+        List<ApartmentType> apartmentTypeList = new ArrayList<>();
+
+        for (Map<String, java.lang.Object> row : rows) {
+            Apartment apartment = new Apartment();
+            apartment.setId((Integer) row.get("id"));
+            apartment.setNumber((Byte) row.get("number"));
+            apartment.setType_id((Integer) row.get("type_id"));
+            apartment.setDescription((String) row.get("description"));
+
+            ApartmentType apartmentType = new ApartmentType();
+            apartmentType.setId((Integer) row.get("id"));
+            apartmentType.setPrice((Float) row.get("price"));
+            apartmentType.setRooms_number((Byte) row.get("rooms_number"));
+            apartmentType.setPlaces_number((Byte) row.get("places_number"));
+            apartmentType.setType((String) row.get("type"));
+            apartmentType.setDescription((String) row.get("desc_type"));
+
+            apartmentList.add(apartment);
+            apartmentTypeList.add(apartmentType);
+        }
+
+        String sql2 = "SELECT COUNT(*) FROM apartment_type;";
         int count = jdbcTemplate.queryForObject(sql2, Integer.class);
-        return new ResultQuery(count, apartmentList);
+        return new ResultQuery(count, Arrays.asList(apartmentList, apartmentTypeList));
     }
 
     @Override
