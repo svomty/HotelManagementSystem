@@ -16,6 +16,7 @@
     <main>
         <div class="header-wrap" style="flex-direction: column; align-items: center">
             <h1> Что-то пошло не так! </h1>
+            <h1 class="error"> Error ${statusCode}</h1>
             <h2> Наши инженеры работают над этим </h2>
             <h1><a href="/">Перейти на домашнюю страницу</a></h1>
         </div>

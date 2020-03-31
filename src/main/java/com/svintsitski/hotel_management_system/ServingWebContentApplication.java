@@ -11,9 +11,9 @@ import org.springframework.context.annotation.ComponentScan;
 public class ServingWebContentApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServingWebContentApplication.class);
-    final static String DOMAIN = "localhost";
-    final static String PORT = "8184";
-    final static String DOMAIN_FULL = "http://"+DOMAIN+":"+PORT+"/";
+    public final static String DOMAIN = "localhost";
+    public final static String PORT = "8184";
+    public final static String DOMAIN_FULL = "http://"+DOMAIN+":"+PORT+"/";
 
     public static void main(String[] args) {
         SpringApplication.run(ServingWebContentApplication.class, args);

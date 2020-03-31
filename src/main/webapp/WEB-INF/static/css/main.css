@@ -518,6 +518,12 @@ main {
     background-color: #036D8A;
 }
 
+.error {
+    font-weight: bold;
+    color: darkred;
+    font-size: 200%;
+}
+
 @media screen and (max-width: 1550px) {
     .popupbg{
         display: none;
