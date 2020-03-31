@@ -23,7 +23,7 @@ import java.util.Optional;
 public class ApartmentController {
     @Autowired
     private ApartmentServiceImpl apartmentService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentPriceController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentController.class);
 
     String url;
     String ip;
@@ -42,18 +42,20 @@ public class ApartmentController {
 
         ResultQuery result = apartmentService.findAll(start, page_size, sorting);
         int full_elem_count = result.getCount();
-        List list = result.getList();
+        List resultQueryList = result.getList();
 
         int total_page = (int) Math.ceil((float)full_elem_count/(float)page_size);
         total_page = Math.max(total_page, 1);
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/list/";
         ip = request.getRemoteAddr();
+        String createURL = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/add";
 
         LOGGER.info("[" + ip + "] requested " + url);
-        LOGGER.info(list.toString());
 
-        model.addAttribute("apartment_list", list);
+        model.addAttribute("apartment_list", resultQueryList.get(0));
+        model.addAttribute("createURL", createURL);
+        model.addAttribute("apartment_type_list", resultQueryList.get(1));
         model.addAttribute("current_page", current_page);
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", page_size);
@@ -73,8 +75,8 @@ public class ApartmentController {
 
         LOGGER.info("[" + ip + "] requested " + url + ". Аpartment №" + apartment.getId() + " will be updated");
 
-        model.addObject("apartmentType", apartment);
-        model.setViewName("admin_price_add");
+        model.addObject("apartment", apartment);
+        model.setViewName("admin_apart_add");
         return model;
     }
 
@@ -89,7 +91,7 @@ public class ApartmentController {
         LOGGER.info("[" + ip + "] requested " + url + ". Аpartment will be added");
 
         model.addObject("apartment", apartment);
-        model.setViewName("admin_apartment_add");
+        model.setViewName("admin_apart_add");
         return model;
     }
 

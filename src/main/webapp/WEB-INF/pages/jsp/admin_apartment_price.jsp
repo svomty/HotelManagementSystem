@@ -106,5 +106,6 @@
 </body>
 <script>
     btnActive("${sort}");
+    popup_active("${pageContext.request.contextPath}/admin/apartment/price/");
 </script>
 </html>

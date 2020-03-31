@@ -27,8 +27,10 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
                 " LIMIT " + (start-1) + "," + total + ";";
         List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ApartmentType.class));
+
         String sql2 = "SELECT COUNT(*) FROM apartment_type;";
         int count = jdbcTemplate.queryForObject(sql2, Integer.class);
+
         return new ResultQuery(count, apartmentTypeList);
     }
 
@@ -36,7 +38,8 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
         String sql = "SELECT * FROM apartment_type WHERE id=" + id + ";";
         List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ApartmentType.class));
-        return apartmentTypeList.stream().findFirst().orElse(null);
+        ApartmentType apartmentType = apartmentTypeList.stream().findFirst().orElse(null);
+        return apartmentType;
     }
 
     @Override

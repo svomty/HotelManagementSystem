@@ -15,8 +15,6 @@
 <div class="tableBottomBar">
 
     <div>
-        <spring:url value="${pageContext.request.contextPath}/admin/apartment/price/add/"
-                    var="createURL"/>
         <form action="${createURL}">
             <button class="btn-green" type="submit">Добавить новую запись</button>
         </form>

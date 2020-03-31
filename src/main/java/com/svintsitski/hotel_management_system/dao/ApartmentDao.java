@@ -4,7 +4,7 @@ import com.svintsitski.hotel_management_system.model.Apartment;
 import com.svintsitski.hotel_management_system.model.ResultQuery;
 
 public interface ApartmentDao {
-    ResultQuery findAll(int start, int total, String sort);
+    ResultQuery findAll(int start, int total, String sort) throws Exception;
 
     Apartment findById(int id);
 

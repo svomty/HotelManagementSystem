@@ -49,10 +49,13 @@ public class ApartmentPriceController {
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/list/";
         ip = request.getRemoteAddr();
+        String createURL = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/add";
 
         LOGGER.info("[" + ip + "] requested " + url);
 
         model.addAttribute("apartment_list", list);
+        model.addAttribute("createURL", createURL);
+        model.addAttribute("url", url);
         model.addAttribute("current_page", current_page);
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", page_size);

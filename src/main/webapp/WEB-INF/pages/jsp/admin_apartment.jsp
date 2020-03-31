@@ -50,34 +50,50 @@
                         </div>
                         <div class="divTableCell">
                             <a id="number" href="${pageContext.request.contextPath}?page=1&sort=number&size=${number}">
-                                Стоимость места</a>
+                                Номер апартамента</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="type_id" href="${pageContext.request.contextPath}?page=1&sort=type_id&size=${type_id}">
-                                Тип номера</a>
+                            <a id="description" href="${pageContext.request.contextPath}?page=1&sort=description&size=${size}">Описание</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="description"
-                               href="${pageContext.request.contextPath}?page=1&sort=description&size=${size}">Описание</a>
+                            Стоимость места
+                        </div>
+                        <div class="divTableCell">
+                            Кол-во комнат
+                        </div>
+                        <div class="divTableCell">
+                            Кол-во мест
+                        </div>
+                        <div class="divTableCell">
+                            Тип номера
+                        </div>
+                        <div class="divTableCell">
+                            Описание
                         </div>
                         <div class="divTableCell">Опции</div>
                     </div>
                 </div>
-                <c:forEach items="${apartment_list}" var="apartment">
+                <c:forEach items="${apartment_list}" var="apartments" varStatus="loop">
                     <div class="divTableBody">
                         <div class="divTableRow">
-                            <div class="divTableCell">${apartment.id}</div>
-                            <div class="divTableCell">${apartment.number }</div>
-                            <div class="divTableCell">${apartment.type_id}</div>
-                            <div class="divTableCell">${apartment.description }</div>
+                            <div class="divTableCell">${apartments.id}</div>
+                            <div class="divTableCell">${apartments.number }</div>
+                            <div class="divTableCell">${apartments.description }</div>
+
+                            <div class="divTableCell">${apartment_type_list[loop.index].price }</div>
+                            <div class="divTableCell">${apartment_type_list[loop.index].rooms_number}</div>
+                            <div class="divTableCell">${apartment_type_list[loop.index].places_number }</div>
+                            <div class="divTableCell">${apartment_type_list[loop.index].type }</div>
+                            <div class="divTableCell">${apartment_type_list[loop.index].description }</div>
+
                             <div class="divTableCell">
                                 <spring:url
-                                        value="${urlBase}${urlReturn}update/${apartment.id }" var="updateURL"/>
+                                        value="${urlBase}${urlReturn}update/${apartments.id }" var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
                                 <spring:url
-                                        value="${urlBase}${urlReturn}delete/${apartment.id }" var="deleteURL"/>
+                                        value="${urlBase}${urlReturn}delete/${apartments.id }" var="deleteURL"/>
                                 <a class="btn btn-primary" href="${deleteURL }" role="button">
                                     <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>
@@ -94,5 +110,6 @@
 </body>
 <script>
     btnActive("${sort}");
+    popup_active("${pageContext.request.contextPath}/admin/apartment/");
 </script>
 </html>

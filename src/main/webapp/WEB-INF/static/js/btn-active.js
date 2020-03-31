@@ -19,3 +19,13 @@ function goToPage(href) {
     let page = document.getElementById("pageNo").value;
     document.location.href = href + "&page=" + page;
 }
+
+function popup_active(id) {
+    let popupBgWrapper = document.querySelector('.answer-popup');
+    let aWrapper = popupBgWrapper.querySelectorAll("a");
+    for (let i = 0; i < aWrapper.length; ++i) {
+        if (aWrapper[i].id === id){
+            aWrapper[i].classList.add('answer-popup__active');
+        }
+    }
+}
