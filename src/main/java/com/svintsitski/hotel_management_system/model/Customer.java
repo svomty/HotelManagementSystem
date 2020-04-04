@@ -1,10 +1,14 @@
 package com.svintsitski.hotel_management_system.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Date;
 import java.util.Objects;
 
+@Entity
 public class Customer {
-    private int id;
+    private @Id @GeneratedValue int id;
     private String surname;
     private String name;
     private String patronymic;
@@ -18,7 +22,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, String surname, String name, String patronymic, Date birth_date,
+    public Customer(String surname, String name, String patronymic, Date birth_date,
                     String passport_serial_number, String identification_number, Date date_issue_passport,
                     String issuing_authority, String registration_address) {
         this.id = id;
@@ -47,8 +51,12 @@ public class Customer {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname.trim().substring(0, 24);
+    public void setSurname(String surname) throws Exception {
+        if (surname != null){
+            this.surname = surname.trim();
+        } else {
+            throw new Exception("Фамилия не указана!");
+        }
     }
 
     public String getName() {
@@ -64,7 +72,11 @@ public class Customer {
     }
 
     public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic.trim().substring(0, 19);
+        if (patronymic != null){
+            this.patronymic = patronymic.trim();
+        } else {
+            this.patronymic = "отсутствует";
+        }
     }
 
     public Date getBirth_date() {
@@ -79,16 +91,24 @@ public class Customer {
         return passport_serial_number;
     }
 
-    public void setPassport_serial_number(String passport_serial_number) {
-        this.passport_serial_number = passport_serial_number.trim().substring(0, 11);
+    public void setPassport_serial_number(String passport_serial_number) throws Exception {
+        if (passport_serial_number != null){
+            this.passport_serial_number = passport_serial_number.trim();
+        } else {
+            throw new Exception("Серийный номер паспорта не указан!");
+        }
     }
 
     public String getIdentification_number() {
         return identification_number;
     }
 
-    public void setIdentification_number(String identification_number) {
-        this.identification_number = identification_number.trim().substring(0, 16);
+    public void setIdentification_number(String identification_number) throws Exception {
+        if (identification_number != null){
+            this.identification_number = identification_number.trim();
+        } else {
+            throw new Exception("Идентификационный номер паспорта не указан!");
+        }
     }
 
     public Date getDate_issue_passport() {
@@ -104,7 +124,11 @@ public class Customer {
     }
 
     public void setIssuing_authority(String issuing_authority) {
-        this.issuing_authority = issuing_authority.trim().substring(0, 59);
+        if (issuing_authority != null){
+            this.issuing_authority = issuing_authority.trim();
+        } else {
+            this.issuing_authority = "не указан";
+        }
     }
 
     public String getRegistration_address() {
@@ -112,7 +136,11 @@ public class Customer {
     }
 
     public void setRegistration_address(String registration_address) {
-        this.registration_address = registration_address.trim().substring(0, 59);
+        if (registration_address != null){
+            this.registration_address = registration_address.trim();
+        } else {
+            this.registration_address = "не указан";
+        }
     }
 
     @Override
@@ -134,7 +162,8 @@ public class Customer {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, surname, name, patronymic, birth_date, passport_serial_number, identification_number, date_issue_passport, issuing_authority, registration_address);
+        return Objects.hash(id, surname, name, patronymic, birth_date, passport_serial_number, identification_number,
+                date_issue_passport, issuing_authority, registration_address);
     }
 
     @Override

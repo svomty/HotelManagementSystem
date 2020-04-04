@@ -1,9 +1,14 @@
 package com.svintsitski.hotel_management_system.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Date;
 import java.util.Objects;
 
+@Entity
 public class ForeignCustomer {
+    private int customer_id;
     private Date date_entry_to_Belarus;
     private String insurance_policy_number;
     private String visa_number;
@@ -13,12 +18,21 @@ public class ForeignCustomer {
     public ForeignCustomer() {
     }
 
-    public ForeignCustomer(Date date_entry_to_Belarus, String insurance_policy_number, String visa_number, Date passport_validity_date, String citizenship) {
+    public ForeignCustomer(int customer_id, Date date_entry_to_Belarus, String insurance_policy_number, String visa_number, Date passport_validity_date, String citizenship) {
+        this.customer_id = customer_id;
         this.date_entry_to_Belarus = date_entry_to_Belarus;
         this.insurance_policy_number = insurance_policy_number;
         this.visa_number = visa_number;
         this.passport_validity_date = passport_validity_date;
         this.citizenship = citizenship;
+    }
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 
     public Date getDate_entry_to_Belarus() {
@@ -34,7 +48,11 @@ public class ForeignCustomer {
     }
 
     public void setInsurance_policy_number(String insurance_policy_number) {
-        this.insurance_policy_number = insurance_policy_number.trim().substring(0, 14);
+        if (insurance_policy_number != null){
+            this.insurance_policy_number = insurance_policy_number.trim();
+        } else {
+            this.insurance_policy_number = "не указан";
+        }
     }
 
     public String getVisa_number() {
@@ -42,7 +60,11 @@ public class ForeignCustomer {
     }
 
     public void setVisa_number(String visa_number) {
-        this.visa_number = visa_number.trim().substring(0, 14);
+        if (visa_number != null){
+            this.visa_number = visa_number.trim();
+        } else {
+            this.visa_number = "не указан";
+        }
     }
 
     public Date getPassport_validity_date() {
@@ -58,7 +80,11 @@ public class ForeignCustomer {
     }
 
     public void setCitizenship(String citizenship) {
-        this.citizenship = citizenship.trim().substring(0, 14);
+        if (citizenship != null){
+            this.citizenship = citizenship.trim();
+        } else {
+            this.citizenship = "не указано";
+        }
     }
 
     @Override
@@ -66,7 +92,8 @@ public class ForeignCustomer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ForeignCustomer that = (ForeignCustomer) o;
-        return Objects.equals(date_entry_to_Belarus, that.date_entry_to_Belarus) &&
+        return Objects.equals(customer_id, that.customer_id) &&
+                Objects.equals(date_entry_to_Belarus, that.date_entry_to_Belarus) &&
                 Objects.equals(insurance_policy_number, that.insurance_policy_number) &&
                 Objects.equals(visa_number, that.visa_number) &&
                 Objects.equals(passport_validity_date, that.passport_validity_date) &&
@@ -81,6 +108,7 @@ public class ForeignCustomer {
     @Override
     public String toString() {
         return "ForeignCustomer{" +
+                "customer_id=" + customer_id +
                 "date_entry_to_Belarus=" + date_entry_to_Belarus +
                 ", insurance_policy_number='" + insurance_policy_number + '\'' +
                 ", visa_number='" + visa_number + '\'' +

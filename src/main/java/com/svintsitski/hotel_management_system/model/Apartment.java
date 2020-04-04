@@ -51,8 +51,7 @@ public class Apartment {
     public void setDescription(String description) {
         if (description != null){
             this.description = description.trim();
-        }
-        if (this.description == null ||  this.description.equals("")) {
+        } else {
             this.description = "описание отсутсвует";
         }
     }
