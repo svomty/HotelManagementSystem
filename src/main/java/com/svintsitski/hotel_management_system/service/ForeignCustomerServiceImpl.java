@@ -1,10 +1,7 @@
 package com.svintsitski.hotel_management_system.service;
 
-import com.svintsitski.hotel_management_system.dao.CustomerDaoImpl;
 import com.svintsitski.hotel_management_system.dao.ForeignCustomerDaoImpl;
-import com.svintsitski.hotel_management_system.model.Customer;
 import com.svintsitski.hotel_management_system.model.ForeignCustomer;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
