@@ -15,6 +15,7 @@ public class MainController {
 
     String url;
     String ip;
+    public static int default_page_size = 5;
 
     @RequestMapping("/")
     public String welcome(HttpServletRequest request) {

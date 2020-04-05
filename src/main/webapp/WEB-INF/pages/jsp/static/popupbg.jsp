@@ -18,7 +18,7 @@
         <a id="/admin/apartment/" href="${pageContext.request.contextPath}/admin/apartment/">Апартаменты</a>
         <a id="/admin/apartment/price/" href="${pageContext.request.contextPath}/admin/apartment/price/list/">Цены</a>
         <a id="/admin/reservation" href="${pageContext.request.contextPath}/admin/reservation">Система онлайн бронирования</a>
-        <a id="/admin/client" href="${pageContext.request.contextPath}/admin/client">Клиенты</a>
+        <a id="/admin/client" href="${pageContext.request.contextPath}/admin/customer">Клиенты</a>
         <a id="/admin/residence" href="${pageContext.request.contextPath}/admin/residence">Заселение</a>
         <a id="/admin/config" href="${pageContext.request.contextPath}/admin/config">Конфигурация главного меню</a>
         <span>Отчетность</span>

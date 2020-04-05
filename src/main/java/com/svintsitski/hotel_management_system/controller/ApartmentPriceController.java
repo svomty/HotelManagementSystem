@@ -35,7 +35,7 @@ public class ApartmentPriceController {
         int current_page = page.orElse(1);
         String sorting = sort.orElse("id");
         int start_page = (current_page - 2) < 0 ? 0 : current_page - 2;
-        int default_page_size = 5;
+        int default_page_size = MainController.default_page_size;
         int page_size = size.orElse(default_page_size);
         page_size = (page_size < 1) ? default_page_size : page_size;
         int start = 1 + (current_page - 1) * page_size;

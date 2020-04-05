@@ -63,8 +63,12 @@ public class Customer {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name.trim().substring(0, 19);
+    public void setName(String name) throws Exception {
+        if (name != null){
+            this.name = name.trim();
+        } else {
+            throw new Exception("Имя не указано!");
+        }
     }
 
     public String getPatronymic() {
@@ -107,7 +111,7 @@ public class Customer {
         if (identification_number != null){
             this.identification_number = identification_number.trim();
         } else {
-            throw new Exception("Идентификационный номер паспорта не указан!");
+            this.identification_number = "отсутствует";
         }
     }
 
@@ -162,8 +166,7 @@ public class Customer {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, surname, name, patronymic, birth_date, passport_serial_number, identification_number,
-                date_issue_passport, issuing_authority, registration_address);
+        return Objects.hash(id, surname, name, patronymic, birth_date, passport_serial_number, identification_number, date_issue_passport, issuing_authority, registration_address);
     }
 
     @Override

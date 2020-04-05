@@ -31,7 +31,7 @@
                             <li><a href="${pageContext.request.contextPath}/admin/apartment/price/list/"
                                    class="submenu__item btn">Цены</a></li>
                             <li><a href="${pageContext.request.contextPath}/admin/reservation" class="submenu__item btn">Система онлайн бронирования</a></li>
-                            <li><a href="${pageContext.request.contextPath}/admin/client" class="submenu__item btn">Клиенты</a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin/customer" class="submenu__item btn">Клиенты</a></li>
                             <li><a href="${pageContext.request.contextPath}/admin/residence" class="submenu__item btn">Заселение</a></li>
                             <li><a href="${pageContext.request.contextPath}/admin/report" class="submenu__item btn">Отчетность</a></li>
                             <li><a href="${pageContext.request.contextPath}/admin/config" class="submenu__item btn">Конфигурация главного меню</a></li>
