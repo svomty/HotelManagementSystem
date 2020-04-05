@@ -30,5 +30,4 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
         customerDao.delete(id);
     }
 
-    }
 }
