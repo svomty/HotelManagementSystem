@@ -20,7 +20,7 @@
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <script src="${pageContext.request.contextPath}/js/btn-active.js"></script>
     <c:set var="urlBase"
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
     <c:url var="urlReturn" value="/admin/customer/"/>
@@ -29,7 +29,6 @@
     <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
     <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
     <c:set var="createURL" value="${createURL}" scope="request"/>
-
 </head>
 <body>
 
@@ -83,7 +82,8 @@
                                 <form:form modelAttribute="checker" method="post" action="${createURL}"
                                            cssClass="form">
                                     <div class="custom-control custom-checkbox">
-                                        <form:checkbox path="check" class="custom-control-input" id="check"/>
+                                        <form:checkbox path="check" class="custom-control-input" id="check"
+                                                       onchange="foreign_active()"/>
                                         <label class="custom-control-label" for="check">Иностранец</label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">
@@ -136,5 +136,9 @@
     </main>
 </div>
 <jsp:include page="static/footer.jsp"/>
+<script>
+    popup_active("${pageContext.request.contextPath}/admin/customer/");
+    foreign_active();
+</script>
 </body>
 </html>

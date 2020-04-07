@@ -29,3 +29,13 @@ function popup_active(id) {
         }
     }
 }
+
+function foreign_active() {
+    let checkWrapper = document.querySelector('#check');
+    let foreignWrapper = document.querySelector('.foreign');
+        if (!checkWrapper.checked){
+            foreignWrapper.classList.add('display-none');
+        } else {
+            foreignWrapper.classList.remove('display-none');
+        }
+}

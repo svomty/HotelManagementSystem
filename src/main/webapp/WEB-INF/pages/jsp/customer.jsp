@@ -24,7 +24,7 @@
     <title>Клиенты</title>
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
-
+    <script src="${pageContext.request.contextPath}/js/btn-active.js"></script>
     <c:set var="urlBase"
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
     <c:url var="urlReturn" value="/admin/customer/"/>
