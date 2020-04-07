@@ -120,7 +120,7 @@ public class CustomerController {
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("customer") Customer customer, @ModelAttribute("foreignCustomer")
             Optional<ForeignCustomer> foreignCustomer, @ModelAttribute("checker")
-            Optional<Boolean> checker, BindingResult bindingResult, HttpServletRequest request) {
+                                     Optional<Boolean> checker, BindingResult bindingResult, HttpServletRequest request) {
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add/";
         ip = request.getRemoteAddr();
         if (customerService.findById(customer.getId()) != null) {
@@ -131,7 +131,7 @@ public class CustomerController {
             LOGGER.info("[" + ip + "] requested " + url + ". Customer " + customer.getSurname() + " " +
                     customer.getName() + " was created");
         }
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             LOGGER.error("huynya");
         }
 

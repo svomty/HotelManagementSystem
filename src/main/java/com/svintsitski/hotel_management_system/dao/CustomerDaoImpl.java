@@ -1,7 +1,5 @@
 package com.svintsitski.hotel_management_system.dao;
 
-import com.svintsitski.hotel_management_system.model.Apartment;
-import com.svintsitski.hotel_management_system.model.ApartmentType;
 import com.svintsitski.hotel_management_system.model.Customer;
 import com.svintsitski.hotel_management_system.model.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ public class CustomerDaoImpl implements CustomerDao {
     public ResultQuery findAll(int start, int total, String sort) throws Exception {
         String sql = "SELECT * FROM customers " +
                 "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start-1) + "," + total + ";";
+                " LIMIT " + (start - 1) + "," + total + ";";
 
         List<Customer> customerList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Customer.class));

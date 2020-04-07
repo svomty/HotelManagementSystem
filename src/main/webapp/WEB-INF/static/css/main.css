@@ -547,6 +547,7 @@ main {
     grid-auto-rows: 2em;
     grid-gap: 0.5em;
 }
+
 .flex50 {
     width: 100%;
     display: grid;
@@ -555,21 +556,23 @@ main {
 
     grid-column-gap: 10px;
 }
-.column {
-     display: grid;
-     grid-template-columns: 1fr 1fr;
-     grid-auto-rows: 2em;
-     grid-row-gap: 20px;
- }
 
-.foreign{
+.column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 2em;
+    grid-row-gap: 20px;
+}
+
+.foreign {
     grid-column-start: 1;
     grid-column-end: 3;
 }
 
-.display-none{
+.display-none {
     display: none;
 }
+
 @media screen and (max-width: 1550px) {
     .popupbg {
         display: none;

@@ -1,16 +1,13 @@
 package com.svintsitski.hotel_management_system.service;
 
-import com.svintsitski.hotel_management_system.dao.ApartmentTypeDaoImpl;
 import com.svintsitski.hotel_management_system.dao.CustomerDaoImpl;
-import com.svintsitski.hotel_management_system.dao.ForeignCustomerDaoImpl;
-import com.svintsitski.hotel_management_system.model.ApartmentType;
 import com.svintsitski.hotel_management_system.model.Customer;
 import com.svintsitski.hotel_management_system.model.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerDaoImpl customerDao;

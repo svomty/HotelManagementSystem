@@ -8,7 +8,9 @@ import java.util.Objects;
 
 @Entity
 public class Customer {
-    private @Id @GeneratedValue int id;
+    private @Id
+    @GeneratedValue
+    int id;
     private String surname;
     private String name;
     private String patronymic;
@@ -42,7 +44,7 @@ public class Customer {
     }
 
     public void setId(int id) {
-        if (id > 0){
+        if (id > 0) {
             this.id = id;
         }
     }
@@ -52,7 +54,7 @@ public class Customer {
     }
 
     public void setSurname(String surname) throws Exception {
-        if (surname != null){
+        if (surname != null) {
             this.surname = surname.trim();
         } else {
             throw new Exception("Фамилия не указана!");
@@ -64,7 +66,7 @@ public class Customer {
     }
 
     public void setName(String name) throws Exception {
-        if (name != null){
+        if (name != null) {
             this.name = name.trim();
         } else {
             throw new Exception("Имя не указано!");
@@ -76,7 +78,7 @@ public class Customer {
     }
 
     public void setPatronymic(String patronymic) {
-        if (patronymic != null){
+        if (patronymic != null) {
             this.patronymic = patronymic.trim();
         } else {
             this.patronymic = "отсутствует";
@@ -96,7 +98,7 @@ public class Customer {
     }
 
     public void setPassport_serial_number(String passport_serial_number) throws Exception {
-        if (passport_serial_number != null){
+        if (passport_serial_number != null) {
             this.passport_serial_number = passport_serial_number.trim();
         } else {
             throw new Exception("Серийный номер паспорта не указан!");
@@ -108,7 +110,7 @@ public class Customer {
     }
 
     public void setIdentification_number(String identification_number) throws Exception {
-        if (identification_number != null){
+        if (identification_number != null) {
             this.identification_number = identification_number.trim();
         } else {
             this.identification_number = "отсутствует";
@@ -128,7 +130,7 @@ public class Customer {
     }
 
     public void setIssuing_authority(String issuing_authority) {
-        if (issuing_authority != null){
+        if (issuing_authority != null) {
             this.issuing_authority = issuing_authority.trim();
         } else {
             this.issuing_authority = "не указан";
@@ -140,7 +142,7 @@ public class Customer {
     }
 
     public void setRegistration_address(String registration_address) {
-        if (registration_address != null){
+        if (registration_address != null) {
             this.registration_address = registration_address.trim();
         } else {
             this.registration_address = "не указан";

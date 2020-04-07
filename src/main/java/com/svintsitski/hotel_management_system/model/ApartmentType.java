@@ -7,7 +7,9 @@ import java.util.Objects;
 
 @Entity
 public class ApartmentType {
-    private @Id @GeneratedValue int id;
+    private @Id
+    @GeneratedValue
+    int id;
     private float price;
     private byte rooms_number;
     private byte places_number;
@@ -68,10 +70,10 @@ public class ApartmentType {
     }
 
     public void setType(String type) {
-        if (type != null){
+        if (type != null) {
             this.type = type.trim();
         }
-        if (this.type == null ||  this.type.equals("")) {
+        if (this.type == null || this.type.equals("")) {
             this.type = "простой";
         }
     }
@@ -81,10 +83,10 @@ public class ApartmentType {
     }
 
     public void setDescription(String description) {
-        if (description != null){
+        if (description != null) {
             this.description = description.trim();
         }
-        if (this.description == null ||  this.description.equals("")) {
+        if (this.description == null || this.description.equals("")) {
             this.description = "описание отсутсвует";
         }
     }

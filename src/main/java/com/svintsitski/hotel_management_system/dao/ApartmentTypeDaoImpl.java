@@ -21,10 +21,10 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public ResultQuery findAll (int start, int total, String sort) {
+    public ResultQuery findAll(int start, int total, String sort) {
         String sql = "SELECT * FROM apartment_type " +
                 "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start-1) + "," + total + ";";
+                " LIMIT " + (start - 1) + "," + total + ";";
         List<ApartmentType> apartmentTypeList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ApartmentType.class));
 

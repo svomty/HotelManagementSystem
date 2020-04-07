@@ -53,7 +53,8 @@
                                 Номер апартамента</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="description" href="${pageContext.request.contextPath}?page=1&sort=description&size=${size}">Описание</a>
+                            <a id="description"
+                               href="${pageContext.request.contextPath}?page=1&sort=description&size=${size}">Описание</a>
                         </div>
                         <div class="divTableCell">
                             Стоимость места

@@ -2,7 +2,7 @@ function btnActive(sort) {
     let divTableHeadingWrapper = document.querySelector('.divTableHeading');
     let aWrapper = divTableHeadingWrapper.querySelectorAll("a");
     for (let i = 0; i < aWrapper.length; ++i) {
-        if (aWrapper[i].id === sort){
+        if (aWrapper[i].id === sort) {
             aWrapper[i].classList.add('btn-active');
         } else {
             aWrapper[i].classList.add('btn');
@@ -24,7 +24,7 @@ function popup_active(id) {
     let popupBgWrapper = document.querySelector('.answer-popup');
     let aWrapper = popupBgWrapper.querySelectorAll("a");
     for (let i = 0; i < aWrapper.length; ++i) {
-        if (aWrapper[i].id === id){
+        if (aWrapper[i].id === id) {
             aWrapper[i].classList.add('answer-popup__active');
         }
     }
@@ -33,9 +33,9 @@ function popup_active(id) {
 function foreign_active() {
     let checkWrapper = document.querySelector('#check');
     let foreignWrapper = document.querySelector('.foreign');
-        if (!checkWrapper.checked){
-            foreignWrapper.classList.add('display-none');
-        } else {
-            foreignWrapper.classList.remove('display-none');
-        }
+    if (!checkWrapper.checked) {
+        foreignWrapper.classList.add('display-none');
+    } else {
+        foreignWrapper.classList.remove('display-none');
+    }
 }

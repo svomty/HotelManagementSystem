@@ -1,6 +1,5 @@
 package com.svintsitski.hotel_management_system.config;
 
-import com.svintsitski.hotel_management_system.config.AppSecurityConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -7,7 +7,9 @@ import java.util.Objects;
 
 @Entity
 public class Apartment {
-    private @Id @GeneratedValue int id;
+    private @Id
+    @GeneratedValue
+    int id;
     private byte number;
     private int type_id;
     private String description;
@@ -20,6 +22,7 @@ public class Apartment {
         this.type_id = type_id;
         this.description = description;
     }
+
     public int getId() {
         return id;
     }
@@ -49,7 +52,7 @@ public class Apartment {
     }
 
     public void setDescription(String description) {
-        if (description != null){
+        if (description != null) {
             this.description = description.trim();
         } else {
             this.description = "описание отсутсвует";

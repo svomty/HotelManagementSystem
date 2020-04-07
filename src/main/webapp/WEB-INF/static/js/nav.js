@@ -13,9 +13,9 @@ function openMenu() {
 function openSubMenu() {
     var subMenuWrapper = document.querySelector('.submenu');
     var className = 'active__submenu';
-    if (subMenuWrapper.className.indexOf(className ) === -1) {
-        subMenuWrapper.classList.add(className );
+    if (subMenuWrapper.className.indexOf(className) === -1) {
+        subMenuWrapper.classList.add(className);
     } else {
-        subMenuWrapper.classList.remove(className );
+        subMenuWrapper.classList.remove(className);
     }
 }

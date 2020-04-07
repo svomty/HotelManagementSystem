@@ -2,7 +2,9 @@ package com.svintsitski.hotel_management_system.service;
 
 import com.svintsitski.hotel_management_system.dao.CustomerDaoImpl;
 import com.svintsitski.hotel_management_system.dao.ForeignCustomerDaoImpl;
-import com.svintsitski.hotel_management_system.model.*;
+import com.svintsitski.hotel_management_system.model.Customer;
+import com.svintsitski.hotel_management_system.model.ForeignCustomer;
+import com.svintsitski.hotel_management_system.model.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
         List<Customer> customerList = customerDao.findAll(start, total, sort).getList();
         List<ForeignCustomer> customerForeignList = new ArrayList<>();
         customerList.forEach(x -> customerForeignList.add(foreignCustomerDao.findById(x.getId())));
-        return new ResultQuery(customerDao.findAll(start,total,sort).getCount(),
+        return new ResultQuery(customerDao.findAll(start, total, sort).getCount(),
                 Arrays.asList(customerList, customerForeignList));
     }
 

@@ -1,8 +1,6 @@
 package com.svintsitski.hotel_management_system.dao;
 
-import com.svintsitski.hotel_management_system.model.Customer;
 import com.svintsitski.hotel_management_system.model.ForeignCustomer;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
 
 import java.util.List;
 

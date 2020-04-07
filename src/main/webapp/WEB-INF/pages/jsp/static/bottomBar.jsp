@@ -70,7 +70,8 @@
     <div class="right">
         <span>стр. №</span>
         <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
-        <button type="button" class="btn-blue" onclick=goToPage("${pageContext.request.contextPath}?sort=${sort}&size=${size}")>
+        <button type="button" class="btn-blue"
+                onclick=goToPage("${pageContext.request.contextPath}?sort=${sort}&size=${size}")>
             Перейти
         </button>
     </div>

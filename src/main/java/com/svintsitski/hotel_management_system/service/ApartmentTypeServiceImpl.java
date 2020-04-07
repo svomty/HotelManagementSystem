@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ApartmentTypeServiceImpl implements ApartmentTypeService  {
+public class ApartmentTypeServiceImpl implements ApartmentTypeService {
 
     @Autowired
     private ApartmentTypeDaoImpl apartmentDao;

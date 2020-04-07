@@ -7,7 +7,6 @@ import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +43,7 @@ public class ApartmentPriceController {
         int full_elem_count = result.getCount();
         List<ApartmentType> list = result.getList();
 
-        int total_page = (int) Math.ceil((float)full_elem_count/(float)page_size);
+        int total_page = (int) Math.ceil((float) full_elem_count / (float) page_size);
         total_page = Math.max(total_page, 1);
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/list/";

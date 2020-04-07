@@ -78,56 +78,57 @@
                             <form:input path="registration_address" cssClass="form-control"
                                         id="registration_address"/>
                         </div>
-                            <div class="column">
-                                <form:form modelAttribute="checker" method="post" action="${createURL}"
-                                           cssClass="form">
-                                    <div class="custom-control custom-checkbox">
-                                        <form:checkbox path="check" class="custom-control-input" id="check"
-                                                       onchange="foreign_active()"/>
-                                        <label class="custom-control-label" for="check">Иностранец</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        Сохранить</button>
+                        <div class="column">
+                            <form:form modelAttribute="checker" method="post" action="${createURL}"
+                                       cssClass="form">
+                                <div class="custom-control custom-checkbox">
+                                    <form:checkbox path="check" class="custom-control-input" id="check"
+                                                   onchange="foreign_active()"/>
+                                    <label class="custom-control-label" for="check">Иностранец</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Сохранить
+                                </button>
 
-                                    <div class="foreign column">
-                                        <form:form modelAttribute="foreignCustomer" method="post" action="${createURL}"
-                                                   cssClass="form">
-                                            <lable for="customer_id">customer_id</lable>
-                                            <form:input path="customer_id" cssClass="form-control" id="customer_id"/>
+                                <div class="foreign column">
+                                    <form:form modelAttribute="foreignCustomer" method="post" action="${createURL}"
+                                               cssClass="form">
+                                        <lable for="customer_id">customer_id</lable>
+                                        <form:input path="customer_id" cssClass="form-control" id="customer_id"/>
 
-                                            <lable for="date_entry_to_Belarus">Дата приезда в РБ</lable>
-                                            <form:input path="date_entry_to_Belarus" cssClass="form-control"
-                                                        id="date_entry_to_Belarus"/>
+                                        <lable for="date_entry_to_Belarus">Дата приезда в РБ</lable>
+                                        <form:input path="date_entry_to_Belarus" cssClass="form-control"
+                                                    id="date_entry_to_Belarus"/>
 
-                                            <lable for="insurance_policy_number">Номер страхового полиса</lable>
-                                            <form:input path="insurance_policy_number" cssClass="form-control"
-                                                        id="insurance_policy_number"/>
+                                        <lable for="insurance_policy_number">Номер страхового полиса</lable>
+                                        <form:input path="insurance_policy_number" cssClass="form-control"
+                                                    id="insurance_policy_number"/>
 
-                                            <lable for="visa_number">Номер визы</lable>
-                                            <form:input path="visa_number" cssClass="form-control" id="visa_number"/>
+                                        <lable for="visa_number">Номер визы</lable>
+                                        <form:input path="visa_number" cssClass="form-control" id="visa_number"/>
 
-                                            <lable for="passport_validity_date">Срок действия паспорта</lable>
-                                            <form:input path="passport_validity_date" cssClass="form-control"
-                                                        id="passport_validity_date"/>
+                                        <lable for="passport_validity_date">Срок действия паспорта</lable>
+                                        <form:input path="passport_validity_date" cssClass="form-control"
+                                                    id="passport_validity_date"/>
 
-                                            <lable for="citizenship">Гражданство</lable>
-                                            <form:input path="citizenship" cssClass="form-control" id="citizenship"/>
+                                        <lable for="citizenship">Гражданство</lable>
+                                        <form:input path="citizenship" cssClass="form-control" id="citizenship"/>
 
-                                            <lable for="insurance_policy_issue_date">Дата выдачи страхового полиса
-                                            </lable>
-                                            <form:input path="insurance_policy_issue_date" cssClass="form-control"
-                                                        id="insurance_policy_issue_date"/>
+                                        <lable for="insurance_policy_issue_date">Дата выдачи страхового полиса
+                                        </lable>
+                                        <form:input path="insurance_policy_issue_date" cssClass="form-control"
+                                                    id="insurance_policy_issue_date"/>
 
-                                            <lable for="insurance_policy_validity">Срок действия страхового полиса
-                                            </lable>
-                                            <form:input path="insurance_policy_validity" cssClass="form-control"
-                                                        id="insurance_policy_validity"/>
+                                        <lable for="insurance_policy_validity">Срок действия страхового полиса
+                                        </lable>
+                                        <form:input path="insurance_policy_validity" cssClass="form-control"
+                                                    id="insurance_policy_validity"/>
 
-                                        </form:form>
-                                    </div>
+                                    </form:form>
+                                </div>
 
-                                </form:form>
-                            </div>
+                            </form:form>
+                        </div>
                     </div>
 
                 </form:form>
@@ -137,7 +138,7 @@
 </div>
 <jsp:include page="static/footer.jsp"/>
 <script>
-    popup_active("${pageContext.request.contextPath}/admin/customer/");
+    popup_active("${pageContext.request.contextPath}/admin/customer");
     foreign_active();
 </script>
 </body>

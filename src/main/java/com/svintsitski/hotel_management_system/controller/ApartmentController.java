@@ -46,7 +46,7 @@ public class ApartmentController {
         int full_elem_count = result.getCount();
         List resultQueryList = result.getList();
 
-        int total_page = (int) Math.ceil((float)full_elem_count/(float)page_size);
+        int total_page = (int) Math.ceil((float) full_elem_count / (float) page_size);
         total_page = Math.max(total_page, 1);
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/list/";

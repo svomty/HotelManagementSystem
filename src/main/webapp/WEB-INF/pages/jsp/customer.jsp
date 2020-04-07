@@ -107,8 +107,8 @@
                             <div class="divTableCell">
                                 <input type='checkbox' name='option1'
                                        value='a1'
-                                <c:out default="None" escapeXml="true"
-                                       value="${foreign_customer_list[loop.index].customer_id != 0 ? 'checked ' : ' '}"/>
+                                    <c:out default="None" escapeXml="true"
+                                           value="${foreign_customer_list[loop.index].customer_id != 0 ? 'checked ' : ' '}"/>
                                        readonly disabled>
                             </div>
                             <div class="divTableCell">
@@ -135,6 +135,6 @@
 </body>
 <script>
     btnActive("${sort}");
-    popup_active("${pageContext.request.contextPath}/admin/customer/");
+    popup_active("${pageContext.request.contextPath}/admin/customer");
 </script>
 </html>

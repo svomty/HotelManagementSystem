@@ -52,7 +52,7 @@ public class ForeignCustomer {
     }
 
     public void setInsurance_policy_number(String insurance_policy_number) {
-        if (insurance_policy_number != null){
+        if (insurance_policy_number != null) {
             this.insurance_policy_number = insurance_policy_number.trim();
         } else {
             this.insurance_policy_number = "не указан";
@@ -64,7 +64,7 @@ public class ForeignCustomer {
     }
 
     public void setVisa_number(String visa_number) {
-        if (visa_number != null){
+        if (visa_number != null) {
             this.visa_number = visa_number.trim();
         } else {
             this.visa_number = "не указан";
@@ -100,7 +100,7 @@ public class ForeignCustomer {
     }
 
     public void setCitizenship(String citizenship) {
-        if (citizenship != null){
+        if (citizenship != null) {
             this.citizenship = citizenship.trim();
         } else {
             this.citizenship = "не указано";

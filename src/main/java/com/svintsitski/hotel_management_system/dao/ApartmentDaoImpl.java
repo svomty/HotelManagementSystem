@@ -1,7 +1,6 @@
 package com.svintsitski.hotel_management_system.dao;
 
 import com.svintsitski.hotel_management_system.model.Apartment;
-import com.svintsitski.hotel_management_system.model.ApartmentType;
 import com.svintsitski.hotel_management_system.model.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -9,7 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 @Transactional
 @Repository
@@ -23,7 +23,7 @@ public class ApartmentDaoImpl implements ApartmentDao {
     public ResultQuery findAll(int start, int total, String sort) {
         String sql = "SELECT * FROM apartments " +
                 "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start-1) + "," + total + ";";
+                " LIMIT " + (start - 1) + "," + total + ";";
 
         List<Apartment> apartmentList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Apartment.class));
