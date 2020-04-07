@@ -1,9 +1,10 @@
 package com.svintsitski.hotel_management_system.controller;
 
 import com.svintsitski.hotel_management_system.ServingWebContentApplication;
-import com.svintsitski.hotel_management_system.model.*;
-import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
-import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
+import com.svintsitski.hotel_management_system.model.Checker;
+import com.svintsitski.hotel_management_system.model.Customer;
+import com.svintsitski.hotel_management_system.model.ForeignCustomer;
+import com.svintsitski.hotel_management_system.model.ResultQuery;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
 import com.svintsitski.hotel_management_system.service.ForeignCustomerServiceImpl;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -77,6 +79,7 @@ public class CustomerController {
         ModelAndView model = new ModelAndView();
         Customer customer = customerService.findById(id);
         ForeignCustomer foreignCustomer = foreignCustomerService.findById(id);
+        Checker checker = new Checker(foreignCustomer.getCustomer_id() != 0);
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/update/" + id;
         ip = request.getRemoteAddr();
@@ -84,6 +87,7 @@ public class CustomerController {
         LOGGER.info("[" + ip + "] requested " + url + ". Customer №" + customer.getId() + " will be updated");
 
         model.addObject("customer", customer);
+        model.addObject("checker", checker);
         model.addObject("foreignCustomer", foreignCustomer);
         model.setViewName("customer_add");
         return model;
@@ -95,6 +99,7 @@ public class CustomerController {
 
         Customer customer = new Customer();
         ForeignCustomer foreignCustomer = new ForeignCustomer();
+        Checker checker = new Checker();
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add/";
         ip = request.getRemoteAddr();
@@ -102,14 +107,20 @@ public class CustomerController {
         LOGGER.info("[" + ip + "] requested " + url + ". Customer will be added");
 
         model.addObject("customer", customer);
+        model.addObject("checker", checker);
         model.addObject("foreignCustomer", foreignCustomer);
         model.setViewName("customer_add");
         return model;
     }
 
+    /*
+   foreignCustomer не используется
+     */
+
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("customer") Customer customer, @ModelAttribute("foreignCustomer")
-            ForeignCustomer foreignCustomer, HttpServletRequest request) {
+            Optional<ForeignCustomer> foreignCustomer, @ModelAttribute("checker")
+            Optional<Boolean> checker, BindingResult bindingResult, HttpServletRequest request) {
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add/";
         ip = request.getRemoteAddr();
         if (customerService.findById(customer.getId()) != null) {
@@ -120,19 +131,27 @@ public class CustomerController {
             LOGGER.info("[" + ip + "] requested " + url + ". Customer " + customer.getSurname() + " " +
                     customer.getName() + " was created");
         }
+        if(bindingResult.hasErrors()) {
+            LOGGER.error("huynya");
+        }
 
         /*
         здесь должно быть какое то условие, определяющее стоит ли записывать клиента как иностранца или нет
 
         как-то удалить клеймо иностранец, если оно убрано
         * */
-
-        if (foreignCustomerService.findById(foreignCustomer.getCustomer_id()) != null) {
-            foreignCustomerService.update(foreignCustomer);
-        } else {
-            foreignCustomerService.add(foreignCustomer);
+        /*
+        if (foreignCustomer.isPresent()) {
+            ForeignCustomer customer1 = foreignCustomer.get();
+            if (customer1.getCitizenship() != null) {
+                if (foreignCustomerService.findById(customer1.getCustomer_id()) != null) {
+                    foreignCustomerService.update(customer1);
+                } else {
+                    foreignCustomerService.add(customer1);
+                }
+            }
         }
-
+*/
         return new ModelAndView("redirect:/admin/customer/");
     }
 

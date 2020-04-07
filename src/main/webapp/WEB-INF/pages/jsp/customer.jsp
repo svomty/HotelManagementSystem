@@ -83,16 +83,6 @@
                                 Идентификационный номер</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="date_issue_passport"
-                               href="${pageContext.request.contextPath}?page=1&sort=date_issue_passport&size=${size}">
-                                Дата выдачи паспорта</a>
-                        </div>
-                        <div class="divTableCell">
-                            <a id="issuing_authority"
-                               href="${pageContext.request.contextPath}?page=1&sort=issuing_authority&size=${size}">
-                                Кем выдан</a>
-                        </div>
-                        <div class="divTableCell">
                             <a id="registration_address"
                                href="${pageContext.request.contextPath}?page=1&sort=registration_address&size=${size}">
                                 Регистрационный адрес</a>
@@ -113,12 +103,13 @@
                             <div class="divTableCell">${customer.birth_date }</div>
                             <div class="divTableCell">${customer.passport_serial_number }</div>
                             <div class="divTableCell">${customer.identification_number}</div>
-                            <div class="divTableCell">${customer.date_issue_passport }</div>
-                            <div class="divTableCell">${customer.issuing_authority }</div>
                             <div class="divTableCell">${customer.registration_address }</div>
                             <div class="divTableCell">
-                                <c:out default="None" escapeXml="true" value="${not empty
-                            foreign_customer_list[loop.index].customer_id ? 'Да' : 'Нет'}"/>
+                                <input type='checkbox' name='option1'
+                                       value='a1'
+                                <c:out default="None" escapeXml="true"
+                                       value="${foreign_customer_list[loop.index].customer_id != 0 ? 'checked ' : ' '}"/>
+                                       readonly disabled>
                             </div>
                             <div class="divTableCell">
                                 <spring:url
