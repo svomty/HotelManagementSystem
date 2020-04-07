@@ -21,11 +21,19 @@ public class ForeignCustomerDaoImpl implements ForeignCustomerDao {
     }
 
     @Override
-    public ForeignCustomer findById(int id) {
-        String sql = "SELECT * FROM foreign_customers WHERE id=" + id + ";";
+    public List<ForeignCustomer> findAll(int start, int total, String sort) {
+        String sql = "SELECT * FROM foreign_customers;";
         List<ForeignCustomer> customerList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ForeignCustomer.class));
-        ForeignCustomer customer = customerList.stream().findFirst().orElse(null);
+        return customerList;
+    }
+
+    @Override
+    public ForeignCustomer findById(int id) {
+        String sql = "SELECT * FROM foreign_customers WHERE customer_id=" + id + ";";
+        List<ForeignCustomer> customerList = jdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(ForeignCustomer.class));
+        ForeignCustomer customer = customerList.stream().findFirst().orElse(new ForeignCustomer());
         return customer;
     }
 
@@ -52,7 +60,7 @@ public class ForeignCustomerDaoImpl implements ForeignCustomerDao {
 
     @Override
     public void update(ForeignCustomer customer) {
-        String sql = "UPDATE `hotel`.`foreign_customers` SET `date_entry_to_Belarus` = ?," +
+        String sql = "UPDATE `hotel`.`foreign_customers` SET" +
                 " `date_entry_to_Belarus` = ?," +
                 " `insurance_policy_number` = ?," +
                 "`visa_number` = ?," +

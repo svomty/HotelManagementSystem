@@ -57,7 +57,7 @@
                         </div>
                         <div class="divTableCell">
                             <a id="surname" href="${pageContext.request.contextPath}?page=1&sort=surname&size=${size}">
-                               Фамилия</a>
+                                Фамилия</a>
                         </div>
                         <div class="divTableCell">
                             <a id="name"
@@ -69,7 +69,8 @@
                         </div>
                         <div class="divTableCell">
                             <a id="birth_date"
-                               href="${pageContext.request.contextPath}?page=1&sort=birth_date&size=${size}">Дата рождения</a>
+                               href="${pageContext.request.contextPath}?page=1&sort=birth_date&size=${size}">Дата
+                                рождения</a>
                         </div>
                         <div class="divTableCell">
                             <a id="passport_serial_number"
@@ -96,10 +97,13 @@
                                href="${pageContext.request.contextPath}?page=1&sort=registration_address&size=${size}">
                                 Регистрационный адрес</a>
                         </div>
+                        <div class="divTableCell">
+                            Иностранец
+                        </div>
                         <div class="divTableCell">Опции</div>
                     </div>
                 </div>
-                <c:forEach items="${customer_list}" var="customer">
+                <c:forEach items="${customer_list}" var="customer" varStatus="loop">
                     <div class="divTableBody">
                         <div class="divTableRow">
                             <div class="divTableCell">${customer.id}</div>
@@ -112,6 +116,10 @@
                             <div class="divTableCell">${customer.date_issue_passport }</div>
                             <div class="divTableCell">${customer.issuing_authority }</div>
                             <div class="divTableCell">${customer.registration_address }</div>
+                            <div class="divTableCell">
+                                <c:out default="None" escapeXml="true" value="${not empty
+                            foreign_customer_list[loop.index].customer_id ? 'Да' : 'Нет'}"/>
+                            </div>
                             <div class="divTableCell">
                                 <spring:url
                                         value="${urlBase}${urlReturn}update/${customer.id }" var="updateURL"/>

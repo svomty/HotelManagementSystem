@@ -1,13 +1,11 @@
 package com.svintsitski.hotel_management_system.controller;
 
 import com.svintsitski.hotel_management_system.ServingWebContentApplication;
-import com.svintsitski.hotel_management_system.model.Apartment;
-import com.svintsitski.hotel_management_system.model.ApartmentType;
-import com.svintsitski.hotel_management_system.model.Customer;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.*;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
+import com.svintsitski.hotel_management_system.service.ForeignCustomerServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +24,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerServiceImpl customerService;
+    @Autowired
+    private ForeignCustomerServiceImpl foreignCustomerService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(com.svintsitski.hotel_management_system.controller
             .CustomerController.class);
@@ -45,9 +45,11 @@ public class CustomerController {
         page_size = (page_size < 1) ? default_page_size : page_size;
         int start = 1 + (current_page - 1) * page_size;
 
-        ResultQuery result = customerService.findAll(start, page_size, sorting);
+        ResultQuery result = foreignCustomerService.findAll(start, page_size, sorting);
         int full_elem_count = result.getCount();
-        List resultQueryList = result.getList();
+
+        List<Customer> customerList = (List<Customer>) result.getList().get(0);
+        List<ForeignCustomer> foreignCustomerList = (List<ForeignCustomer>) result.getList().get(1);
 
         int total_page = (int) Math.ceil((float) full_elem_count / (float) page_size);
         total_page = Math.max(total_page, 1);
@@ -58,7 +60,8 @@ public class CustomerController {
 
         LOGGER.info("[" + ip + "] requested " + url);
 
-        model.addAttribute("customer_list", resultQueryList);
+        model.addAttribute("customer_list", customerList);
+        model.addAttribute("foreign_customer_list", foreignCustomerList);
         model.addAttribute("createURL", createURL);
         model.addAttribute("current_page", current_page);
         model.addAttribute("total_page", total_page);
@@ -73,7 +76,7 @@ public class CustomerController {
     public ModelAndView edit(@PathVariable int id, HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         Customer customer = customerService.findById(id);
-        List<Customer> customerList = customerService.findAll(1, 1000, "id").getList();
+        ForeignCustomer foreignCustomer = foreignCustomerService.findById(id);
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/update/" + id;
         ip = request.getRemoteAddr();
@@ -81,6 +84,7 @@ public class CustomerController {
         LOGGER.info("[" + ip + "] requested " + url + ". Customer №" + customer.getId() + " will be updated");
 
         model.addObject("customer", customer);
+        model.addObject("foreignCustomer", foreignCustomer);
         model.setViewName("customer_add");
         return model;
     }
@@ -88,7 +92,9 @@ public class CustomerController {
     @GetMapping(value = {"/add/", "/add"})
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+
         Customer customer = new Customer();
+        ForeignCustomer foreignCustomer = new ForeignCustomer();
 
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add/";
         ip = request.getRemoteAddr();
@@ -96,12 +102,14 @@ public class CustomerController {
         LOGGER.info("[" + ip + "] requested " + url + ". Customer will be added");
 
         model.addObject("customer", customer);
+        model.addObject("foreignCustomer", foreignCustomer);
         model.setViewName("customer_add");
         return model;
     }
 
     @PostMapping(value = {"/add/", "/add"})
-    public ModelAndView save(@ModelAttribute("customer") Customer customer, HttpServletRequest request) {
+    public ModelAndView save(@ModelAttribute("customer") Customer customer, @ModelAttribute("foreignCustomer")
+            ForeignCustomer foreignCustomer, HttpServletRequest request) {
         url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add/";
         ip = request.getRemoteAddr();
         if (customerService.findById(customer.getId()) != null) {
@@ -112,6 +120,19 @@ public class CustomerController {
             LOGGER.info("[" + ip + "] requested " + url + ". Customer " + customer.getSurname() + " " +
                     customer.getName() + " was created");
         }
+
+        /*
+        здесь должно быть какое то условие, определяющее стоит ли записывать клиента как иностранца или нет
+
+        как-то удалить клеймо иностранец, если оно убрано
+        * */
+
+        if (foreignCustomerService.findById(foreignCustomer.getCustomer_id()) != null) {
+            foreignCustomerService.update(foreignCustomer);
+        } else {
+            foreignCustomerService.add(foreignCustomer);
+        }
+
         return new ModelAndView("redirect:/admin/customer/");
     }
 
@@ -121,6 +142,7 @@ public class CustomerController {
         ip = request.getRemoteAddr();
 
         customerService.delete(id);
+        foreignCustomerService.delete(id);
 
         LOGGER.info("[" + ip + "] requested " + url + ". Customer №" + id + " was deleted");
         return new ModelAndView("redirect:/admin/customer/");
