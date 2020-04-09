@@ -1,6 +1,5 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.ServingWebContentApplication;
 import com.svintsitski.hotel_management_system.model.*;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
@@ -25,7 +24,7 @@ public class ApartmentController {
     private ApartmentTypeServiceImpl apartmentTypeService;
 
     String relativeURL = "admin/apartment/";
-    String redirectURL = "redirect:/"+relativeURL;
+    String redirectURL = "redirect:/" + relativeURL;
 
     @GetMapping(value = {"/list/", "/list", "/"})
     public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
@@ -39,7 +38,7 @@ public class ApartmentController {
         List resultQueryList = result.getList();
         int total_page = pagination.getTotalPage(full_elem_count);
 
-        URL.IPInfo(relativeURL+"list/", request.getRemoteAddr(), "GET");
+        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), "GET");
         String createURL = URL.generateURL("admin/apartment/add");
 
         model.addAttribute("apartment_list", resultQueryList.get(0));
@@ -60,7 +59,7 @@ public class ApartmentController {
         Apartment apartment = apartmentService.findById(id);
         List<ApartmentType> apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
 
-        URL.IPInfo(relativeURL+"update/", request.getRemoteAddr(), "GET");
+        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), "GET");
 
         model.addObject("apartment", apartment);
         model.addObject("apartmentType", apartmentType);
@@ -74,7 +73,7 @@ public class ApartmentController {
         Apartment apartment = new Apartment();
         List<ApartmentType> apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
 
-        URL.IPInfo(relativeURL+"add/", request.getRemoteAddr(), "GET");
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), "GET");
 
         model.addObject("apartment", apartment);
         model.addObject("apartmentType", apartmentType);
@@ -85,7 +84,7 @@ public class ApartmentController {
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("apartment") Apartment apartment, HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL+"add/", request.getRemoteAddr(), "POST");
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), "POST");
 
         if (apartmentService.findById(apartment.getId()) != null) {
             apartmentService.update(apartment);
@@ -99,7 +98,7 @@ public class ApartmentController {
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL+"delete/", request.getRemoteAddr(), "GET");
+        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), "GET");
         apartmentService.delete(id);
 
         return new ModelAndView(redirectURL);
