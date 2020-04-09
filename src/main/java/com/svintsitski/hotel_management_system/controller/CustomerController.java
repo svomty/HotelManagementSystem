@@ -104,9 +104,26 @@ public class CustomerController {
                                      Optional<Boolean> checker, BindingResult bindingResult, HttpServletRequest request) {
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
         if (customerService.findById(customer.getId()) != null) {
+
             customerService.update(customer);
+
+            if (checker.orElse(false)){
+
+                ForeignCustomer newForeignCustomer = foreignCustomer.orElse(new ForeignCustomer());
+                newForeignCustomer.setCustomer_id(customer.getId());
+                foreignCustomerService.update(newForeignCustomer);
+
+            } else {
+
+                foreignCustomerService.delete(customer.getId());
+
+            }
+
+
         } else {
+
             customerService.add(customer);
+            /*получить ид кастомера только что созданного*/
         }
         if (bindingResult.hasErrors()) {
             LOGGER.error("aaaaaa");

@@ -17,7 +17,7 @@ public class Pagination {
             page_size = default_page_size;
         }
 
-        int startElem = 1 + (current_page - 1) * page_size;
+        startElem = 1 + (current_page - 1) * page_size;
     }
 
     public int getTotalPage(float full_elem_count) {
