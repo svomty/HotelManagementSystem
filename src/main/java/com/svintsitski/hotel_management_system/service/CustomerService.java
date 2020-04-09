@@ -8,7 +8,7 @@ public interface CustomerService {
 
     Customer findById(int id);
 
-    void add(Customer customer);
+    int add(Customer customer);
 
     void update(Customer customer);
 

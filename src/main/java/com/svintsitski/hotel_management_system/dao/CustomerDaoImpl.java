@@ -47,13 +47,19 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public void add(Customer customer) {
+    public int add(Customer customer) {
         String sql = "INSERT INTO `hotel`.`customers` (`surname`, `name`, `patronymic`, `birth_date`," +
                 " `passport_serial_number`, `identification_number`, `date_issue_passport`, `issuing_authority`," +
                 " `registration_address`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
         jdbcTemplate.update(sql, customer.getSurname(), customer.getName(), customer.getPatronymic(),
                 customer.getBirth_date(), customer.getPassport_serial_number(), customer.getIdentification_number(),
                 customer.getDate_issue_passport(), customer.getIssuing_authority(), customer.getRegistration_address());
+
+        String sql2 = "SELECT LAST_INSERT_ID();";
+        int count = Objects.requireNonNull(jdbcTemplate.queryForObject(sql2, Integer.class));
+
+        return count;
     }
 
     @Override

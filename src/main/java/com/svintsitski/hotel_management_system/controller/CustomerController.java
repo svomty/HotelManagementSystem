@@ -94,58 +94,36 @@ public class CustomerController {
         return model;
     }
 
-    /*
-   foreignCustomer не используется
-     */
-
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("customer") Customer customer, @ModelAttribute("foreignCustomer")
             Optional<ForeignCustomer> foreignCustomer, @ModelAttribute("checker")
-                                     Optional<Boolean> checker, BindingResult bindingResult, HttpServletRequest request) {
+                                     Optional<Checker> checker, BindingResult bindingResult, HttpServletRequest request) {
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
+        Checker checker1 = checker.orElse(new Checker());
+
         if (customerService.findById(customer.getId()) != null) {
 
             customerService.update(customer);
 
-            if (checker.orElse(false)){
-
+            if (checker1.isCheck()){
                 ForeignCustomer newForeignCustomer = foreignCustomer.orElse(new ForeignCustomer());
                 newForeignCustomer.setCustomer_id(customer.getId());
                 foreignCustomerService.update(newForeignCustomer);
-
             } else {
-
                 foreignCustomerService.delete(customer.getId());
-
             }
-
 
         } else {
-
-            customerService.add(customer);
-            /*получить ид кастомера только что созданного*/
-        }
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("aaaaaa");
-        }
-
-        /*
-        здесь должно быть какое то условие, определяющее стоит ли записывать клиента как иностранца или нет
-
-        как-то удалить клеймо иностранец, если оно убрано
-        * */
-        /*
-        if (foreignCustomer.isPresent()) {
-            ForeignCustomer customer1 = foreignCustomer.get();
-            if (customer1.getCitizenship() != null) {
-                if (foreignCustomerService.findById(customer1.getCustomer_id()) != null) {
-                    foreignCustomerService.update(customer1);
-                } else {
-                    foreignCustomerService.add(customer1);
-                }
+            int id= customerService.add(customer);
+            if (checker1.isCheck()) {
+                ForeignCustomer newForeignCustomer = foreignCustomer.orElse(new ForeignCustomer());
+                newForeignCustomer.setCustomer_id(id);
+                foreignCustomerService.add(newForeignCustomer);
             }
         }
-*/
+
+        bindingResult.hasErrors();
+
         return new ModelAndView(redirectURL);
     }
 
@@ -153,8 +131,9 @@ public class CustomerController {
     public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
-        customerService.delete(id);
+
         foreignCustomerService.delete(id);
+        customerService.delete(id);
 
         return new ModelAndView(redirectURL);
     }

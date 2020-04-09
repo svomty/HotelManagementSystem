@@ -93,9 +93,7 @@
                                 <div class="foreign column">
                                     <form:form modelAttribute="foreignCustomer" method="post" action="${createURL}"
                                                cssClass="form">
-                                        <lable for="customer_id">customer_id</lable>
-                                        <form:input path="customer_id" cssClass="form-control" id="customer_id"/>
-
+                                        <form:hidden path="customer_id"/>
                                         <lable for="date_entry_to_Belarus">Дата приезда в РБ</lable>
                                         <form:input path="date_entry_to_Belarus" cssClass="form-control"
                                                     id="date_entry_to_Belarus"/>
