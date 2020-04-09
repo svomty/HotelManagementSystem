@@ -1,8 +1,9 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.ServingWebContentApplication;
 import com.svintsitski.hotel_management_system.model.ApartmentType;
+import com.svintsitski.hotel_management_system.model.Pagination;
 import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
+import static com.svintsitski.hotel_management_system.controller.MainController.default_page_size;
+
 @Controller
 @RequestMapping("/admin/apartment/price")
 public class ApartmentPriceController {
@@ -24,41 +27,30 @@ public class ApartmentPriceController {
     private ApartmentTypeServiceImpl apartmentService;
     private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentTypeServiceImpl.class);
 
-    String url;
-    String ip;
+    String relativeURL = "admin/apartment/price/";
+    String redirectURL = "redirect:/" + relativeURL;
 
     @GetMapping(value = {"/list/", "/list", "/"})
     public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
 
-        int current_page = page.orElse(1);
         String sorting = sort.orElse("id");
-        int start_page = (current_page - 2) < 0 ? 0 : current_page - 2;
-        int default_page_size = MainController.default_page_size;
-        int page_size = size.orElse(default_page_size);
-        page_size = (page_size < 1) ? default_page_size : page_size;
-        int start = 1 + (current_page - 1) * page_size;
+        Pagination pagination = new Pagination(page.orElse(1), size.orElse(default_page_size));
 
-        ResultQuery result = apartmentService.findAll(start, page_size, sorting);
+        ResultQuery result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
         int full_elem_count = result.getCount();
         List<ApartmentType> list = result.getList();
+        int total_page = pagination.getTotalPage(full_elem_count);
 
-        int total_page = (int) Math.ceil((float) full_elem_count / (float) page_size);
-        total_page = Math.max(total_page, 1);
-
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/list/";
-        ip = request.getRemoteAddr();
-        String createURL = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/add";
-
-        LOGGER.info("[" + ip + "] requested " + url);
+        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        String createURL = URL.generateURL(relativeURL + "add");
 
         model.addAttribute("apartment_list", list);
         model.addAttribute("createURL", createURL);
-        model.addAttribute("url", url);
-        model.addAttribute("current_page", current_page);
+        model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
-        model.addAttribute("size", page_size);
-        model.addAttribute("start_page", start_page);
+        model.addAttribute("size", pagination.getPage_size());
+        model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
         return "admin_apartment_price";
@@ -69,10 +61,7 @@ public class ApartmentPriceController {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = apartmentService.findById(id);
 
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/update/" + id;
-        ip = request.getRemoteAddr();
-
-        LOGGER.info("[" + ip + "] requested " + url + ". АpartmentType №" + apartmentType.getId() + " will be updated");
+        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
         model.setViewName("admin_price_add");
@@ -84,10 +73,7 @@ public class ApartmentPriceController {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = new ApartmentType();
 
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/add/";
-        ip = request.getRemoteAddr();
-
-        LOGGER.info("[" + ip + "] requested " + url + ". АpartmentType will be added");
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
         model.setViewName("admin_price_add");
@@ -96,26 +82,23 @@ public class ApartmentPriceController {
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType, HttpServletRequest request) {
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/add/";
-        ip = request.getRemoteAddr();
+
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
+
         if (apartmentService.findById(apartmentType.getId()) != null) {
             apartmentService.update(apartmentType);
-            LOGGER.info("[" + ip + "] requested " + url + ". АpartmentType was created");
         } else {
             apartmentService.add(apartmentType);
-            LOGGER.info("[" + ip + "] requested " + url + ". АpartmentType №" + apartmentType.getId() + " was updated");
         }
-        return new ModelAndView("redirect:/admin/apartment/price/");
+        return new ModelAndView(redirectURL);
     }
 
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/apartment/price/delete/" + id;
-        ip = request.getRemoteAddr();
 
+        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
-        LOGGER.info("[" + ip + "] requested " + url + ". АpartmentType №" + id + " was deleted");
-        return new ModelAndView("redirect:/admin/apartment/price/");
+        return new ModelAndView(redirectURL);
     }
 }

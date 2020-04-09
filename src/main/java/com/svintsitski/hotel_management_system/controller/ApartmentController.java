@@ -1,6 +1,9 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.model.*;
+import com.svintsitski.hotel_management_system.model.Apartment;
+import com.svintsitski.hotel_management_system.model.Pagination;
+import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +41,8 @@ public class ApartmentController {
         List resultQueryList = result.getList();
         int total_page = pagination.getTotalPage(full_elem_count);
 
-        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), "GET");
-        String createURL = URL.generateURL("admin/apartment/add");
+        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        String createURL = URL.generateURL(relativeURL + "add");
 
         model.addAttribute("apartment_list", resultQueryList.get(0));
         model.addAttribute("createURL", createURL);
@@ -57,9 +60,9 @@ public class ApartmentController {
     public ModelAndView edit(@PathVariable int id, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = apartmentService.findById(id);
-        List<ApartmentType> apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
+        List apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
 
-        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), "GET");
+        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartment", apartment);
         model.addObject("apartmentType", apartmentType);
@@ -71,9 +74,9 @@ public class ApartmentController {
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = new Apartment();
-        List<ApartmentType> apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
+        List apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), "GET");
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartment", apartment);
         model.addObject("apartmentType", apartmentType);
@@ -84,7 +87,7 @@ public class ApartmentController {
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("apartment") Apartment apartment, HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), "POST");
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 
         if (apartmentService.findById(apartment.getId()) != null) {
             apartmentService.update(apartment);
@@ -98,7 +101,7 @@ public class ApartmentController {
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), "GET");
+        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
         return new ModelAndView(redirectURL);

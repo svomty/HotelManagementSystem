@@ -23,7 +23,7 @@ public class ApartmentDaoImpl implements ApartmentDao {
     public ResultQuery findAll(int start, int total, String sort) {
         String sql = "SELECT * FROM apartments " +
                 "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start-1) + "," + total + ";";
+                " LIMIT " + (start - 1) + "," + total + ";";
 
         List<Apartment> apartmentList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Apartment.class));

@@ -1,11 +1,5 @@
 package com.svintsitski.hotel_management_system.model;
 
-import com.svintsitski.hotel_management_system.controller.MainController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
-import java.util.Optional;
-
 import static com.svintsitski.hotel_management_system.controller.MainController.default_page_size;
 
 public class Pagination {
@@ -27,7 +21,7 @@ public class Pagination {
     }
 
     public int getTotalPage(float full_elem_count) {
-        return Math.max((int) Math.ceil( full_elem_count / (float) getPage_size()), 1);
+        return Math.max((int) Math.ceil(full_elem_count / (float) getPage_size()), 1);
     }
 
     public int getCurrent_page() {

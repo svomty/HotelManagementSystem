@@ -1,10 +1,6 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.ServingWebContentApplication;
-import com.svintsitski.hotel_management_system.model.Checker;
-import com.svintsitski.hotel_management_system.model.Customer;
-import com.svintsitski.hotel_management_system.model.ForeignCustomer;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.*;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
 import com.svintsitski.hotel_management_system.service.ForeignCustomerServiceImpl;
 import org.slf4j.Logger;
@@ -20,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
+import static com.svintsitski.hotel_management_system.controller.MainController.default_page_size;
+
 @Controller
 @RequestMapping("/admin/customer")
 public class CustomerController {
@@ -32,43 +30,32 @@ public class CustomerController {
     private static final Logger LOGGER = LoggerFactory.getLogger(com.svintsitski.hotel_management_system.controller
             .CustomerController.class);
 
-    String url;
-    String ip;
+    String relativeURL = "admin/customer/";
+    String redirectURL = "redirect:/" + relativeURL;
 
     @GetMapping(value = {"/list/", "/list", "/", ""})
     public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort, Model model, HttpServletRequest request) throws Exception {
 
-        int current_page = page.orElse(1);
         String sorting = sort.orElse("id");
-        int start_page = (current_page - 2) < 0 ? 0 : current_page - 2;
-        int default_page_size = MainController.default_page_size;
-        int page_size = size.orElse(default_page_size);
-        page_size = (page_size < 1) ? default_page_size : page_size;
-        int start = 1 + (current_page - 1) * page_size;
+        Pagination pagination = new Pagination(page.orElse(1), size.orElse(default_page_size));
 
-        ResultQuery result = foreignCustomerService.findAll(start, page_size, sorting);
+        ResultQuery result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
         int full_elem_count = result.getCount();
-
         List<Customer> customerList = (List<Customer>) result.getList().get(0);
         List<ForeignCustomer> foreignCustomerList = (List<ForeignCustomer>) result.getList().get(1);
+        int total_page = pagination.getTotalPage(full_elem_count);
 
-        int total_page = (int) Math.ceil((float) full_elem_count / (float) page_size);
-        total_page = Math.max(total_page, 1);
-
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/list/";
-        ip = request.getRemoteAddr();
-        String createURL = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add";
-
-        LOGGER.info("[" + ip + "] requested " + url);
+        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        String createURL = URL.generateURL(relativeURL + "add");
 
         model.addAttribute("customer_list", customerList);
         model.addAttribute("foreign_customer_list", foreignCustomerList);
         model.addAttribute("createURL", createURL);
-        model.addAttribute("current_page", current_page);
+        model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
-        model.addAttribute("size", page_size);
-        model.addAttribute("start_page", start_page);
+        model.addAttribute("size", pagination.getPage_size());
+        model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
         return "customer";
@@ -81,10 +68,7 @@ public class CustomerController {
         ForeignCustomer foreignCustomer = foreignCustomerService.findById(id);
         Checker checker = new Checker(foreignCustomer.getCustomer_id() != 0);
 
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/update/" + id;
-        ip = request.getRemoteAddr();
-
-        LOGGER.info("[" + ip + "] requested " + url + ". Customer №" + customer.getId() + " will be updated");
+        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("customer", customer);
         model.addObject("checker", checker);
@@ -101,10 +85,7 @@ public class CustomerController {
         ForeignCustomer foreignCustomer = new ForeignCustomer();
         Checker checker = new Checker();
 
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add/";
-        ip = request.getRemoteAddr();
-
-        LOGGER.info("[" + ip + "] requested " + url + ". Customer will be added");
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("customer", customer);
         model.addObject("checker", checker);
@@ -121,18 +102,14 @@ public class CustomerController {
     public ModelAndView save(@ModelAttribute("customer") Customer customer, @ModelAttribute("foreignCustomer")
             Optional<ForeignCustomer> foreignCustomer, @ModelAttribute("checker")
                                      Optional<Boolean> checker, BindingResult bindingResult, HttpServletRequest request) {
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/add/";
-        ip = request.getRemoteAddr();
+        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
         if (customerService.findById(customer.getId()) != null) {
             customerService.update(customer);
-            LOGGER.info("[" + ip + "] requested " + url + ". Customer №" + customer.getId() + " was updated");
         } else {
             customerService.add(customer);
-            LOGGER.info("[" + ip + "] requested " + url + ". Customer " + customer.getSurname() + " " +
-                    customer.getName() + " was created");
         }
         if (bindingResult.hasErrors()) {
-            LOGGER.error("huynya");
+            LOGGER.error("aaaaaa");
         }
 
         /*
@@ -152,18 +129,16 @@ public class CustomerController {
             }
         }
 */
-        return new ModelAndView("redirect:/admin/customer/");
+        return new ModelAndView(redirectURL);
     }
 
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
-        url = ServingWebContentApplication.DOMAIN_FULL + "admin/customer/delete/" + id;
-        ip = request.getRemoteAddr();
 
+        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         customerService.delete(id);
         foreignCustomerService.delete(id);
 
-        LOGGER.info("[" + ip + "] requested " + url + ". Customer №" + id + " was deleted");
-        return new ModelAndView("redirect:/admin/customer/");
+        return new ModelAndView(redirectURL);
     }
 }
