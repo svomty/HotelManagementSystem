@@ -13,7 +13,7 @@ public class URL {
         LOGGER.info(requestMethod + " [" + ip + "] requested " + generateURL(url));
     }
 
-    public static String generateURL(String url) {
+    private static String generateURL(String url) {
         return ServingWebContentApplication.DOMAIN_FULL + url;
     }
 }

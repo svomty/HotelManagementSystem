@@ -42,10 +42,8 @@ public class ApartmentPriceController {
         int total_page = pagination.getTotalPage(full_elem_count);
 
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
-        String createURL = URL.generateURL(relativeURL + "add");
 
         model.addAttribute("apartment_list", list);
-        model.addAttribute("createURL", createURL);
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
