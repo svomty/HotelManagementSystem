@@ -52,14 +52,36 @@
                         <lable for="departure_date">departure_date</lable>
                         <form:input path="departure_date" cssClass="form-control" id="departure_date"/>
                     </div>
+
                     <div class="form-group">
-                        <lable for="customer_id">customer_id</lable>
-                        <form:input path="customer_id" cssClass="form-control" id="customer_id"/>
+                        <select name="customer_id" id="customer_id" path="customer_id">
+                            <c:forEach items="${customerList}" var="customerList">
+                                <option value="${customerList.id}">
+                                        ${customerList.surname}
+                                        ${customerList.name}
+                                        ${customerList.patronymic},
+                                        ${customerList.birth_date}.
+                                        Паспортные данные: ${customerList.passport_serial_number}
+                                </option>
+                            </c:forEach>
+                        </select>
                     </div>
+
                     <div class="form-group">
-                        <lable for="apartment_id">apartment_id</lable>
-                        <form:input path="apartment_id" cssClass="form-control" id="apartment_id"/>
+                        <select name="apartment_id" id="apartment_id" path="apartment_id">
+                            <c:forEach items="${apartmentList}" var="apartmentList" varStatus="loop">
+                                <option value="${apartmentList.id}">
+                                    №${apartmentList.number},
+                                        ${apartmentTypeList[loop.index].type};
+                                        ${apartmentList.description};
+                                        ${apartmentTypeList[loop.index].price};
+                                    Комнат: ${apartmentTypeList[loop.index].rooms_number};
+                                    Мест: ${apartmentTypeList[loop.index].places_number};
+                                </option>
+                            </c:forEach>
+                        </select>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form:form>
             </div>

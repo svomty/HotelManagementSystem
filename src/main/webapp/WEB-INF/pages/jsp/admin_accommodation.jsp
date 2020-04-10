@@ -60,10 +60,10 @@
                             </a>
                         </div>
                         <div class="divTableCell">
-                            customer_id
+                            ФИО
                         </div>
                         <div class="divTableCell">
-                            apartment_id
+                            Номер апартамента
                         </div>
                         <div class="divTableCell">Опции</div>
                     </div>
@@ -74,8 +74,11 @@
                             <div class="divTableCell">${accommodation.id}</div>
                             <div class="divTableCell">${accommodation.arrival_date }</div>
                             <div class="divTableCell">${accommodation.departure_date }</div>
-                            <div class="divTableCell">${accommodation.customer_id }</div>
-                            <div class="divTableCell">${accommodation.apartment_id }</div>
+                            <div class="divTableCell">${customers[loop.index].surname}
+                                    ${customers[loop.index].name}
+                                    ${customers[loop.index].patronymic}</div>
+
+                            <div class="divTableCell">${apartments[loop.index].number}</div>
 
                             <div class="divTableCell">
                                 <spring:url

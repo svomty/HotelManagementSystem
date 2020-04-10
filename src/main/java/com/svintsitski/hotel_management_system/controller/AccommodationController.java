@@ -2,6 +2,8 @@ package com.svintsitski.hotel_management_system.controller;
 
 import com.svintsitski.hotel_management_system.model.*;
 import com.svintsitski.hotel_management_system.service.AccommodationServiceImpl;
+import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
+import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ import static com.svintsitski.hotel_management_system.controller.MainController.
 public class AccommodationController {
 
     @Autowired private AccommodationServiceImpl hotelAccommodationService;
+    @Autowired private CustomerServiceImpl customerService;
+    @Autowired private ApartmentServiceImpl apartmentService;
 
     String relativeURL = "admin/accommodation/";
     String redirectURL = "redirect:/" + relativeURL;
@@ -40,7 +44,9 @@ public class AccommodationController {
 
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addAttribute("accommodation_list", list);
+        model.addAttribute("accommodation_list", list.get(0));
+        model.addAttribute("customers", list.get(1));
+        model.addAttribute("apartments", list.get(2));
 
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
@@ -52,24 +58,36 @@ public class AccommodationController {
     }
 
     @GetMapping(value = "/update/{id}")
-    public ModelAndView edit(@PathVariable int id, HttpServletRequest request) {
+    public ModelAndView edit(@PathVariable int id, HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = hotelAccommodationService.findById(id);
 
+        List customerList = customerService.findAll(1, 1000, "id").getList();
+        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
+
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addObject("customerList", customerList);
+        model.addObject("apartmentList", apartmentList.get(0));
+        model.addObject("apartmentTypeList", apartmentList.get(1));
         model.addObject(mainObject, hotelAccommodation);
         model.setViewName(jspAdd);
         return model;
     }
 
     @GetMapping(value = {"/add/", "/add"})
-    public ModelAndView add(HttpServletRequest request) {
+    public ModelAndView add(HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = new Accommodation();
 
+        List customerList = customerService.findAll(1, 1000, "id").getList();
+        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
+
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addObject("customerList", customerList);
+        model.addObject("apartmentList", apartmentList.get(0));
+        model.addObject("apartmentTypeList", apartmentList.get(1));
         model.addObject(mainObject, hotelAccommodation);
         model.setViewName(jspAdd);
         return model;
