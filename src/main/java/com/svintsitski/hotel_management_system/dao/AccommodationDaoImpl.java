@@ -74,7 +74,8 @@ public class AccommodationDaoImpl implements AccommodationDao {
                 accommodation.getArrival_date(),
                 accommodation.getDeparture_date(),
                 accommodation.getCustomer_id(),
-                accommodation.getApartment_id());
+                accommodation.getApartment_id(),
+                accommodation.getId());
 
         return ResultQuery.getLastInsertId(jdbcTemplate);
     }

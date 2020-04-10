@@ -18,6 +18,11 @@
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
 
+    <c:set var="urlBase"
+           value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
+    <c:url var="urlReturn" value="/admin/accommodation/"/>
+    <spring:url value="${urlBase}${urlReturn}add/" var="createURL"/>
+
     <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
 
     <c:set var="total_page" value="${total_page}" scope="request"/>
@@ -74,12 +79,12 @@
 
                             <div class="divTableCell">
                                 <spring:url
-                                        value="${urlReturn}update/${accommodation.id }" var="updateURL"/>
+                                        value="${urlBase}${urlReturn}update/${accommodation.id }" var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
                                 <spring:url
-                                        value="${urlReturn}delete/${accommodation.id }" var="deleteURL"/>
+                                        value="${urlBase}${urlReturn}delete/${accommodation.id }" var="deleteURL"/>
                                 <a class="btn btn-primary" href="${deleteURL }" role="button">
                                     <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>
