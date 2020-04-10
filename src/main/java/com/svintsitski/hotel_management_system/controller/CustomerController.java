@@ -27,9 +27,6 @@ public class CustomerController {
     @Autowired
     private ForeignCustomerServiceImpl foreignCustomerService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(com.svintsitski.hotel_management_system.controller
-            .CustomerController.class);
-
     String relativeURL = "admin/customer/";
     String redirectURL = "redirect:/" + relativeURL;
 

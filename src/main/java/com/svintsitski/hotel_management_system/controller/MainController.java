@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MainController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
-
     public static int default_page_size = 5;
 
     @RequestMapping("/")

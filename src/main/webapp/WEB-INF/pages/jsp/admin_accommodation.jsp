@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Artyom
-  Date: 31.03.2020
-  Time: 18:52
+  Date: 10.04.2020
+  Time: 23:25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -14,14 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Список апартаментов</title>
+    <title>Список заселений</title>
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
-
-    <c:set var="urlBase"
-           value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
-    <c:url var="urlReturn" value="/admin/apartment/"/>
-    <spring:url value="${urlBase}${urlReturn}add/" var="createURL"/>
 
     <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
 
@@ -31,7 +26,7 @@
     <c:set var="size" value="${size}" scope="request"/>
     <c:set var="start_page" value="${start_page}" scope="request"/>
     <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
-    <c:set var="createURL" value="${createURL}" scope="request"/>
+    <c:set var="createURL" value="${urlReturn}add" scope="request"/>
 
 </head>
 <body>
@@ -49,52 +44,42 @@
                             <a id="id" href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}">id</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="number" href="${pageContext.request.contextPath}?page=1&sort=number&size=${size}">
-                                Номер апартамента</a>
+                            <a id="arrival_date"
+                               href="${pageContext.request.contextPath}?page=1&sort=arrival_date&size=${size}">
+                                Дата заселения</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="description"
-                               href="${pageContext.request.contextPath}?page=1&sort=description&size=${size}">Описание</a>
+                            <a id="departure_date"
+                               href="${pageContext.request.contextPath}?page=1&sort=departure_date&size=${size}">
+                                Дата выезда
+                            </a>
                         </div>
                         <div class="divTableCell">
-                            Стоимость места
+                            customer_id
                         </div>
                         <div class="divTableCell">
-                            Кол-во комнат
-                        </div>
-                        <div class="divTableCell">
-                            Кол-во мест
-                        </div>
-                        <div class="divTableCell">
-                            Тип номера
-                        </div>
-                        <div class="divTableCell">
-                            Описание
+                            apartment_id
                         </div>
                         <div class="divTableCell">Опции</div>
                     </div>
                 </div>
-                <c:forEach items="${apartment_list}" var="apartments" varStatus="loop">
+                <c:forEach items="${accommodation_list}" var="accommodation" varStatus="loop">
                     <div class="divTableBody">
                         <div class="divTableRow">
-                            <div class="divTableCell">${apartments.id}</div>
-                            <div class="divTableCell">${apartments.number }</div>
-                            <div class="divTableCell">${apartments.description }</div>
-
-                            <div class="divTableCell">${apartment_type_list[loop.index].price }</div>
-                            <div class="divTableCell">${apartment_type_list[loop.index].rooms_number}</div>
-                            <div class="divTableCell">${apartment_type_list[loop.index].places_number }</div>
-                            <div class="divTableCell">${apartment_type_list[loop.index].type }</div>
-                            <div class="divTableCell">${apartment_type_list[loop.index].description }</div>
+                            <div class="divTableCell">${accommodation.id}</div>
+                            <div class="divTableCell">${accommodation.arrival_date }</div>
+                            <div class="divTableCell">${accommodation.departure_date }</div>
+                            <div class="divTableCell">${accommodation.customer_id }</div>
+                            <div class="divTableCell">${accommodation.apartment_id }</div>
 
                             <div class="divTableCell">
                                 <spring:url
-                                        value="${urlBase}${urlReturn}update/${apartments.id }" var="updateURL"/>
+                                        value="${urlReturn}update/${accommodation.id }" var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
                                 <spring:url
-                                        value="${urlBase}${urlReturn}delete/${apartments.id }" var="deleteURL"/>
+                                        value="${urlReturn}delete/${accommodation.id }" var="deleteURL"/>
                                 <a class="btn btn-primary" href="${deleteURL }" role="button">
                                     <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>
@@ -111,6 +96,6 @@
 </body>
 <script>
     btnActive("${sort}");
-    popup_active("${pageContext.request.contextPath}/admin/apartment/");
+    popup_active("${pageContext.request.contextPath}/admin/accommodation/");
 </script>
 </html>

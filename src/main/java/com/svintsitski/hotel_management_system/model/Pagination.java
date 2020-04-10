@@ -3,10 +3,10 @@ package com.svintsitski.hotel_management_system.model;
 import static com.svintsitski.hotel_management_system.controller.MainController.default_page_size;
 
 public class Pagination {
-    int current_page;
-    int start_page;
-    int page_size;
-    int startElem;
+    private int current_page;
+    private int start_page;
+    private int page_size;
+    private int startElem;
 
     public Pagination(int page, int size) {
         current_page = page;
