@@ -1,7 +1,7 @@
 package com.svintsitski.hotel_management_system.dao;
 
-import com.svintsitski.hotel_management_system.model.Apartment;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.database.Apartment;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,12 +44,11 @@ public class ApartmentDaoImpl implements ApartmentDao {
     @Override
     public int add(Apartment apartment) {
         String sql = "INSERT INTO `hotel`.`apartments` (`number`, " +
-                "`type_id`, " +
-                "`description`) VALUES (?, ?, ?);";
+                "`type_id` " +
+                ") VALUES (?, ?);";
         jdbcTemplate.update(sql,
                 apartment.getNumber(),
-                apartment.getType_id(),
-                apartment.getDescription());
+                apartment.getType_id());
 
         return ResultQuery.getLastInsertId(jdbcTemplate);
     }
@@ -57,12 +56,11 @@ public class ApartmentDaoImpl implements ApartmentDao {
     @Override
     public int update(Apartment apartment) {
         String sql = "UPDATE `hotel`.`apartments` SET `number` = ?, " +
-                "`type_id` = ?," +
-                " `description` = ? WHERE (`id` = ?);";
+                "`type_id` = ?" +
+                " WHERE (`id` = ?);";
         jdbcTemplate.update(sql,
                 apartment.getNumber(),
                 apartment.getType_id(),
-                apartment.getDescription(),
                 apartment.getId());
 
         return ResultQuery.getLastInsertId(jdbcTemplate);
@@ -72,7 +70,6 @@ public class ApartmentDaoImpl implements ApartmentDao {
     public int delete(int id) {
         String sql = "DELETE FROM `hotel`.`apartments` WHERE (`id` = '" + id + "');";
         jdbcTemplate.execute(sql);
-
 
         return ResultQuery.getLastInsertId(jdbcTemplate);
     }

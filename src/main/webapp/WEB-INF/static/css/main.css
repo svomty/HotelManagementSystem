@@ -573,6 +573,16 @@ main {
     display: none;
 }
 
+form span {
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+form span label:before {
+    content: "\2000";
+}
+
 @media screen and (max-width: 1550px) {
     .popupbg {
         display: none;

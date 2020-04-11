@@ -1,7 +1,7 @@
 package com.svintsitski.hotel_management_system.dao;
 
-import com.svintsitski.hotel_management_system.model.ForeignCustomer;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.database.ForeignCustomer;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

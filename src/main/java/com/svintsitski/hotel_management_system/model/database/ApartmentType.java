@@ -1,4 +1,6 @@
-package com.svintsitski.hotel_management_system.model;
+package com.svintsitski.hotel_management_system.model.database;
+
+import com.svintsitski.hotel_management_system.model.enam.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ public class ApartmentType {
     private float price;
     private byte rooms_number;
     private byte places_number;
-    private String type;
+    private Type type;
     private String description;
 
     public ApartmentType() {
@@ -66,16 +68,15 @@ public class ApartmentType {
     }
 
     public String getType() {
-        return type;
+        if (type != null) {
+            return type.toString();
+        }
+        return "Простой";
     }
 
     public void setType(String type) {
-        if (type != null) {
-            this.type = type.trim();
-        }
-        if (this.type == null || this.type.equals("")) {
-            this.type = "простой";
-        }
+        System.out.println("setType = " + type);
+        this.type = Type.findType(type);
     }
 
     public String getDescription() {

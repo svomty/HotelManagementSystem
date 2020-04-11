@@ -1,9 +1,9 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.model.Accommodation;
-import com.svintsitski.hotel_management_system.model.Pagination;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
-import com.svintsitski.hotel_management_system.model.URL;
+import com.svintsitski.hotel_management_system.model.database.Accommodation;
+import com.svintsitski.hotel_management_system.model.support.Pagination;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
+import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.AccommodationServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;

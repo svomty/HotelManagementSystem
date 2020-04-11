@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system.model;
+package com.svintsitski.hotel_management_system.model.support;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 

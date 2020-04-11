@@ -54,10 +54,6 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <lable for="description">description</lable>
-                        <form:input path="description" cssClass="form-control" id="description"/>
-                    </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form:form>
             </div>

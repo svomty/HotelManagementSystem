@@ -1,6 +1,11 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.model.*;
+import com.svintsitski.hotel_management_system.model.database.Customer;
+import com.svintsitski.hotel_management_system.model.database.ForeignCustomer;
+import com.svintsitski.hotel_management_system.model.support.Checker;
+import com.svintsitski.hotel_management_system.model.support.Pagination;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
+import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
 import com.svintsitski.hotel_management_system.service.ForeignCustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

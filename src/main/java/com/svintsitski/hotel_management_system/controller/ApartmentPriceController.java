@@ -1,17 +1,21 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.model.ApartmentType;
-import com.svintsitski.hotel_management_system.model.Pagination;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
-import com.svintsitski.hotel_management_system.model.URL;
+import com.svintsitski.hotel_management_system.model.database.ApartmentType;
+import com.svintsitski.hotel_management_system.model.enam.Type;
+import com.svintsitski.hotel_management_system.model.support.Pagination;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
+import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.beans.PropertyEditorSupport;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +69,7 @@ public class ApartmentPriceController {
         URL.IPInfo(relativeURL + "/update/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
+        model.addObject("types", Type.values());
         model.setViewName(jspAdd);
         return model;
     }
@@ -77,21 +82,22 @@ public class ApartmentPriceController {
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
+        model.addObject("types", Type.values());
         model.setViewName(jspAdd);
         return model;
     }
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType,
+                             @ModelAttribute("type") String type,
                              HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
+        apartmentType.setType(Type.findTypeName(type).toString());
 
         if (apartmentService.findById(apartmentType.getId()) != null) {
-            System.out.println(0);
             apartmentService.update(apartmentType);
         } else {
-            System.out.println(1);
             apartmentService.add(apartmentType);
         }
         return new ModelAndView(redirectURL);

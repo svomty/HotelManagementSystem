@@ -1,7 +1,7 @@
 package com.svintsitski.hotel_management_system.service;
 
-import com.svintsitski.hotel_management_system.model.Accommodation;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.database.Accommodation;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 
 public interface AccommodationService {
 

@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system.model;
+package com.svintsitski.hotel_management_system.model.support;
 
 import static com.svintsitski.hotel_management_system.controller.MainController.default_page_size;
 

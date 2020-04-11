@@ -53,16 +53,16 @@
                     </div>
                     <div class="form-group">
                         <lable for="places_number">places_number</lable>
-                        <form:input path="places_number" cssClass="form-control" id="places_number"/>
+                        <form:input path="places_number" cssClass="form-control" />
                     </div>
-                    <div class="form-group">
-                        <lable for="type">type</lable>
-                        <form:input path="type" cssClass="form-control" id="type"/>
-                    </div>
+
+                    <form:radiobuttons path="type" id="type" items="${types}" />
+
                     <div class="form-group">
                         <lable for="description">description</lable>
                         <form:input path="description" cssClass="form-control" id="description"/>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form:form>
             </div>

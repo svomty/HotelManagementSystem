@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system.model;
+package com.svintsitski.hotel_management_system.model.database;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,15 +12,13 @@ public class Apartment {
     int id;
     private byte number;
     private int type_id;
-    private String description;
 
     public Apartment() {
     }
 
-    public Apartment(byte number, int type_id, String description) {
+    public Apartment(byte number, int type_id) {
         this.number = number;
         this.type_id = type_id;
-        this.description = description;
     }
 
     public int getId() {
@@ -47,18 +45,6 @@ public class Apartment {
         this.type_id = type_id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        if (description != null) {
-            this.description = description.trim();
-        } else {
-            this.description = "описание отсутсвует";
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,13 +52,12 @@ public class Apartment {
         Apartment apartment = (Apartment) o;
         return id == apartment.id &&
                 number == apartment.number &&
-                type_id == apartment.type_id &&
-                Objects.equals(description, apartment.description);
+                type_id == apartment.type_id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, type_id, description);
+        return Objects.hash(id, number, type_id);
     }
 
     @Override
@@ -81,7 +66,6 @@ public class Apartment {
                 "id=" + id +
                 ", number=" + number +
                 ", type_id=" + type_id +
-                ", description='" + description + '\'' +
                 '}';
     }
 }

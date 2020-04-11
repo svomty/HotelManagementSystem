@@ -1,9 +1,9 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.model.Apartment;
-import com.svintsitski.hotel_management_system.model.Pagination;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
-import com.svintsitski.hotel_management_system.model.URL;
+import com.svintsitski.hotel_management_system.model.database.Apartment;
+import com.svintsitski.hotel_management_system.model.support.Pagination;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
+import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

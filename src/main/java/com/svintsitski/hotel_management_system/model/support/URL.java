@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system.model;
+package com.svintsitski.hotel_management_system.model.support;
 
 import com.svintsitski.hotel_management_system.ServingWebContentApplication;
 import org.slf4j.Logger;

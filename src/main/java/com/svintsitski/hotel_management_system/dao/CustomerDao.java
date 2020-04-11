@@ -1,7 +1,7 @@
 package com.svintsitski.hotel_management_system.dao;
 
-import com.svintsitski.hotel_management_system.model.Customer;
-import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.database.Customer;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 
 public interface CustomerDao {
     ResultQuery findAll(int start, int total, String sort) throws Exception;

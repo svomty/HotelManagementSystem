@@ -53,10 +53,6 @@
                                 Номер апартамента</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="description"
-                               href="${pageContext.request.contextPath}?page=1&sort=description&size=${size}">Описание</a>
-                        </div>
-                        <div class="divTableCell">
                             Стоимость места
                         </div>
                         <div class="divTableCell">
@@ -79,7 +75,6 @@
                         <div class="divTableRow">
                             <div class="divTableCell">${apartments.id}</div>
                             <div class="divTableCell">${apartments.number }</div>
-                            <div class="divTableCell">${apartments.description }</div>
 
                             <div class="divTableCell">${apartment_type_list[loop.index].price }</div>
                             <div class="divTableCell">${apartment_type_list[loop.index].rooms_number}</div>

@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system.model;
+package com.svintsitski.hotel_management_system.model.support;
 
 public class Checker {
     private boolean check;

@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system.model;
+package com.svintsitski.hotel_management_system.model.database;
 
 import javax.persistence.Entity;
 import java.sql.Date;
