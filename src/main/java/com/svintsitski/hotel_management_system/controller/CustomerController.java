@@ -90,9 +90,12 @@ public class CustomerController {
     }
 
     @PostMapping(value = {"/add/", "/add"})
-    public ModelAndView save(@ModelAttribute("customer") Customer customer, @ModelAttribute("foreignCustomer")
-            Optional<ForeignCustomer> foreignCustomer, @ModelAttribute("checker")
-                                     Optional<Checker> checker, BindingResult bindingResult, HttpServletRequest request) {
+    public ModelAndView save(@ModelAttribute("customer") Customer customer,
+                             @ModelAttribute("foreignCustomer") Optional<ForeignCustomer> foreignCustomer,
+                             BindingResult bindingResult1,
+                             @ModelAttribute("checker") Optional<Checker> checker,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
         Checker checker1 = checker.orElse(new Checker());
 
@@ -103,7 +106,13 @@ public class CustomerController {
             if (checker1.isCheck()){
                 ForeignCustomer newForeignCustomer = foreignCustomer.orElse(new ForeignCustomer());
                 newForeignCustomer.setCustomer_id(customer.getId());
-                foreignCustomerService.update(newForeignCustomer);
+
+                if (foreignCustomerService.findById(customer.getId()).getCustomer_id() != 0){
+                    foreignCustomerService.update(newForeignCustomer);
+                } else {
+                    foreignCustomerService.add(newForeignCustomer);
+                }
+
             } else {
                 foreignCustomerService.delete(customer.getId());
             }
@@ -117,6 +126,7 @@ public class CustomerController {
             }
         }
 
+        bindingResult1.hasErrors();
         bindingResult.hasErrors();
 
         return new ModelAndView(redirectURL);
