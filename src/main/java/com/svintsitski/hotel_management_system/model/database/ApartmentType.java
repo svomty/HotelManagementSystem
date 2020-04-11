@@ -75,7 +75,6 @@ public class ApartmentType {
     }
 
     public void setType(String type) {
-        System.out.println("setType = " + type);
         this.type = Type.findType(type);
     }
 

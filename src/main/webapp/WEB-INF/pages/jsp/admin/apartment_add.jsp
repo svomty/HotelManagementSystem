@@ -47,13 +47,17 @@
                         <lable for="number">number</lable>
                         <form:input path="number" cssClass="form-control" id="number"/>
                     </div>
+
                     <div class="form-group">
                         <select name="type_id" id="type_id" path="type_id">
                             <c:forEach items="${apartmentType}" var="apartmentType">
-                                <option value="${apartmentType.id}">${apartmentType.toString()}</option>
+                                <option value="${apartmentType.id}"
+                                <c:if  test="${apartmentType.id == apartment.type_id}"> selected </c:if>>
+                                ${apartmentType.toString()}</option>
                             </c:forEach>
                         </select>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form:form>
             </div>

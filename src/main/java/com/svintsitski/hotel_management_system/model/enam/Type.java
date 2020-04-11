@@ -12,7 +12,6 @@ public enum Type {
 
     public static Type findType(String type){
         Type result = Type.STANDARD;
-        System.out.println(type);
         if (type != null) {
             for (Type t : Type.values()) {
                 if (type.toLowerCase().equals(t.toString().toLowerCase())) {
@@ -26,7 +25,6 @@ public enum Type {
 
     public static Type findTypeName(String type){
         Type result = Type.STANDARD;
-        System.out.println(type);
         if (type != null) {
             for (Type t : Type.values()) {
                 if (type.toLowerCase().equals(t.name().toLowerCase())) {
