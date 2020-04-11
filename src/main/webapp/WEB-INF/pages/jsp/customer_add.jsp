@@ -56,7 +56,7 @@
                             <form:input path="patronymic" cssClass="form-control" id="patronymic"/>
 
                             <lable for="birth_date">Дата рождения</lable>
-                            <form:input path="birth_date" cssClass="form-control" id="birth_date"/>
+                            <form:input path="birth_date" type="date" cssClass="form-control" id="birth_date"/>
 
                             <lable for="passport_serial_number">Серийный номер паспорта</lable>
                             <form:input path="passport_serial_number" cssClass="form-control"
@@ -67,7 +67,7 @@
                                         id="identification_number"/>
 
                             <lable for="date_issue_passport">Дата выдачи паспорта</lable>
-                            <form:input path="date_issue_passport" cssClass="form-control"
+                            <form:input path="date_issue_passport" type="date" cssClass="form-control"
                                         id="date_issue_passport"/>
 
                             <lable for="issuing_authority">Кем выдан</lable>
@@ -95,7 +95,7 @@
                                                cssClass="form">
                                         <form:hidden path="customer_id"/>
                                         <lable for="date_entry_to_Belarus">Дата приезда в РБ</lable>
-                                        <form:input path="date_entry_to_Belarus" cssClass="form-control"
+                                        <form:input path="date_entry_to_Belarus" type="date" cssClass="form-control"
                                                     id="date_entry_to_Belarus"/>
 
                                         <lable for="insurance_policy_number">Номер страхового полиса</lable>
@@ -106,7 +106,7 @@
                                         <form:input path="visa_number" cssClass="form-control" id="visa_number"/>
 
                                         <lable for="passport_validity_date">Срок действия паспорта</lable>
-                                        <form:input path="passport_validity_date" cssClass="form-control"
+                                        <form:input path="passport_validity_date" type="date" cssClass="form-control"
                                                     id="passport_validity_date"/>
 
                                         <lable for="citizenship">Гражданство</lable>
@@ -114,12 +114,12 @@
 
                                         <lable for="insurance_policy_issue_date">Дата выдачи страхового полиса
                                         </lable>
-                                        <form:input path="insurance_policy_issue_date" cssClass="form-control"
+                                        <form:input path="insurance_policy_issue_date" type="date" cssClass="form-control"
                                                     id="insurance_policy_issue_date"/>
 
                                         <lable for="insurance_policy_validity">Срок действия страхового полиса
                                         </lable>
-                                        <form:input path="insurance_policy_validity" cssClass="form-control"
+                                        <form:input path="insurance_policy_validity" type="date" cssClass="form-control"
                                                     id="insurance_policy_validity"/>
 
                                     </form:form>

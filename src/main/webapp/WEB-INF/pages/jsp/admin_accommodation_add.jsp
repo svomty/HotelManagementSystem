@@ -46,11 +46,11 @@
                     <form:hidden path="id"/>
                     <div class="form-group">
                         <lable for="arrival_date">arrival_date</lable>
-                        <form:input path="arrival_date" cssClass="form-control" id="arrival_date"/>
+                        <form:input path="arrival_date" type="date" cssClass="form-control" id="arrival_date"/>
                     </div>
                     <div class="form-group">
                         <lable for="departure_date">departure_date</lable>
-                        <form:input path="departure_date" cssClass="form-control" id="departure_date"/>
+                        <form:input path="departure_date" type="date" cssClass="form-control" id="departure_date"/>
                     </div>
 
                     <div class="form-group">
