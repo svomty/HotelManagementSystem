@@ -30,11 +30,10 @@ public class AccommodationController {
     @Autowired
     private ApartmentServiceImpl apartmentService;
 
-    String relativeURL = "admin/accommodation/";
-    String redirectURL = "redirect:/" + relativeURL;
-    String jsp = "admin_accommodation";
-    String jspAdd = jsp + "_add";
     String mainObject = "accommodation";
+    String relativeURL = "admin/" + mainObject;
+    String redirectURL = "redirect:/" + relativeURL;
+    String jspAdd = relativeURL + "_add";
 
     @GetMapping(value = {"/list/", "/list", "/", ""})
     public String findAll(@RequestParam Optional<Integer> page,
@@ -63,7 +62,7 @@ public class AccommodationController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
-        return jsp;
+        return relativeURL;
     }
 
     @GetMapping(value = "/update/{id}")

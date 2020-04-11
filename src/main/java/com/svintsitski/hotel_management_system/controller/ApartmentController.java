@@ -26,10 +26,12 @@ public class ApartmentController {
     @Autowired
     private ApartmentTypeServiceImpl apartmentTypeService;
 
-    String relativeURL = "admin/apartment/";
+    String mainObject = "apartment";
+    String relativeURL = "admin/" + mainObject;
     String redirectURL = "redirect:/" + relativeURL;
+    String jspAdd = relativeURL + "_add";
 
-    @GetMapping(value = {"/list/", "/list", "/"})
+    @GetMapping(value = {"/list/", "/list", "/", ""})
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
@@ -54,7 +56,7 @@ public class ApartmentController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
-        return "admin_apartment";
+        return relativeURL;
     }
 
     @GetMapping(value = "/update/{id}")
@@ -66,9 +68,9 @@ public class ApartmentController {
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addObject("apartment", apartment);
+        model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentType);
-        model.setViewName("admin_apart_add");
+        model.setViewName(jspAdd);
         return model;
     }
 
@@ -80,9 +82,9 @@ public class ApartmentController {
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addObject("apartment", apartment);
+        model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentType);
-        model.setViewName("admin_apart_add");
+        model.setViewName(jspAdd);
         return model;
     }
 

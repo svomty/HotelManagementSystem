@@ -25,8 +25,10 @@ public class CustomerController {
     @Autowired
     private ForeignCustomerServiceImpl foreignCustomerService;
 
-    String relativeURL = "admin/customer/";
+    String mainObject = "customer";
+    String relativeURL = "admin/" + mainObject;
     String redirectURL = "redirect:/" + relativeURL;
+    String jspAdd = relativeURL + "_add";
 
     @GetMapping(value = {"/list/", "/list", "/", ""})
     public String findAll(@RequestParam Optional<Integer> page,
@@ -54,7 +56,7 @@ public class CustomerController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
-        return "customer";
+        return relativeURL;
     }
 
     @GetMapping(value = "/update/{id}")
@@ -69,7 +71,7 @@ public class CustomerController {
         model.addObject("customer", customer);
         model.addObject("checker", checker);
         model.addObject("foreignCustomer", foreignCustomer);
-        model.setViewName("customer_add");
+        model.setViewName(jspAdd);
         return model;
     }
 
@@ -86,7 +88,7 @@ public class CustomerController {
         model.addObject("customer", customer);
         model.addObject("checker", checker);
         model.addObject("foreignCustomer", foreignCustomer);
-        model.setViewName("customer_add");
+        model.setViewName(jspAdd);
         return model;
     }
 

@@ -24,10 +24,12 @@ public class ApartmentPriceController {
     @Autowired
     private ApartmentTypeServiceImpl apartmentService;
 
-    String relativeURL = "admin/apartment/price/";
+    String mainObject = "apartment_price";
+    String relativeURL = "admin/" + mainObject;
     String redirectURL = "redirect:/" + relativeURL;
+    String jspAdd = relativeURL + "_add";
 
-    @GetMapping(value = {"/list/", "/list", "/"})
+    @GetMapping(value = {"/list/", "/list", "/", ""})
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
@@ -51,7 +53,7 @@ public class ApartmentPriceController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
-        return "admin_apartment_price";
+        return relativeURL;
     }
 
     @GetMapping(value = "/update/{id}")
@@ -63,7 +65,7 @@ public class ApartmentPriceController {
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
-        model.setViewName("admin_price_add");
+        model.setViewName(jspAdd);
         return model;
     }
 
@@ -75,7 +77,7 @@ public class ApartmentPriceController {
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
-        model.setViewName("admin_price_add");
+        model.setViewName(jspAdd);
         return model;
     }
 
