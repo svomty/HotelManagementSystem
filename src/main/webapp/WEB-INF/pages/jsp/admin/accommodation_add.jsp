@@ -56,12 +56,14 @@
                     <div class="form-group">
                         <select name="customer_id" id="customer_id" path="customer_id">
                             <c:forEach items="${customerList}" var="customerList">
-                                <option value="${customerList.id}">
+                                <option value="${customerList.id}"
+                                        <c:if test="${customerList.id == accommodation.customer_id}"> selected </c:if>>
                                         ${customerList.surname}
                                         ${customerList.name}
                                         ${customerList.patronymic},
                                         ${customerList.birth_date}.
                                     Паспортные данные: ${customerList.passport_serial_number}
+
                                 </option>
                             </c:forEach>
                         </select>
@@ -70,13 +72,14 @@
                     <div class="form-group">
                         <select name="apartment_id" id="apartment_id" path="apartment_id">
                             <c:forEach items="${apartmentList}" var="apartmentList" varStatus="loop">
-                                <option value="${apartmentList.id}">
+                                <option value="${apartmentList.id}"
+                                        <c:if test="${apartmentList.id == accommodation.apartment_id}"> selected </c:if>>
                                     №${apartmentList.number},
                                         ${apartmentTypeList[loop.index].type};
-                                        ${apartmentList.description};
                                         ${apartmentTypeList[loop.index].price};
                                     Комнат: ${apartmentTypeList[loop.index].rooms_number};
                                     Мест: ${apartmentTypeList[loop.index].places_number};
+
                                 </option>
                             </c:forEach>
                         </select>
