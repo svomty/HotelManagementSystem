@@ -26,7 +26,7 @@ public class ApartmentPriceController {
 
     String mainObject = "apartment_price";
     String relativeURL = "admin/" + mainObject;
-    String redirectURL = "redirect:/" + relativeURL;
+    String redirectURL = "redirect:/admin/apartment/price/";
     String jspAdd = relativeURL + "_add";
 
     @GetMapping(value = {"/list/", "/list", "/", ""})
@@ -44,7 +44,7 @@ public class ApartmentPriceController {
         List<ApartmentType> list = result.getList();
         int total_page = pagination.getTotalPage(full_elem_count);
 
-        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addAttribute("apartment_list", list);
         model.addAttribute("current_page", pagination.getCurrent_page());
@@ -62,7 +62,7 @@ public class ApartmentPriceController {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = apartmentService.findById(id);
 
-        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/update/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
         model.setViewName(jspAdd);
@@ -74,7 +74,7 @@ public class ApartmentPriceController {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = new ApartmentType();
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("apartmentType", apartmentType);
         model.setViewName(jspAdd);
@@ -85,11 +85,13 @@ public class ApartmentPriceController {
     public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType,
                              HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
 
         if (apartmentService.findById(apartmentType.getId()) != null) {
+            System.out.println(0);
             apartmentService.update(apartmentType);
         } else {
+            System.out.println(1);
             apartmentService.add(apartmentType);
         }
         return new ModelAndView(redirectURL);
@@ -99,7 +101,7 @@ public class ApartmentPriceController {
     public ModelAndView delete(@PathVariable("id") int id,
                                HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
         return new ModelAndView(redirectURL);
