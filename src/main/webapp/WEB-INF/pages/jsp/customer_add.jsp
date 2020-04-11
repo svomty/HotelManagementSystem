@@ -114,7 +114,8 @@
 
                                         <lable for="insurance_policy_issue_date">Дата выдачи страхового полиса
                                         </lable>
-                                        <form:input path="insurance_policy_issue_date" type="date" cssClass="form-control"
+                                        <form:input path="insurance_policy_issue_date" type="date"
+                                                    cssClass="form-control"
                                                     id="insurance_policy_issue_date"/>
 
                                         <lable for="insurance_policy_validity">Срок действия страхового полиса

@@ -1,6 +1,9 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.model.*;
+import com.svintsitski.hotel_management_system.model.Accommodation;
+import com.svintsitski.hotel_management_system.model.Pagination;
+import com.svintsitski.hotel_management_system.model.ResultQuery;
+import com.svintsitski.hotel_management_system.model.URL;
 import com.svintsitski.hotel_management_system.service.AccommodationServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
@@ -20,9 +23,12 @@ import static com.svintsitski.hotel_management_system.controller.MainController.
 @RequestMapping("/admin/accommodation")
 public class AccommodationController {
 
-    @Autowired private AccommodationServiceImpl hotelAccommodationService;
-    @Autowired private CustomerServiceImpl customerService;
-    @Autowired private ApartmentServiceImpl apartmentService;
+    @Autowired
+    private AccommodationServiceImpl hotelAccommodationService;
+    @Autowired
+    private CustomerServiceImpl customerService;
+    @Autowired
+    private ApartmentServiceImpl apartmentService;
 
     String relativeURL = "admin/accommodation/";
     String redirectURL = "redirect:/" + relativeURL;
@@ -31,8 +37,11 @@ public class AccommodationController {
     String mainObject = "accommodation";
 
     @GetMapping(value = {"/list/", "/list", "/", ""})
-    public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
-                          @RequestParam Optional<String> sort, Model model, HttpServletRequest request) throws Exception {
+    public String findAll(@RequestParam Optional<Integer> page,
+                          @RequestParam Optional<Integer> size,
+                          @RequestParam Optional<String> sort,
+                          Model model,
+                          HttpServletRequest request) throws Exception {
 
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(default_page_size));
@@ -58,7 +67,8 @@ public class AccommodationController {
     }
 
     @GetMapping(value = "/update/{id}")
-    public ModelAndView edit(@PathVariable int id, HttpServletRequest request) throws Exception {
+    public ModelAndView edit(@PathVariable int id,
+                             HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = hotelAccommodationService.findById(id);
 
@@ -108,7 +118,8 @@ public class AccommodationController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
+    public ModelAndView delete(@PathVariable("id") int id,
+                               HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         hotelAccommodationService.delete(id);

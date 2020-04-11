@@ -48,34 +48,64 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public int add(Customer customer) {
-        String sql = "INSERT INTO `hotel`.`customers` (`surname`, `name`, `patronymic`, `birth_date`," +
-                " `passport_serial_number`, `identification_number`, `date_issue_passport`, `issuing_authority`," +
-                " `registration_address`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO `hotel`.`customers` (`surname`, " +
+                "`name`, " +
+                "`patronymic`, " +
+                "`birth_date`," +
+                " `passport_serial_number`, " +
+                "`identification_number`, " +
+                "`date_issue_passport`, " +
+                "`issuing_authority`," +
+                " `registration_address`)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-        jdbcTemplate.update(sql, customer.getSurname(), customer.getName(), customer.getPatronymic(),
-                customer.getBirth_date(), customer.getPassport_serial_number(), customer.getIdentification_number(),
-                customer.getDate_issue_passport(), customer.getIssuing_authority(), customer.getRegistration_address());
+        jdbcTemplate.update(sql,
+                customer.getSurname(),
+                customer.getName(),
+                customer.getPatronymic(),
+                customer.getBirth_date(),
+                customer.getPassport_serial_number(),
+                customer.getIdentification_number(),
+                customer.getDate_issue_passport(),
+                customer.getIssuing_authority(),
+                customer.getRegistration_address());
 
-        String sql2 = "SELECT LAST_INSERT_ID();";
-        int count = Objects.requireNonNull(jdbcTemplate.queryForObject(sql2, Integer.class));
-
-        return count;
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void update(Customer customer) {
-        String sql = "UPDATE `hotel`.`customers` SET `surname` = ?, `name` = ?, `patronymic` = ?," +
-                "`birth_date` = ?, `passport_serial_number` = ?, `identification_number` = ? " +
-                ", `date_issue_passport` = ?, `issuing_authority` = ?, `registration_address` = ? WHERE (`id` = ?);";
-        jdbcTemplate.update(sql, customer.getSurname(), customer.getName(), customer.getPatronymic(),
-                customer.getBirth_date(), customer.getPassport_serial_number(), customer.getIdentification_number(),
-                customer.getDate_issue_passport(), customer.getIssuing_authority(), customer.getRegistration_address(),
+    public int update(Customer customer) {
+        String sql = "UPDATE `hotel`.`customers` " +
+                "SET `surname` = ?, " +
+                "`name` = ?, " +
+                "`patronymic` = ?," +
+                "`birth_date` = ?, " +
+                "`passport_serial_number` = ?, " +
+                "`identification_number` = ? " +
+                ", `date_issue_passport` = ?, " +
+                "`issuing_authority` = ?, " +
+                "`registration_address` = ? " +
+                "WHERE (`id` = ?);";
+        jdbcTemplate.update(sql,
+                customer.getSurname(),
+                customer.getName(),
+                customer.getPatronymic(),
+                customer.getBirth_date(),
+                customer.getPassport_serial_number(),
+                customer.getIdentification_number(),
+                customer.getDate_issue_passport(),
+                customer.getIssuing_authority(),
+                customer.getRegistration_address(),
                 customer.getId());
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void delete(int id) {
+    public int delete(int id) {
         String sql = "DELETE FROM `hotel`.`customers` WHERE (`id` = '" + id + "');";
         jdbcTemplate.execute(sql);
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 }

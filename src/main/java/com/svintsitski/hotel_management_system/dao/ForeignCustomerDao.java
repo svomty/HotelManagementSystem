@@ -9,9 +9,9 @@ public interface ForeignCustomerDao {
 
     ForeignCustomer findById(int id);
 
-    void add(ForeignCustomer customer);
+    int add(ForeignCustomer customer);
 
-    void update(ForeignCustomer customer);
+    int update(ForeignCustomer customer);
 
-    void delete(int id);
+    int delete(int id);
 }

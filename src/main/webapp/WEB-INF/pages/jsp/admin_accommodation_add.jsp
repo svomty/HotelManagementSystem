@@ -61,7 +61,7 @@
                                         ${customerList.name}
                                         ${customerList.patronymic},
                                         ${customerList.birth_date}.
-                                        Паспортные данные: ${customerList.passport_serial_number}
+                                    Паспортные данные: ${customerList.passport_serial_number}
                                 </option>
                             </c:forEach>
                         </select>

@@ -37,7 +37,8 @@
                                    class="submenu__item btn">Система онлайн бронирования</a></li>
                             <li><a href="${pageContext.request.contextPath}/admin/customer/" class="submenu__item btn">Клиенты</a>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/admin/accommodation/" class="submenu__item btn">Заселение</a>
+                            <li><a href="${pageContext.request.contextPath}/admin/accommodation/"
+                                   class="submenu__item btn">Заселение</a>
                             </li>
                             <li><a href="${pageContext.request.contextPath}/admin/report/" class="submenu__item btn">Отчетность</a>
                             </li>

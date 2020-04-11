@@ -30,7 +30,7 @@ public class ResultQuery {
         this.list = list;
     }
 
-    public static int getLastInsertId(JdbcTemplate jdbcTemplate){
+    public static int getLastInsertId(JdbcTemplate jdbcTemplate) {
         String sql2 = "SELECT LAST_INSERT_ID();";
         return Objects.requireNonNull(jdbcTemplate.queryForObject(sql2, Integer.class));
     }

@@ -42,22 +42,38 @@ public class ApartmentDaoImpl implements ApartmentDao {
     }
 
     @Override
-    public void add(Apartment apartment) {
-        String sql = "INSERT INTO `hotel`.`apartments` (`number`, `type_id`, `description`) VALUES (?, ?, ?);";
-        jdbcTemplate.update(sql, apartment.getNumber(), apartment.getType_id(), apartment.getDescription());
+    public int add(Apartment apartment) {
+        String sql = "INSERT INTO `hotel`.`apartments` (`number`, " +
+                "`type_id`, " +
+                "`description`) VALUES (?, ?, ?);";
+        jdbcTemplate.update(sql,
+                apartment.getNumber(),
+                apartment.getType_id(),
+                apartment.getDescription());
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void update(Apartment apartment) {
-        String sql = "UPDATE `hotel`.`apartments` SET `number` = ?, `type_id` = ?," +
+    public int update(Apartment apartment) {
+        String sql = "UPDATE `hotel`.`apartments` SET `number` = ?, " +
+                "`type_id` = ?," +
                 " `description` = ? WHERE (`id` = ?);";
-        jdbcTemplate.update(sql, apartment.getNumber(), apartment.getType_id(), apartment.getDescription(),
+        jdbcTemplate.update(sql,
+                apartment.getNumber(),
+                apartment.getType_id(),
+                apartment.getDescription(),
                 apartment.getId());
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void delete(int id) {
+    public int delete(int id) {
         String sql = "DELETE FROM `hotel`.`apartments` WHERE (`id` = '" + id + "');";
         jdbcTemplate.execute(sql);
+
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 }

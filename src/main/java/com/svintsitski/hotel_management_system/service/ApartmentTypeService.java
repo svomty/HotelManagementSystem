@@ -8,9 +8,9 @@ public interface ApartmentTypeService {
 
     ApartmentType findById(int id);
 
-    void add(ApartmentType apartmentType);
+    int add(ApartmentType apartmentType);
 
-    void update(ApartmentType apartmentType);
+    int update(ApartmentType apartmentType);
 
-    void delete(int id);
+    int delete(int id);
 }

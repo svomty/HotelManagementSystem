@@ -1,6 +1,7 @@
 package com.svintsitski.hotel_management_system.dao;
 
 import com.svintsitski.hotel_management_system.model.ForeignCustomer;
+import com.svintsitski.hotel_management_system.model.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,7 +38,7 @@ public class ForeignCustomerDaoImpl implements ForeignCustomerDao {
     }
 
     @Override
-    public void add(ForeignCustomer customer) {
+    public int add(ForeignCustomer customer) {
         String sql = "INSERT INTO `hotel`.`foreign_customers` (`customer_id`," +
                 " `date_entry_to_Belarus`," +
                 " `insurance_policy_number`," +
@@ -55,10 +56,12 @@ public class ForeignCustomerDaoImpl implements ForeignCustomerDao {
                 customer.getCitizenship(),
                 customer.getInsurance_policy_issue_date(),
                 customer.getInsurance_policy_validity());
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void update(ForeignCustomer customer) {
+    public int update(ForeignCustomer customer) {
         String sql = "UPDATE `hotel`.`foreign_customers` SET" +
                 " `date_entry_to_Belarus` = ?," +
                 " `insurance_policy_number` = ?," +
@@ -76,11 +79,15 @@ public class ForeignCustomerDaoImpl implements ForeignCustomerDao {
                 customer.getInsurance_policy_issue_date(),
                 customer.getInsurance_policy_validity(),
                 customer.getCustomer_id());
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void delete(int id) {
+    public int delete(int id) {
         String sql = "DELETE FROM `hotel`.`foreign_customers` WHERE (`customer_id` = '" + id + "');";
         jdbcTemplate.execute(sql);
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 }

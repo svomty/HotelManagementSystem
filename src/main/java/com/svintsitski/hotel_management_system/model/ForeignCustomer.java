@@ -1,7 +1,5 @@
 package com.svintsitski.hotel_management_system.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Entity;
 import java.sql.Date;
 import java.util.Objects;

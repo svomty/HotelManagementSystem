@@ -5,8 +5,6 @@ import com.svintsitski.hotel_management_system.model.Pagination;
 import com.svintsitski.hotel_management_system.model.ResultQuery;
 import com.svintsitski.hotel_management_system.model.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +28,11 @@ public class ApartmentPriceController {
     String redirectURL = "redirect:/" + relativeURL;
 
     @GetMapping(value = {"/list/", "/list", "/"})
-    public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
-                          @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
+    public String findAll(@RequestParam Optional<Integer> page,
+                          @RequestParam Optional<Integer> size,
+                          @RequestParam Optional<String> sort,
+                          Model model,
+                          HttpServletRequest request) {
 
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(default_page_size));
@@ -54,7 +55,8 @@ public class ApartmentPriceController {
     }
 
     @GetMapping(value = "/update/{id}")
-    public ModelAndView edit(@PathVariable int id, HttpServletRequest request) {
+    public ModelAndView edit(@PathVariable int id,
+                             HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = apartmentService.findById(id);
 
@@ -78,7 +80,8 @@ public class ApartmentPriceController {
     }
 
     @PostMapping(value = {"/add/", "/add"})
-    public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType, HttpServletRequest request) {
+    public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType,
+                             HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 
@@ -91,7 +94,8 @@ public class ApartmentPriceController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
+    public ModelAndView delete(@PathVariable("id") int id,
+                               HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);

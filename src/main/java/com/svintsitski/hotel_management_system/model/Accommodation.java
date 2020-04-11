@@ -2,9 +2,9 @@ package com.svintsitski.hotel_management_system.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Date;
 import java.util.Objects;
-import javax.persistence.Id;
 
 @Entity
 public class Accommodation {

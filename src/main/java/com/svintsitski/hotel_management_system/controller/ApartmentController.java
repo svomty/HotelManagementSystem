@@ -30,8 +30,11 @@ public class ApartmentController {
     String redirectURL = "redirect:/" + relativeURL;
 
     @GetMapping(value = {"/list/", "/list", "/"})
-    public String findAll(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size,
-                          @RequestParam Optional<String> sort, Model model, HttpServletRequest request) {
+    public String findAll(@RequestParam Optional<Integer> page,
+                          @RequestParam Optional<Integer> size,
+                          @RequestParam Optional<String> sort,
+                          Model model,
+                          HttpServletRequest request) {
 
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(default_page_size));
@@ -55,7 +58,8 @@ public class ApartmentController {
     }
 
     @GetMapping(value = "/update/{id}")
-    public ModelAndView edit(@PathVariable int id, HttpServletRequest request) {
+    public ModelAndView edit(@PathVariable int id,
+                             HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = apartmentService.findById(id);
         List apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
@@ -83,7 +87,8 @@ public class ApartmentController {
     }
 
     @PostMapping(value = {"/add/", "/add"})
-    public ModelAndView save(@ModelAttribute("apartment") Apartment apartment, HttpServletRequest request) {
+    public ModelAndView save(@ModelAttribute("apartment") Apartment apartment,
+                             HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 
@@ -97,7 +102,8 @@ public class ApartmentController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id, HttpServletRequest request) {
+    public ModelAndView delete(@PathVariable("id") int id,
+                               HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);

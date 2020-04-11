@@ -35,17 +35,17 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
-    public void add(Apartment apartment) {
-        apartmentDao.add(apartment);
+    public int add(Apartment apartment) {
+        return apartmentDao.add(apartment);
     }
 
     @Override
-    public void update(Apartment apartment) {
-        apartmentDao.update(apartment);
+    public int update(Apartment apartment) {
+        return apartmentDao.update(apartment);
     }
 
     @Override
-    public void delete(int id) {
-        apartmentDao.delete(id);
+    public int delete(int id) {
+        return apartmentDao.delete(id);
     }
 }

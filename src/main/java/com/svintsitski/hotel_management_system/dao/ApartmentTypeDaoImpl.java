@@ -43,25 +43,47 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
     }
 
     @Override
-    public void add(ApartmentType apartmentType) {
-        String sql = "INSERT INTO `hotel`.`apartment_type` (`price`, `rooms_number`, `places_number`, `type`," +
-                " `description`) VALUES (?, ?, ?, ?, ?);";
-        jdbcTemplate.update(sql, apartmentType.getPrice(), apartmentType.getRooms_number(),
-                apartmentType.getPlaces_number(), apartmentType.getType(), apartmentType.getDescription());
+    public int add(ApartmentType apartmentType) {
+        String sql = "INSERT INTO `hotel`.`apartment_type` (`price`, " +
+                "`rooms_number`, " +
+                "`places_number`, " +
+                "`type`, " +
+                "`description`) VALUES (?, ?, ?, ?, ?);";
+        jdbcTemplate.update(sql,
+                apartmentType.getPrice(),
+                apartmentType.getRooms_number(),
+                apartmentType.getPlaces_number(),
+                apartmentType.getType(),
+                apartmentType.getDescription());
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void update(ApartmentType apartmentType) {
-        String sql = "UPDATE `hotel`.`apartment_type` SET `price` = ?, `rooms_number` = ?," +
-                " `places_number` = ?, `type` = ?, `description` = ? WHERE (`id` = ?);";
-        jdbcTemplate.update(sql, apartmentType.getPrice(), apartmentType.getRooms_number(),
-                apartmentType.getPlaces_number(), apartmentType.getType(), apartmentType.getDescription(),
+    public int update(ApartmentType apartmentType) {
+        String sql = "UPDATE `hotel`.`apartment_type` " +
+                "SET `price` = ?, " +
+                "`rooms_number` = ?," +
+                " `places_number` = ?, " +
+                "`type` = ?, " +
+                "`description` = ? " +
+                "WHERE (`id` = ?);";
+        jdbcTemplate.update(sql,
+                apartmentType.getPrice(),
+                apartmentType.getRooms_number(),
+                apartmentType.getPlaces_number(),
+                apartmentType.getType(),
+                apartmentType.getDescription(),
                 apartmentType.getId());
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 
     @Override
-    public void delete(int id) {
+    public int delete(int id) {
         String sql = "DELETE FROM `hotel`.`apartment_type` WHERE (`id` = '" + id + "');";
         jdbcTemplate.execute(sql);
+
+        return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 }

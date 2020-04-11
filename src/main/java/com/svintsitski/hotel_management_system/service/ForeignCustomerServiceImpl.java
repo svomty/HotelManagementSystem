@@ -34,18 +34,18 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
     }
 
     @Override
-    public void add(ForeignCustomer customer) {
-        foreignCustomerDao.add(customer);
+    public int add(ForeignCustomer customer) {
+        return foreignCustomerDao.add(customer);
     }
 
     @Override
-    public void update(ForeignCustomer customer) {
-        foreignCustomerDao.update(customer);
+    public int update(ForeignCustomer customer) {
+        return foreignCustomerDao.update(customer);
     }
 
     @Override
-    public void delete(int id) {
-        foreignCustomerDao.delete(id);
+    public int delete(int id) {
+        return foreignCustomerDao.delete(id);
     }
 
 }
