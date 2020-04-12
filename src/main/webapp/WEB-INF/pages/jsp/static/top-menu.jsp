@@ -16,19 +16,21 @@
     <div class="header-wrap">
         <a href="javascript:openMenu()" class="nav-tgl"><img class="nav-img"
                                                              src="${pageContext.request.contextPath}/img/menu.png"></a>
-        <div id="logo"><a href="/">Гостиница "Комсомолка"</a></div>
+        <div id="logo"><a href="/">Гостиница "${config.name}"</a></div>
         <div id="top-menu__nav">
             <ul>
                 <li class="top-menu__itm"><a href="tel:80291233300"><i class="fa fa-phone"
-                                                                       aria-hidden="true"></i>&nbsp;+375 29
-                    12-33-300</a></li>
+                                                                       aria-hidden="true"></i>
+                    ${config.phone}
+                </a></li>
                 <li class="top-menu__itm"><a href="#"><i class="fa fa-map-marker"
-                                                         aria-hidden="true"></i>&nbsp;г.Могилев, ул.
-                    Комсомольская, 10</a></li>
+                                                         aria-hidden="true"></i>
+                    ${config.address}
+                </a></li>
                 <li class="top-menu__itm"><a href="mailto:best-hotel@mail.ru"><i class="fa fa-envelope-o"
                                                                                  aria-hidden="true">
 
-                </i>&nbsp;best-hotel<small>@mail.ru</small></a>
+                </i>${config.email}</a>
                 </li>
             </ul>
         </div>

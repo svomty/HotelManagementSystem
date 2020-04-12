@@ -10,7 +10,6 @@ public class Config {
     private String email;
     private String address;
     private String name;
-    private String yandexApi;
     private String countElem;
     private String login;
     private String password;
@@ -41,7 +40,6 @@ public class Config {
         email = siteConfig.execute(new String[]{"email"});
         login = siteConfig.execute(new String[]{"user"});
         name = siteConfig.execute(new String[]{"hotelName"});
-        yandexApi = siteConfig.execute(new String[]{"yandexApi"});
         phone = siteConfig.execute(new String[]{"phone"});
 
     }
@@ -56,7 +54,6 @@ public class Config {
         instance.email = siteConfig.execute(new String[]{"email", config.getEmail()});
         instance.login = siteConfig.execute(new String[]{"user", config.getLogin()});
         instance.name = siteConfig.execute(new String[]{"hotelName", config.getName()});
-        instance.yandexApi = siteConfig.execute(new String[]{"yandexApi", config.getYandexApi()});
         instance.phone = siteConfig.execute(new String[]{"phone", config.getPhone()});
 
     }
@@ -93,14 +90,6 @@ public class Config {
         this.name = name;
     }
 
-    public String getYandexApi() {
-        return yandexApi;
-    }
-
-    public void setYandexApi(String yandexApi) {
-        this.yandexApi = yandexApi;
-    }
-
     public String getCountElem() {
         return countElem;
     }
@@ -132,7 +121,6 @@ public class Config {
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", name='" + name + '\'' +
-                ", yandexApi='" + yandexApi + '\'' +
                 ", countElem='" + countElem + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
@@ -148,7 +136,6 @@ public class Config {
                 Objects.equals(email, config.email) &&
                 Objects.equals(address, config.address) &&
                 Objects.equals(name, config.name) &&
-                Objects.equals(yandexApi, config.yandexApi) &&
                 Objects.equals(countElem, config.countElem) &&
                 Objects.equals(login, config.login) &&
                 Objects.equals(password, config.password);
@@ -156,6 +143,6 @@ public class Config {
 
     @Override
     public int hashCode() {
-        return Objects.hash(phone, email, address, name, yandexApi, countElem, login, password);
+        return Objects.hash(phone, email, address, name, countElem, login, password);
     }
 }

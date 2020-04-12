@@ -14,7 +14,7 @@
 <header class="header">
     <div class="header-wrap">
         <nav class="header-active">
-            <h1>Гостиница "Комсомолка"</h1>
+            <h1>Гостиница "${config.name}"</h1>
             <ul>
                 <li class="header__itm"><a href="${pageContext.request.contextPath}/" class="btn">Об отеле</a></li>
                 <li class="header__itm"><a href="${pageContext.request.contextPath}/apartment/" class="btn">Номера и

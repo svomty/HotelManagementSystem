@@ -1,5 +1,6 @@
 package com.svintsitski.hotel_management_system.controller;
 
+import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
@@ -56,6 +57,7 @@ public class ApartmentController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
+        model.addAttribute("config", Config.getInstance());
         return relativeURL;
     }
 
@@ -71,6 +73,8 @@ public class ApartmentController {
         model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentType);
         model.setViewName(jspAdd);
+
+        model.addObject("config", Config.getInstance());
         return model;
     }
 
@@ -84,6 +88,7 @@ public class ApartmentController {
 
         model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentType);
+        model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;
     }

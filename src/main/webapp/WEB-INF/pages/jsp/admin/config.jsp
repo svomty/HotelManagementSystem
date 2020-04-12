@@ -56,9 +56,6 @@
                     <lable for="name">Телефон</lable>
                     <form:input path="name" cssClass="form-control" id="name"/>
 
-                    <lable for="yandexApi">Ссылка на карту</lable>
-                    <form:input path="yandexApi" cssClass="form-control" id="yandexApi"/>
-
                     <lable for="countElem">Количество элементов на странице</lable>
                     <form:input path="countElem" cssClass="form-control" id="countElem"/>
 
@@ -77,7 +74,7 @@
 </div>
 <jsp:include page="../static/footer.jsp"/>
 <script>
-    popup_active("${pageContext.request.contextPath}/admin/config");
+    popup_active("${pageContext.request.contextPath}/admin/config/");
 </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.svintsitski.hotel_management_system.controller;
 
+import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Customer;
 import com.svintsitski.hotel_management_system.model.database.ForeignCustomer;
 import com.svintsitski.hotel_management_system.model.support.Checker;
@@ -61,11 +62,13 @@ public class CustomerController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
 
+        model.addAttribute("config", Config.getInstance());
         return relativeURL;
     }
 
     @GetMapping(value = "/update/{id}")
-    public ModelAndView edit(@PathVariable int id, HttpServletRequest request) throws Exception {
+    public ModelAndView edit(@PathVariable int id,
+                             HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         Customer customer = customerService.findById(id);
         ForeignCustomer foreignCustomer = foreignCustomerService.findById(id);
@@ -76,6 +79,7 @@ public class CustomerController {
         model.addObject("customer", customer);
         model.addObject("checker", checker);
         model.addObject("foreignCustomer", foreignCustomer);
+        model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;
     }
@@ -93,6 +97,7 @@ public class CustomerController {
         model.addObject("customer", customer);
         model.addObject("checker", checker);
         model.addObject("foreignCustomer", foreignCustomer);
+        model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;
     }

@@ -29,7 +29,7 @@
             </c:choose>
         </div>
         <div class="footer__text">
-            &copy; Официальный сайт гостиницы «Комсомолка», 2020
+            &copy; Официальный сайт гостиницы «${config.name}», 2020
         </div>
     </div>
 </footer>

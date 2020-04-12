@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html lang="ru">
 
@@ -18,7 +19,7 @@
     <c:url var="urlReturn" value="/admin/apartment/price/"/>
     <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
     <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
-
+    <c:set var="config" value="${config}" scope="request"/>
 </head>
 
 <body>
@@ -59,15 +60,17 @@
                     <div class="contacts__table">
                         <section id="contacts__phone">
                             <h3><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Телефон</h3>
-                            <a href="tel:80291233300">+375 29 12-33-300</a>
+                            <a href="tel:${fn:replace(fn:replace(fn:replace(config.phone, " ", ""),"+",""),"-","")}">
+                                ${config.phone}
+                            </a>
                         </section>
                         <section id="contacts__mail">
-                            <h3><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Email</h3>
-                            <a href="#">г.Могилев, ул. Комсомольская, 10</a>
+                            <h3><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Адрес</h3>
+                            <a href="#">${config.address}</a>
                         </section>
                         <section id="contacts__address">
-                            <h3><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;Адрес</h3>
-                            <a href="mailto:best-hotel@mail.ru">best-hotel<small>@mail.ru</small></a>
+                            <h3><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;Email</h3>
+                            <a href="mailto:${config.email}">${config.email}</a>
                         </section>
                     </div>
                     <div id="contacts__map">

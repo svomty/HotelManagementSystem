@@ -1,5 +1,6 @@
 package com.svintsitski.hotel_management_system.controller;
 
+import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             Integer statusCode = Integer.valueOf(status.toString());
             model.addAttribute("statusCode", statusCode.toString());
         }
+        model.addAttribute("config", Config.getInstance());
         return "error";
     }
 
