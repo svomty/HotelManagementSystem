@@ -6,16 +6,13 @@ import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.beans.PropertyEditorSupport;
 import java.util.List;
 import java.util.Optional;
 
