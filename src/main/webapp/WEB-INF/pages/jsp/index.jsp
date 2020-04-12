@@ -66,7 +66,7 @@
                         </section>
                         <section id="contacts__mail">
                             <h3><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Адрес</h3>
-                            <a href="#">${config.address}</a>
+                            <a>${config.address}</a>
                         </section>
                         <section id="contacts__address">
                             <h3><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;Email</h3>

@@ -1,6 +1,6 @@
 package com.svintsitski.hotel_management_system.model.support;
 
-import static com.svintsitski.hotel_management_system.controller.MainController.default_page_size;
+import com.svintsitski.hotel_management_system.model.Config;
 
 public class Pagination {
     private int current_page;
@@ -14,7 +14,7 @@ public class Pagination {
 
         page_size = size;
         if (page_size < 1) {
-            page_size = default_page_size;
+            page_size = Config.getInstance().getCountElem();
         }
 
         startElem = 1 + (current_page - 1) * page_size;

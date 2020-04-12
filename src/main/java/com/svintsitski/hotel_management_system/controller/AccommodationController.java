@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
-import static com.svintsitski.hotel_management_system.controller.MainController.default_page_size;
-
 @Controller
 @RequestMapping("/admin/accommodation")
 public class AccommodationController {
@@ -44,7 +42,7 @@ public class AccommodationController {
                           HttpServletRequest request) throws Exception {
 
         String sorting = sort.orElse("id");
-        Pagination pagination = new Pagination(page.orElse(1), size.orElse(default_page_size));
+        Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
         ResultQuery result = hotelAccommodationService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
         int full_elem_count = result.getCount();

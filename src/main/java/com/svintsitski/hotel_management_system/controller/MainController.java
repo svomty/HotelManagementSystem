@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MainController {
 
-    public static int default_page_size = 5;
-
     @RequestMapping("/")
     public String welcome(HttpServletRequest request,
                           Model model) {

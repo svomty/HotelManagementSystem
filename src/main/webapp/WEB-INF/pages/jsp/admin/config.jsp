@@ -57,7 +57,7 @@
                     <form:input path="name" cssClass="form-control" id="name"/>
 
                     <lable for="countElem">Количество элементов на странице</lable>
-                    <form:input path="countElem" cssClass="form-control" id="countElem"/>
+                    <form:input path="countElem" type="number" min="1" cssClass="form-control" id="countElem"/>
 
                     <lable for="login">Логин</lable>
                     <form:input path="login" cssClass="form-control" id="login"/>

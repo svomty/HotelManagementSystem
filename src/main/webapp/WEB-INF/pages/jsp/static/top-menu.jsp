@@ -23,7 +23,7 @@
                                                                        aria-hidden="true"></i>
                     ${config.phone}
                 </a></li>
-                <li class="top-menu__itm"><a href="#"><i class="fa fa-map-marker"
+                <li class="top-menu__itm"><a><i class="fa fa-map-marker"
                                                          aria-hidden="true"></i>
                     ${config.address}
                 </a></li>

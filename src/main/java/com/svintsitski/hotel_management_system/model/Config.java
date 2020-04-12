@@ -10,7 +10,7 @@ public class Config {
     private String email;
     private String address;
     private String name;
-    private String countElem;
+    private int countElem;
     private String login;
     private String password;
 
@@ -36,7 +36,7 @@ public class Config {
 
         password = siteConfig.execute(new String[]{"password"});
         address = siteConfig.execute(new String[]{"address"});
-        countElem = siteConfig.execute(new String[]{"countElem"});
+        countElem = Integer.parseInt(siteConfig.execute(new String[]{"countElem"}));
         email = siteConfig.execute(new String[]{"email"});
         login = siteConfig.execute(new String[]{"user"});
         name = siteConfig.execute(new String[]{"hotelName"});
@@ -50,7 +50,9 @@ public class Config {
 
         instance.password = siteConfig.execute(new String[]{"password", config.getPassword()});
         instance.address = siteConfig.execute(new String[]{"address", config.getAddress()});
-        instance.countElem = siteConfig.execute(new String[]{"countElem", config.getCountElem()});
+        instance.countElem = Integer.parseInt(siteConfig.execute(
+                new String[]{"countElem", String.valueOf(config.getCountElem())}
+                ));
         instance.email = siteConfig.execute(new String[]{"email", config.getEmail()});
         instance.login = siteConfig.execute(new String[]{"user", config.getLogin()});
         instance.name = siteConfig.execute(new String[]{"hotelName", config.getName()});
@@ -90,11 +92,14 @@ public class Config {
         this.name = name;
     }
 
-    public String getCountElem() {
+    public int getCountElem() {
         return countElem;
     }
 
     public void setCountElem(String countElem) {
+        this.countElem = Integer.parseInt(countElem);
+    }
+    public void setCountElem(int countElem) {
         this.countElem = countElem;
     }
 
