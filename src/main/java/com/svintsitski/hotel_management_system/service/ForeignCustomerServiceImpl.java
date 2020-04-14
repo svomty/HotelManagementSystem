@@ -21,10 +21,10 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
 
     @Override
     public ResultQuery findAll(int start, int total, String sort) throws Exception {
-        List<Customer> customerList = customerDao.findAll(start, total, sort).getList();
+        List<Customer> customerList = customerDao.findAll(sort);
         List<ForeignCustomer> customerForeignList = new ArrayList<>();
         customerList.forEach(x -> customerForeignList.add(foreignCustomerDao.findById(x.getId())));
-        return new ResultQuery(customerDao.findAll(start, total, sort).getCount(),
+        return new ResultQuery(customerDao.findAll(sort).size(),
                 Arrays.asList(customerList, customerForeignList));
     }
 

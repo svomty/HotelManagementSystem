@@ -6,6 +6,8 @@ import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -15,8 +17,8 @@ public class CustomerServiceImpl implements CustomerService {
     private ForeignCustomerServiceImpl foreignCustomerService;
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) throws Exception {
-        return customerDao.findAll(start, total, sort);
+    public List<Customer> findAll(int start, int total, String sort) throws Exception {
+        return customerDao.findAll(sort);
     }
 
     @Override

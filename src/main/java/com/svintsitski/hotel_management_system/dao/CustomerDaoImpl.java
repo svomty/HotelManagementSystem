@@ -24,17 +24,12 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) throws Exception {
+    public List<Customer> findAll(String sort) {
         String sql = "SELECT * FROM customers " +
-                "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start - 1) + "," + total + ";";
+                "ORDER BY " + sort + " ASC;";
 
-        List<Customer> customerList = jdbcTemplate.query(sql,
+        return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Customer.class));
-
-        String sql2 = "SELECT COUNT(*) FROM customers;";
-        int count = Objects.requireNonNull(jdbcTemplate.queryForObject(sql2, Integer.class));
-        return new ResultQuery(count, customerList);
     }
 
     @Override

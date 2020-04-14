@@ -1,6 +1,8 @@
 package com.svintsitski.hotel_management_system.service;
 
 import com.svintsitski.hotel_management_system.dao.AccommodationDaoImpl;
+import com.svintsitski.hotel_management_system.dao.ApartmentDao;
+import com.svintsitski.hotel_management_system.dao.CustomerDao;
 import com.svintsitski.hotel_management_system.model.database.Accommodation;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.Customer;
@@ -17,25 +19,69 @@ public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationDaoImpl accommodationDao;
     @Autowired
-    private CustomerService customerService;
+    private CustomerDao customerDao;
     @Autowired
-    private ApartmentService apartmentService;
+    private ApartmentDao apartmentDao;
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) throws Exception {
+    public List<List<?>> findAll(int start, int total, String sort) throws Exception {
 
-        List<Accommodation> accommodations = accommodationDao.findAll(start, total, sort).getList();
-        List<Customer> customers = new ArrayList<>();
-        List<Apartment> apartments = new ArrayList<>();
+        start = start - 1;
+        total += start;
 
-        for (Accommodation accommodation : accommodations) {
-            customers.add(customerService.findById(accommodation.getCustomer_id()));
-            apartments.add(apartmentService.findById(accommodation.getApartment_id()));
+        List<Accommodation> accommodations;
+        List<Customer> customers;
+        List<Apartment> apartments;
+
+        boolean sortByApartment = sort.equals("number");
+        boolean sortByCustomer = sort.equals("surname");
+
+        if (sortByApartment || sortByCustomer) {
+            accommodations = accommodationDao.findAll("id");
+        } else {
+            accommodations = accommodationDao.findAll(sort);
         }
 
-        return new ResultQuery(accommodationDao.findAll(start, total, sort).getCount(),
-                Arrays.asList(accommodations, customers, apartments));
+        if (sortByApartment) {
 
+            apartments = apartmentDao.findAll(sort);
+            //получили весь список апартаментов
+
+            accommodations = new ArrayList<>();
+            //обнулили accommodations
+
+            for (int i = 0; i < apartments.size(); i++) {
+                accommodations.addAll(accommodationDao.findByApartmentId(apartments.get(i).getId()));
+            }
+            //нашли апартаменты
+        } else if (sortByCustomer) {
+            customers = customerDao.findAll(sort);
+            //получили весь список customers
+
+            accommodations = new ArrayList<>();
+            //обнулили accommodations
+
+            for (int i = 0; i < customers.size(); i++) {
+                accommodations.addAll(accommodationDao.findByCustomerId(customers.get(i).getId()));
+            }
+            //нашли апартаменты
+        }
+
+        if (accommodations.size() < total) {
+            total = accommodations.size();
+        }
+        accommodations = new ArrayList<>(accommodations.subList(start, total));
+        //accommodations урезали для пагинации
+
+        customers = new ArrayList<>();
+        apartments = new ArrayList<>();
+
+        for (Accommodation accommodation : accommodations) {
+            customers.add(customerDao.findById(accommodation.getCustomer_id()));
+            apartments.add(apartmentDao.findById(accommodation.getApartment_id()));
+        }
+        //нашли customers и apartments
+        return Arrays.asList(accommodations, customers, apartments);
     }
 
     @Override

@@ -60,10 +60,16 @@
                             </a>
                         </div>
                         <div class="divTableCell">
-                            ФИО
+                            <a id="surname"
+                               href="${pageContext.request.contextPath}?page=1&sort=surname&size=${size}">
+                                ФИО
+                            </a>
                         </div>
                         <div class="divTableCell">
-                            Номер апартамента
+                            <a id="number"
+                               href="${pageContext.request.contextPath}?page=1&sort=number&size=${size}">
+                                Номер апартамента
+                            </a>
                         </div>
                         <div class="divTableCell">Опции</div>
                     </div>

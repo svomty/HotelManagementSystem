@@ -23,17 +23,12 @@ public class AccommodationDaoImpl implements AccommodationDao {
 
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) {
+    public List<Accommodation> findAll(String sort) {
         String sql = "SELECT * FROM hotel_accommodation " +
-                "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start - 1) + "," + total + ";";
+                "ORDER BY " + sort + ";";
 
-        List<Accommodation> accommodationList = jdbcTemplate.query(sql,
+        return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Accommodation.class));
-
-        String sql2 = "SELECT COUNT(*) FROM hotel_accommodation;";
-        int count = Objects.requireNonNull(jdbcTemplate.queryForObject(sql2, Integer.class));
-        return new ResultQuery(count, accommodationList);
     }
 
     @Override
@@ -41,6 +36,20 @@ public class AccommodationDaoImpl implements AccommodationDao {
         String sql = "SELECT * FROM hotel_accommodation WHERE id=" + id + ";";
         return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Accommodation.class)).stream().findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Accommodation> findByApartmentId(int id) {
+        String sql = "SELECT * FROM hotel_accommodation WHERE apartment_id=" + id + ";";
+        return jdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(Accommodation.class));
+    }
+
+    @Override
+    public List<Accommodation> findByCustomerId(int id) {
+        String sql = "SELECT * FROM hotel_accommodation WHERE customer_id=" + id + ";";
+        return jdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(Accommodation.class));
     }
 
     @Override

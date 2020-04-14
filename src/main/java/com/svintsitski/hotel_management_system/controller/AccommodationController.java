@@ -44,16 +44,17 @@ public class AccommodationController {
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        ResultQuery result = hotelAccommodationService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
-        int full_elem_count = result.getCount();
-        List<Accommodation> list = result.getList();
-        int total_page = pagination.getTotalPage(full_elem_count);
+        List result = hotelAccommodationService.
+                findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+        List<Accommodation> accommodationList = (List<Accommodation>) result.get(0);
+
+        int total_page = pagination.getTotalPage(accommodationList.size());
 
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addAttribute("accommodation_list", list.get(0));
-        model.addAttribute("customers", list.get(1));
-        model.addAttribute("apartments", list.get(2));
+        model.addAttribute("accommodation_list", accommodationList);
+        model.addAttribute("customers", result.get(1));
+        model.addAttribute("apartments", result.get(2));
 
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
@@ -70,7 +71,7 @@ public class AccommodationController {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = hotelAccommodationService.findById(id);
 
-        List customerList = customerService.findAll(1, 1000, "id").getList();
+        List customerList = customerService.findAll(1, 1000, "id");
         List apartmentList = apartmentService.findAll(1, 1000, "id");
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
@@ -89,7 +90,7 @@ public class AccommodationController {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = new Accommodation();
 
-        List customerList = customerService.findAll(1, 1000, "id").getList();
+        List customerList = customerService.findAll(1, 1000, "id");
         List apartmentList = apartmentService.findAll(1, 1000, "id");
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);

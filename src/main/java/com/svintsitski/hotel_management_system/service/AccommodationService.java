@@ -3,9 +3,11 @@ package com.svintsitski.hotel_management_system.service;
 import com.svintsitski.hotel_management_system.model.database.Accommodation;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 
+import java.util.List;
+
 public interface AccommodationService {
 
-    ResultQuery findAll(int start, int total, String sort) throws Exception;
+    List<List<?>> findAll(int start, int total, String sort) throws Exception;
 
     Accommodation findById(int id);
 
