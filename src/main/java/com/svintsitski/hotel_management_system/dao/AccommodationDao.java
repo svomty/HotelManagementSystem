@@ -9,9 +9,9 @@ public interface AccommodationDao {
 
     Accommodation findById(int id);
 
-    List<Accommodation>  findByApartmentId(int id);
+    List<Accommodation> findByApartmentId(int id);
 
-    List<Accommodation>  findByCustomerId(int id);
+    List<Accommodation> findByCustomerId(int id);
 
     int add(Accommodation accommodation);
 

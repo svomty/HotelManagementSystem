@@ -46,7 +46,6 @@ public class CustomerController {
 
         ResultQuery result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
         int full_elem_count = result.getCount();
-        System.out.println(full_elem_count);
         List<Customer> customerList = (List<Customer>) result.getList().get(0);
         List<ForeignCustomer> foreignCustomerList = (List<ForeignCustomer>) result.getList().get(1);
 

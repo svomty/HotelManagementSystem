@@ -84,7 +84,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         }
         //нашли customers и apartments
 
-        return new ResultQuery (count, Arrays.asList(accommodations, customers, apartments));
+        return new ResultQuery(count, Arrays.asList(accommodations, customers, apartments));
     }
 
     @Override
