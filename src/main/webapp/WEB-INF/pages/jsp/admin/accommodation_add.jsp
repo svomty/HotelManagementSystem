@@ -31,6 +31,8 @@
     <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
     <c:set var="createURL" value="${createURL}" scope="request"/>
 
+    <c:set var="arrival_date_filter" value="${arrival_date_filter}" scope="request"/>
+    <c:set var="departure_date_filter" value="${departure_date_filter}" scope="request"/>
 </head>
 <body>
 
@@ -42,15 +44,28 @@
         <div class="header-wrap">
             <div>
                 <h2>Добавление информации о заселении</h2>
-                <form:form modelAttribute="accommodation" method="post" action="${createURL}" cssClass="form">
+
+                <form action="${pageContext.request.contextPath}">
+                    <lable for="arrival_date_filter">Дата приезда</lable>
+                    <input type="date" name="arrival_date_filter" id="arrival_date_filter" value="arrival_date_filter">
+                    <lable for="departure_date_filter">Дата выезда</lable>
+                    <input type="date" name="departure_date_filter" id="departure_date_filter"
+                           value="departure_date_filter">
+                    <input type="submit" value="Найти">
+                </form>
+
+                <form:form modelAttribute="accommodation" method="post" action="${createURL}" cssClass="form"
+                           id="accommodation">
                     <form:hidden path="id"/>
                     <div class="form-group">
-                        <lable for="arrival_date">Дата приезда</lable>
-                        <form:input path="arrival_date" type="date" cssClass="form-control" id="arrival_date"/>
+                        <lable for="arrival_date">Введенная дата приезда</lable>
+                        <form:input path="arrival_date" type="date" cssClass="form-control" id="arrival_date"
+                                    readonly="true"/>
                     </div>
                     <div class="form-group">
-                        <lable for="departure_date">Дата выезда</lable>
-                        <form:input path="departure_date" type="date" cssClass="form-control" id="departure_date"/>
+                        <lable for="departure_date">Введенная дата выезда</lable>
+                        <form:input path="departure_date" type="date" cssClass="form-control" id="departure_date"
+                                    readonly="true"/>
                     </div>
 
                     <div class="form-group">
@@ -101,8 +116,14 @@
                                         ${apartmentTypeList[loop.index].type};
                                         ${apartmentTypeList[loop.index].price};
                                     Комнат: ${apartmentTypeList[loop.index].rooms_number};
-                                    Мест: ${apartmentTypeList[loop.index].places_number};
-
+                                    <c:if test="${apartmentTypeList[loop.index].places_number == totalPlaces[loop.index]}">
+                                        Мест: ${apartmentTypeList[loop.index].places_number};
+                                        ПОЛНОСТЬЮ СВОБОДЕН;
+                                    </c:if>
+                                    <c:if test="${apartmentTypeList[loop.index].places_number != totalPlaces[loop.index]}">
+                                        Свободно мест: ${apartmentTypeList[loop.index].places_number};
+                                        Всего: ${totalPlaces[loop.index]};
+                                    </c:if>
                                 </option>
                             </c:forEach>
                         </select>
@@ -117,5 +138,6 @@
 <jsp:include page="../static/footer.jsp"/>
 <script>
     popup_active("${pageContext.request.contextPath}/admin/accommodation/");
+    setDate();
 </script>
 </body>

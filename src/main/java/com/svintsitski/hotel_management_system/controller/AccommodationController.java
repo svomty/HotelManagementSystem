@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,15 +68,31 @@ public class AccommodationController {
 
     @GetMapping(value = "/update/{id}")
     public ModelAndView edit(@PathVariable int id,
-                             HttpServletRequest request) throws Exception {
+                             HttpServletRequest request,
+                             @RequestParam Optional<String> arrival_date_filter,
+                             @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = hotelAccommodationService.findById(id);
 
+        String filter_arrival_date = arrival_date_filter.orElse("1980-01-01");
+        String filter_departure_date = departure_date_filter.orElse("1980-01-01");
+
+        if (filter_arrival_date.equals("") || filter_departure_date.equals("")) {
+            filter_arrival_date = "1980-01-01";
+            filter_departure_date = "1980-01-01";
+        }
+
+        Date arrival_date = Date.valueOf(filter_arrival_date);
+        Date departure_date = Date.valueOf(filter_departure_date);
+
         List customerList = customerService.findAll(1, 1000, "id");
-        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
+        List apartmentList = apartmentService.findForDate(arrival_date, departure_date).getList();
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addObject("arrival_date_filter", arrival_date);
+        model.addObject("departure_date_filter", departure_date);
+        model.addObject("totalPlaces", apartmentList.get(2));
         model.addObject("customerList", customerList);
         model.addObject("apartmentList", apartmentList.get(0));
         model.addObject("apartmentTypeList", apartmentList.get(1));
@@ -86,15 +103,31 @@ public class AccommodationController {
     }
 
     @GetMapping(value = {"/add/", "/add"})
-    public ModelAndView add(HttpServletRequest request) throws Exception {
+    public ModelAndView add(HttpServletRequest request,
+                            @RequestParam Optional<String> arrival_date_filter,
+                            @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = new Accommodation();
+        String filter_arrival_date = arrival_date_filter.orElse("1980-01-01");
+        String filter_departure_date = departure_date_filter.orElse("1980-01-01");
+
+        if (filter_arrival_date.equals("") || filter_departure_date.equals("")) {
+            filter_arrival_date = "1980-01-01";
+            filter_departure_date = "1980-01-01";
+        }
+
+        Date arrival_date = Date.valueOf(filter_arrival_date);
+        Date departure_date = Date.valueOf(filter_departure_date);
 
         List customerList = customerService.findAll(1, 1000, "id");
-        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
+
+        List apartmentList = apartmentService.findForDate(arrival_date, departure_date).getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addObject("arrival_date_filter", arrival_date);
+        model.addObject("departure_date_filter", departure_date);
+        model.addObject("totalPlaces", apartmentList.get(2));
         model.addObject("customerList", customerList);
         model.addObject("apartmentList", apartmentList.get(0));
         model.addObject("apartmentTypeList", apartmentList.get(1));

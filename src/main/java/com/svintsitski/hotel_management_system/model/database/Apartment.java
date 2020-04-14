@@ -68,4 +68,5 @@ public class Apartment {
                 ", type_id=" + type_id +
                 '}';
     }
+
 }

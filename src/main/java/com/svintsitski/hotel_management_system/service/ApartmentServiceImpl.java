@@ -1,13 +1,16 @@
 package com.svintsitski.hotel_management_system.service;
 
-import com.svintsitski.hotel_management_system.dao.ApartmentDaoImpl;
-import com.svintsitski.hotel_management_system.dao.ApartmentTypeDaoImpl;
+import com.svintsitski.hotel_management_system.dao.AccommodationDao;
+import com.svintsitski.hotel_management_system.dao.ApartmentDao;
+import com.svintsitski.hotel_management_system.dao.ApartmentTypeDao;
+import com.svintsitski.hotel_management_system.model.database.Accommodation;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,12 +19,14 @@ import java.util.List;
 public class ApartmentServiceImpl implements ApartmentService {
 
     @Autowired
-    private ApartmentDaoImpl apartmentDao;
+    private ApartmentDao apartmentDao;
     @Autowired
-    private ApartmentTypeDaoImpl apartmentTypeDao;
+    private ApartmentTypeDao apartmentTypeDao;
+    @Autowired
+    private AccommodationDao accommodationDao;
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) {
+    public ResultQuery findAll(int start, int total, String sort) throws Exception {
 
         start = start - 1;
         total += start;
@@ -66,6 +71,69 @@ public class ApartmentServiceImpl implements ApartmentService {
         //apartmentType нашли
 
         return new ResultQuery(count, Arrays.asList(apartments, apartmentType));
+    }
+
+    @Override
+    public ResultQuery findForDate(Date arrival_date, Date departure_date) throws Exception {
+        List<ApartmentType> apartmentType;
+        List<Apartment> apartments;
+        List<Accommodation> accommodations;
+        List<Byte> totalPlaces;
+
+        apartments = apartmentDao.findAll("id");
+        accommodations = accommodationDao.findAll("id");
+        totalPlaces = new ArrayList<>();
+        apartmentType = new ArrayList<>();
+        for (int i = 0; i < apartments.size(); i++) {
+            apartmentType.add(apartmentTypeDao.findById(apartments.get(i).getType_id()));
+            totalPlaces.add(apartmentType.get(i).getPlaces_number());
+        }
+        //apartmentType нашли
+
+        for (Accommodation accommodation : accommodations) {//идем по заселению
+            if (//если на текущую дату апартамент занят - минусуем места на 1
+                    accommodation.getArrival_date().after(arrival_date)
+                            && (accommodation.getArrival_date().before(departure_date)
+                            || accommodation.getArrival_date().equals(departure_date))
+
+                            ||
+
+                            accommodation.getDeparture_date().after(arrival_date)
+                                    && (accommodation.getDeparture_date().before(departure_date)
+                                    || accommodation.getDeparture_date().equals(departure_date))
+            ) {
+
+                for (int i = 0; i < apartments.size(); i++) { //ищем апартамент
+
+                    if (apartments.get(i).getId() == accommodation.getApartment_id()) {
+
+                        byte places_number = apartmentType.get(i).getPlaces_number();
+
+                        apartmentType.get(i).setPlaces_number((byte) (places_number - 1));
+
+                        if (apartmentType.get(i).getPlaces_number() == places_number) { //удаляем апартамент и его тип
+
+                            apartmentType.remove(i);
+                            apartments.remove(i);
+                            totalPlaces.remove(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        return new ResultQuery(apartments.size(), Arrays.asList(apartments, apartmentType, totalPlaces));
+
+        /*
+         * найти все апартаменты
+         * найти все заселения на эту дату
+         * найти все бронирования на эту дату
+         * объединить
+         * вывести число свободных мест или если мест = 0 , то не отображать вообще
+         *
+         *
+         * */
     }
 
     @Override

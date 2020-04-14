@@ -71,3 +71,46 @@ function filtering(selectId, filterId) {
 
     }
 }
+
+function setDate() {
+    var params = window
+        .location
+        .search
+        .replace('?', '')
+        .split('&')
+        .reduce(
+            function (p, e) {
+                var a = e.split('=');
+                p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                return p;
+            },
+            {}
+        );
+
+    document.getElementById("accommodation").classList.remove('display-none');
+
+    var arrival_date = params['arrival_date_filter'];
+    var departure_date = params['departure_date_filter'];
+    var arrival_date1 = document.getElementById("arrival_date").value;
+    var departure_date1 = document.getElementById("departure_date").value;
+
+    if (departure_date && 0 !== departure_date.length && arrival_date && 0 !== arrival_date.length) {
+        document.getElementById("accommodation").classList.remove('display-none');
+        document.getElementById("arrival_date").value = arrival_date;
+        document.getElementById("arrival_date_filter").value = arrival_date;
+        document.getElementById("departure_date_filter").value = departure_date;
+        document.getElementById("departure_date").value = departure_date;
+    } else {
+
+        if (!departure_date1 || 0 === departure_date1.length || !arrival_date1 || 0 === arrival_date1.length
+            || "" === departure_date1 || "" === arrival_date1) {
+            document.getElementById("accommodation").classList.add('display-none');
+        } else {
+            window
+                .location
+                .search = "?arrival_date_filter=" + arrival_date1 + "&departure_date_filter=" + departure_date1;
+        }
+
+    }
+
+}

@@ -36,7 +36,7 @@ public class ApartmentController {
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
                           Model model,
-                          HttpServletRequest request) {
+                          HttpServletRequest request) throws Exception {
 
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
