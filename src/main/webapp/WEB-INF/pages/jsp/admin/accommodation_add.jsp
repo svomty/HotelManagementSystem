@@ -41,18 +41,30 @@
         <jsp:include page="../static/popupbg.jsp"/>
         <div class="header-wrap">
             <div>
-                <h2>Создание нового типа апартаментов</h2>
+                <h2>Добавление информации о заселении</h2>
                 <form:form modelAttribute="accommodation" method="post" action="${createURL}" cssClass="form">
                     <form:hidden path="id"/>
                     <div class="form-group">
-                        <lable for="arrival_date">arrival_date</lable>
+                        <lable for="arrival_date">Дата приезда</lable>
                         <form:input path="arrival_date" type="date" cssClass="form-control" id="arrival_date"/>
                     </div>
                     <div class="form-group">
-                        <lable for="departure_date">departure_date</lable>
+                        <lable for="departure_date">Дата выезда</lable>
                         <form:input path="departure_date" type="date" cssClass="form-control" id="departure_date"/>
                     </div>
 
+                    <div class="form-group">
+                        <label for="customer_id">Клиент</label>
+
+                        <a class="btn btn-outline-danger btn-sm" href="#" style="float: right"
+                           onclick='toDefault("customer_id", "customer_id_filter")'>
+                            Очистить
+                        </a>
+
+                        <input style="float: right" name="customer_id_filter" id="customer_id_filter"
+                               onkeyup='filtering("customer_id", "customer_id_filter")'
+                               placeholder="Поиск клиента..">
+                    </div>
                     <div class="form-group">
                         <select name="customer_id" id="customer_id" path="customer_id">
                             <c:forEach items="${customerList}" var="customerList">
@@ -63,12 +75,23 @@
                                         ${customerList.patronymic},
                                         ${customerList.birth_date}.
                                     Паспортные данные: ${customerList.passport_serial_number}
-
                                 </option>
                             </c:forEach>
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="apartment_id">Апартамент</label>
+
+                        <a class="btn btn-outline-danger btn-sm" href="#" style="float: right"
+                           onclick='toDefault("apartment_id", "apartment_id_filter")'>
+                            Очистить
+                        </a>
+
+                        <input style="float: right" name="apartment_id_filter" id="apartment_id_filter"
+                               onkeyup='filtering("apartment_id", "apartment_id_filter")'
+                               placeholder="Поиск апартамента..">
+                    </div>
                     <div class="form-group">
                         <select name="apartment_id" id="apartment_id" path="apartment_id">
                             <c:forEach items="${apartmentList}" var="apartmentList" varStatus="loop">

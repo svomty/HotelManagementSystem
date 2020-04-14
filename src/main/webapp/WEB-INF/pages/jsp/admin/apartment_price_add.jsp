@@ -44,22 +44,22 @@
                 <form:form modelAttribute="apartmentType" method="post" action="${createURL}" cssClass="form">
                     <form:hidden path="id"/>
                     <div class="form-group">
-                        <lable for="price">price</lable>
+                        <lable for="price">Цена</lable>
                         <form:input path="price" cssClass="form-control" id="price"/>
                     </div>
                     <div class="form-group">
-                        <lable for="rooms_number">rooms_number</lable>
+                        <lable for="rooms_number"Кол-во комнат</lable>
                         <form:input path="rooms_number" cssClass="form-control" id="rooms_number"/>
                     </div>
                     <div class="form-group">
-                        <lable for="places_number">places_number</lable>
+                        <lable for="places_number">Кол-во мест</lable>
                         <form:input path="places_number" cssClass="form-control" />
                     </div>
 
                     <form:radiobuttons path="type" id="type" items="${types}" />
 
                     <div class="form-group">
-                        <lable for="description">description</lable>
+                        <lable for="description">Описание</lable>
                         <form:input path="description" cssClass="form-control" id="description"/>
                     </div>
 
