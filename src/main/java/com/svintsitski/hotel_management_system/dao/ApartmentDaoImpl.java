@@ -21,9 +21,12 @@ public class ApartmentDaoImpl implements ApartmentDao {
 
     @Override
     public ResultQuery findAll(int start, int total, String sort) {
-        String sql = "SELECT * FROM apartments " +
+        /*String sql = "SELECT * FROM apartments " +
                 "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start - 1) + "," + total + ";";
+                " LIMIT " + (start - 1) + "," + total + ";";*/
+
+        String sql = "SELECT * FROM apartments " +
+                "ORDER BY " + sort + ";";
 
         List<Apartment> apartmentList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Apartment.class));
@@ -39,6 +42,15 @@ public class ApartmentDaoImpl implements ApartmentDao {
         List<Apartment> apartmentTypeList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Apartment.class));
         return apartmentTypeList.stream().findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Apartment> findByType(int id) {
+        String sql = "SELECT * FROM apartments WHERE type_id=" + id + ";";
+
+        List<Apartment> apartmentTypeList = jdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(Apartment.class));
+        return apartmentTypeList;
     }
 
     @Override

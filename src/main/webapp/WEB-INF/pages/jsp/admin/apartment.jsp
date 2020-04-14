@@ -49,23 +49,40 @@
                             <a id="id" href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}">id</a>
                         </div>
                         <div class="divTableCell">
+
                             <a id="number" href="${pageContext.request.contextPath}?page=1&sort=number&size=${size}">
                                 Номер апартамента</a>
+
                         </div>
                         <div class="divTableCell">
-                            Стоимость места
+
+                            <a id="price" href="${pageContext.request.contextPath}?page=1&sort=price&size=${size}">
+                                Стоимость места</a>
+
                         </div>
                         <div class="divTableCell">
-                            Кол-во комнат
+
+                            <a id="rooms_number" href="${pageContext.request.contextPath}?page=1&sort=rooms_number&size=${size}">
+                                Кол-во комнат</a>
+
                         </div>
                         <div class="divTableCell">
-                            Кол-во мест
+
+                            <a id="places_number" href="${pageContext.request.contextPath}?page=1&sort=places_number&size=${size}">
+                                Кол-во мест</a>
+
                         </div>
                         <div class="divTableCell">
-                            Тип номера
+
+                            <a id="type" href="${pageContext.request.contextPath}?page=1&sort=type&size=${size}">
+                                Тип номера</a>
+
                         </div>
                         <div class="divTableCell">
-                            Описание
+
+                            <a id="description" href="${pageContext.request.contextPath}?page=1&sort=description&size=${size}">
+                                Описание</a>
+
                         </div>
                         <div class="divTableCell">Опции</div>
                     </div>

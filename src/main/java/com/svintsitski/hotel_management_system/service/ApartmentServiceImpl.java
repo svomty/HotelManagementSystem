@@ -8,9 +8,7 @@ import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ApartmentServiceImpl implements ApartmentService {
@@ -22,16 +20,61 @@ public class ApartmentServiceImpl implements ApartmentService {
 
     @Override
     public ResultQuery findAll(int start, int total, String sort) {
-        List<Apartment> apartments = apartmentDao.findAll(start, total, sort).getList();
-        List<ApartmentType> apartmentType = new ArrayList<>();
-        apartments.forEach(x -> apartmentType.add(apartmentTypeDao.findById(x.getType_id())));
-        return new ResultQuery(apartmentDao.findAll(start, total, sort).getCount(),
-                Arrays.asList(apartments, apartmentType));
+
+        start = start-1;
+        total += start;
+
+        List<ApartmentType> apartmentType;
+        List<Apartment> apartments;
+
+        boolean sortByType = sort.equals("price") || sort.equals("rooms_number") || sort.equals("places_number")
+                || sort.equals("type") || sort.equals("description");
+
+        if (sortByType) {
+            apartments = apartmentDao.findAll(start, total, "id").getList();
+        } else {
+            apartments = apartmentDao.findAll(start, total, sort).getList();
+        }
+
+        int count = apartments.size(); //сохранили размер листа
+
+        if (sortByType) {
+
+            apartmentType = apartmentTypeDao.findAll(start, total, sort).getList();
+            //получили весь список типов апартаментов
+
+            apartments = new ArrayList<>();
+            //обнулили apartments
+
+            for (int i = 0; i < apartmentType.size(); i++) {
+                apartments.addAll(apartmentDao.findByType(apartmentType.get(i).getId()));
+            }
+            //нашли апартаменты
+        }
+
+        if (apartments.size() < total) {
+            total = apartments.size();
+        }
+        apartments = new ArrayList<>(apartments.subList(start, total));
+        //apartments урезали для пагинации
+
+        apartmentType = new ArrayList<>();
+        for (int i = 0; i < apartments.size(); i++) {
+            apartmentType.add(apartmentTypeDao.findById(apartments.get(i).getType_id()));
+        }
+        //apartmentType нашли
+
+        return new ResultQuery(count, Arrays.asList(apartments, apartmentType));
     }
 
     @Override
     public Apartment findById(int id) {
         return apartmentDao.findById(id);
+    }
+
+    @Override
+    public List<Apartment> findByType(int id) {
+        return apartmentDao.findByType(id);
     }
 
     @Override
