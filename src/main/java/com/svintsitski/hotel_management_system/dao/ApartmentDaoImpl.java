@@ -20,20 +20,13 @@ public class ApartmentDaoImpl implements ApartmentDao {
     private java.lang.Object Object;
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) {
-        /*String sql = "SELECT * FROM apartments " +
-                "ORDER BY " + sort + " ASC " +
-                " LIMIT " + (start - 1) + "," + total + ";";*/
+    public List<Apartment> findAll(String sort) {
 
         String sql = "SELECT * FROM apartments " +
                 "ORDER BY " + sort + ";";
 
-        List<Apartment> apartmentList = jdbcTemplate.query(sql,
+        return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Apartment.class));
-
-        String sql2 = "SELECT COUNT(*) FROM apartments;";
-        int count = Objects.requireNonNull(jdbcTemplate.queryForObject(sql2, Integer.class));
-        return new ResultQuery(count, apartmentList);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     private ApartmentTypeDaoImpl apartmentTypeDao;
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) {
+    public List<List<?>> findAll(int start, int total, String sort) {
 
         start = start-1;
         total += start;
@@ -31,16 +31,14 @@ public class ApartmentServiceImpl implements ApartmentService {
                 || sort.equals("type") || sort.equals("description");
 
         if (sortByType) {
-            apartments = apartmentDao.findAll(start, total, "id").getList();
+            apartments = apartmentDao.findAll("id");
         } else {
-            apartments = apartmentDao.findAll(start, total, sort).getList();
+            apartments = apartmentDao.findAll(sort);
         }
-
-        int count = apartments.size(); //сохранили размер листа
 
         if (sortByType) {
 
-            apartmentType = apartmentTypeDao.findAll(start, total, sort).getList();
+            apartmentType = apartmentTypeDao.findAll(start, total, sort);
             //получили весь список типов апартаментов
 
             apartments = new ArrayList<>();
@@ -64,7 +62,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
         //apartmentType нашли
 
-        return new ResultQuery(count, Arrays.asList(apartments, apartmentType));
+        return Arrays.asList(apartments, apartmentType);
     }
 
     @Override

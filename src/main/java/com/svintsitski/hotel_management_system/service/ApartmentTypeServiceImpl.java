@@ -6,6 +6,8 @@ import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ApartmentTypeServiceImpl implements ApartmentTypeService {
 
@@ -13,7 +15,7 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService {
     private ApartmentTypeDaoImpl apartmentDao;
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort) {
+    public List<ApartmentType> findAll(int start, int total, String sort) {
         return apartmentDao.findAll(start, total, sort);
     }
 

@@ -6,7 +6,7 @@ import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import java.util.List;
 
 public interface ApartmentService {
-    ResultQuery findAll(int start, int total, String sort);
+    List<List<?>> findAll(int start, int total, String sort);
 
     Apartment findById(int id);
     List<Apartment> findByType(int id);

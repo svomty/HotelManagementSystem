@@ -6,7 +6,7 @@ import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import java.util.List;
 
 public interface ApartmentDao {
-    ResultQuery findAll(int start, int total, String sort) throws Exception;
+    List<Apartment> findAll(String sort) throws Exception;
 
     Apartment findById(int id);
     List<Apartment> findByType(int id);

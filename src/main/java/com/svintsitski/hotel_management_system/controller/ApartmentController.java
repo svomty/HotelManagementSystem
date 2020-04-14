@@ -40,15 +40,16 @@ public class ApartmentController {
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        ResultQuery result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
-        int full_elem_count = result.getCount();
-        List resultQueryList = result.getList();
+        List<List<? extends Object>> result = apartmentService
+                .findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+
+        int full_elem_count = result.get(0).size();
         int total_page = pagination.getTotalPage(full_elem_count);
 
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addAttribute("apartment_list", resultQueryList.get(0));
-        model.addAttribute("apartment_type_list", resultQueryList.get(1));
+        model.addAttribute("apartment_list", result.get(0));
+        model.addAttribute("apartment_type_list", result.get(1));
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
