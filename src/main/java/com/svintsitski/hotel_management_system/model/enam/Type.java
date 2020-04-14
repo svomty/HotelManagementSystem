@@ -10,7 +10,7 @@ public enum Type {
         this.type = type;
     }
 
-    public static Type findType(String type){
+    public static Type findType(String type) {
         Type result = Type.Стандарт;
         if (type != null) {
             for (Type t : Type.values()) {
@@ -23,7 +23,7 @@ public enum Type {
         return result;
     }
 
-    public static Type findTypeName(String type){
+    public static Type findTypeName(String type) {
         Type result = Type.Стандарт;
         if (type != null) {
             for (Type t : Type.values()) {

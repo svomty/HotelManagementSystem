@@ -3,7 +3,6 @@ package com.svintsitski.hotel_management_system.controller;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
@@ -65,7 +64,7 @@ public class ApartmentController {
                              HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = apartmentService.findById(id);
-        List apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
+        List apartmentType = apartmentTypeService.findAll(1, 1000, "id");
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
@@ -81,7 +80,7 @@ public class ApartmentController {
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = new Apartment();
-        List apartmentType = apartmentTypeService.findAll(1, 1000, "id").getList();
+        List apartmentType = apartmentTypeService.findAll(1, 1000, "id");
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 

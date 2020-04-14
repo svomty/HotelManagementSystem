@@ -4,11 +4,12 @@ import com.svintsitski.hotel_management_system.dao.ApartmentDaoImpl;
 import com.svintsitski.hotel_management_system.dao.ApartmentTypeDaoImpl;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class ApartmentServiceImpl implements ApartmentService {
@@ -21,7 +22,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Override
     public List<List<?>> findAll(int start, int total, String sort) {
 
-        start = start-1;
+        start = start - 1;
         total += start;
 
         List<ApartmentType> apartmentType;
@@ -38,7 +39,7 @@ public class ApartmentServiceImpl implements ApartmentService {
 
         if (sortByType) {
 
-            apartmentType = apartmentTypeDao.findAll(start, total, sort);
+            apartmentType = apartmentTypeDao.findAll(sort);
             //получили весь список типов апартаментов
 
             apartments = new ArrayList<>();

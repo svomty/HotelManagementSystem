@@ -2,7 +2,6 @@ package com.svintsitski.hotel_management_system.service;
 
 import com.svintsitski.hotel_management_system.dao.ApartmentTypeDaoImpl;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService {
 
     @Override
     public List<ApartmentType> findAll(int start, int total, String sort) {
-        return apartmentDao.findAll(start, total, sort);
+        return apartmentDao.findAll(sort);
     }
 
     @Override

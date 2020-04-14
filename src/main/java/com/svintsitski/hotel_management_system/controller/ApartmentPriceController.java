@@ -4,7 +4,6 @@ import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.enam.Type;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

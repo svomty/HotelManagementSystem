@@ -71,7 +71,7 @@ public class AccommodationController {
         Accommodation hotelAccommodation = hotelAccommodationService.findById(id);
 
         List customerList = customerService.findAll(1, 1000, "id").getList();
-        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
+        List apartmentList = apartmentService.findAll(1, 1000, "id");
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
@@ -90,7 +90,7 @@ public class AccommodationController {
         Accommodation hotelAccommodation = new Accommodation();
 
         List customerList = customerService.findAll(1, 1000, "id").getList();
-        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
+        List apartmentList = apartmentService.findAll(1, 1000, "id");
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 

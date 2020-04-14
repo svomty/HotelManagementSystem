@@ -40,7 +40,7 @@ public class SiteConfig {
                 properties.store(new OutputStreamWriter(fos, StandardCharsets.UTF_8), null);
             }
 
-            result =  properties.getProperty(property);
+            result = properties.getProperty(property);
 
         } catch (Exception e) {
 

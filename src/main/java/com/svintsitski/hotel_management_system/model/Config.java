@@ -52,7 +52,7 @@ public class Config {
         instance.address = siteConfig.execute(new String[]{"address", config.getAddress()});
         instance.countElem = Integer.parseInt(siteConfig.execute(
                 new String[]{"countElem", String.valueOf(config.getCountElem())}
-                ));
+        ));
         instance.email = siteConfig.execute(new String[]{"email", config.getEmail()});
         instance.login = siteConfig.execute(new String[]{"user", config.getLogin()});
         instance.name = siteConfig.execute(new String[]{"hotelName", config.getName()});
@@ -99,6 +99,7 @@ public class Config {
     public void setCountElem(String countElem) {
         this.countElem = Integer.parseInt(countElem);
     }
+
     public void setCountElem(int countElem) {
         this.countElem = countElem;
     }

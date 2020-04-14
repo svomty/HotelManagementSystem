@@ -21,7 +21,7 @@ public class ApartmentTypeDaoImpl implements ApartmentTypeDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ApartmentType> findAll(int start, int total, String sort) {
+    public List<ApartmentType> findAll(String sort) {
 
         String sql = "SELECT * FROM apartment_type " +
                 "ORDER BY " + sort + ";";
