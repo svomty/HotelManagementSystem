@@ -20,6 +20,9 @@
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
     <script src="${pageContext.request.contextPath}/js/btn-active.js"></script>
     <c:set var="urlBase"
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
@@ -44,11 +47,14 @@
                 <form:form modelAttribute="apartment" method="post" action="${createURL}" cssClass="form">
                     <form:hidden path="id"/>
                     <div class="form-group">
-                        <lable for="number">number</lable>
+                        <lable for="number">Номер апартамента</lable>
                         <form:input path="number" cssClass="form-control" id="number"/>
                     </div>
 
                     <div class="form-group">
+                        <lable for="type_id">Тип апартамента</lable>
+                        <input name="type_id_filter" id="type_id_filter" onkeyup="filtering()"
+                               placeholder="Search type..">
                         <select name="type_id" id="type_id" path="type_id">
                             <c:forEach items="${apartmentType}" var="apartmentType">
                                 <option value="${apartmentType.id}"
