@@ -49,20 +49,24 @@ function filtering(selectId, filterId) {
     var keyword = document.getElementById(filterId).value;
     var select = document.getElementById(selectId);
 
-    var selectedValue = select.options[select.selectedIndex].value;
-    var selectedText = select.options[select.selectedIndex].text;
+    var find = false;
 
     for (var i = 0; i < select.length; i++) {
+
         var value = select.options[i].value;
-
         var txt = select.options[i].text;
-
         var include = txt.toLowerCase().includes(keyword.toLowerCase());
 
         if (!include) {
             select.options[i].classList.add('display-none');
         } else {
+
+            if (!find) {
+                document.getElementById(selectId).value = value;
+                find = true;
+            }
             select.options[i].classList.remove('display-none');
+
         }
 
     }
