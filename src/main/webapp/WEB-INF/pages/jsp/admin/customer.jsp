@@ -35,6 +35,7 @@
     <c:set var="total_page" value="${total_page}" scope="request"/>
     <c:set var="current_page" value="${current_page}" scope="request"/>
     <c:set var="sort" value="${sort}" scope="request"/>
+    <c:set var="surname_filter" value="${surname_filter}" scope="request"/>
     <c:set var="size" value="${size}" scope="request"/>
     <c:set var="start_page" value="${start_page}" scope="request"/>
     <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
@@ -49,42 +50,55 @@
         <jsp:include page="../static/popupbg.jsp"/>
         <div class="header-wrap">
             <jsp:include page="../static/tableTopBar.jsp"/>
+
+
+            <form action="${pageContext.request.contextPath}">
+                <input name="page" id="page" value="1" hidden>
+                <input name="sort" id="sort" value="${sort}" hidden>
+                <input name="size" id="size" value="${size}" hidden>
+                <input name="surname_filter" id="surname_filter"
+                       placeholder="Поиск по фамилии..">
+                <input type="submit" value="Найти">
+            </form>
+
             <div class="divTable" style="border: 1px solid #000;">
                 <div class="divTableHeading">
                     <div class="divTableRow">
                         <div class="divTableCell">
-                            <a id="id" href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}">id</a>
+                            <a id="id"
+                               href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}&surname_filter=${surname_filter}">id</a>
                         </div>
                         <div class="divTableCell">
-                            <a id="surname" href="${pageContext.request.contextPath}?page=1&sort=surname&size=${size}">
+                            <a id="surname"
+                               href="${pageContext.request.contextPath}?page=1&sort=surname&size=${size}&surname_filter=${surname_filter}">
                                 Фамилия</a>
                         </div>
                         <div class="divTableCell">
                             <a id="name"
-                               href="${pageContext.request.contextPath}?page=1&sort=name&size=${size}">Имя</a>
+                               href="${pageContext.request.contextPath}?page=1&sort=name&size=${size}&surname_filter=${surname_filter}">Имя</a>
                         </div>
                         <div class="divTableCell">
                             <a id="patronymic"
-                               href="${pageContext.request.contextPath}?page=1&sort=patronymic&size=${size}">Отчество</a>
+                               href="${pageContext.request.contextPath}?page=1&sort=patronymic&size=${size}&surname_filter=${surname_filter}">Отчество</a>
                         </div>
                         <div class="divTableCell">
                             <a id="birth_date"
-                               href="${pageContext.request.contextPath}?page=1&sort=birth_date&size=${size}">Дата
+                               href="${pageContext.request.contextPath}?page=1&sort=birth_date&size=${size}&surname_filter=${surname_filter}">Дата
                                 рождения</a>
                         </div>
                         <div class="divTableCell">
                             <a id="passport_serial_number"
-                               href="${pageContext.request.contextPath}?page=1&sort=passport_serial_number&size=${size}">
+                               href="${pageContext.request.contextPath}?page=1&sort=passport_serial_number&size=${size}&surname_filter=${surname_filter}">
                                 Серийный номер паспорта</a>
                         </div>
                         <div class="divTableCell">
                             <a id="identification_number"
-                               href="${pageContext.request.contextPath}?page=1&sort=identification_number&size=${size}">
+                               href="${pageContext.request.contextPath}?page=1&sort=identification_number&size=${size}&surname_filter=${surname_filter}">
                                 Идентификационный номер</a>
                         </div>
                         <div class="divTableCell">
                             <a id="registration_address"
-                               href="${pageContext.request.contextPath}?page=1&sort=registration_address&size=${size}">
+                               href="${pageContext.request.contextPath}?page=1&sort=registration_address&size=${size}&surname_filter=${surname_filter}">
                                 Регистрационный адрес</a>
                         </div>
                         <div class="divTableCell">

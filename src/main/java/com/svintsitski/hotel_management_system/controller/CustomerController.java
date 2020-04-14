@@ -38,13 +38,17 @@ public class CustomerController {
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
+                          @RequestParam Optional<String> surname_filter,
                           Model model,
                           HttpServletRequest request) throws Exception {
+
+        String filter = surname_filter.orElse("");
+        //сделать сортировку
 
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        ResultQuery result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+        ResultQuery result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting, filter);
         int full_elem_count = result.getCount();
         List<Customer> customerList = (List<Customer>) result.getList().get(0);
         List<ForeignCustomer> foreignCustomerList = (List<ForeignCustomer>) result.getList().get(1);
@@ -54,6 +58,7 @@ public class CustomerController {
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addAttribute("customer_list", customerList);
+        model.addAttribute("surname_filter", filter);
         model.addAttribute("foreign_customer_list", foreignCustomerList);
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
