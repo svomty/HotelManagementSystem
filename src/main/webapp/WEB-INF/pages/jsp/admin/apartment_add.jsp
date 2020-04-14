@@ -47,14 +47,19 @@
                 <form:form modelAttribute="apartment" method="post" action="${createURL}" cssClass="form">
                     <form:hidden path="id"/>
                     <div class="form-group">
-                        <lable for="number">Номер апартамента</lable>
+                        <label for="number">Номер апартамента</label>
                         <form:input path="number" cssClass="form-control" id="number"/>
                     </div>
 
                     <div class="form-group">
-                        <lable for="type_id">Тип апартамента</lable>
-                        <input name="type_id_filter" id="type_id_filter" onkeyup="filtering()"
+                        <label for="type_id">Тип апартамента</label>
+
+                        <a class="btn btn-outline-danger btn-sm" href="#" style="float: right" onclick='toDefault("type_id", "type_id_filter")'>
+                            Очистить
+                        </a>
+                        <input style="float: right" name="type_id_filter" id="type_id_filter" onkeyup='filtering("type_id", "type_id_filter")'
                                placeholder="Search type..">
+
                         <select name="type_id" id="type_id" path="type_id">
                             <c:forEach items="${apartmentType}" var="apartmentType">
                                 <option value="${apartmentType.id}"

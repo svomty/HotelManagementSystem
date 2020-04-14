@@ -39,3 +39,31 @@ function foreign_active() {
         foreignWrapper.classList.remove('display-none');
     }
 }
+
+function toDefault(selectId, filterId) {
+    document.getElementById(filterId).value = "";
+    filtering(selectId, filterId);
+}
+
+function filtering(selectId, filterId) {
+    var keyword = document.getElementById(filterId).value;
+    var select = document.getElementById(selectId);
+
+    var selectedValue = select.options[select.selectedIndex].value;
+    var selectedText = select.options[select.selectedIndex].text;
+
+    for (var i = 0; i < select.length; i++) {
+        var value = select.options[i].value;
+
+        var txt = select.options[i].text;
+
+        var include = txt.toLowerCase().includes(keyword.toLowerCase());
+
+        if (!include) {
+            select.options[i].classList.add('display-none');
+        } else {
+            select.options[i].classList.remove('display-none');
+        }
+
+    }
+}
