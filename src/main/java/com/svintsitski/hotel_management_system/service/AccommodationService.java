@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AccommodationService {
 
-    List<List<?>> findAll(int start, int total, String sort) throws Exception;
+    ResultQuery findAll(int start, int total, String sort) throws Exception;
 
     Accommodation findById(int id);
 

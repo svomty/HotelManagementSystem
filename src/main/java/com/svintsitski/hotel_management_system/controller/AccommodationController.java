@@ -44,17 +44,17 @@ public class AccommodationController {
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        List result = hotelAccommodationService.
+        ResultQuery result = hotelAccommodationService.
                 findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
-        List<Accommodation> accommodationList = (List<Accommodation>) result.get(0);
+        List<Accommodation> accommodationList = (List<Accommodation>) result.getList().get(0);
 
-        int total_page = pagination.getTotalPage(accommodationList.size());
+        int total_page = pagination.getTotalPage(result.getCount());
 
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addAttribute("accommodation_list", accommodationList);
-        model.addAttribute("customers", result.get(1));
-        model.addAttribute("apartments", result.get(2));
+        model.addAttribute("customers", result.getList().get(1));
+        model.addAttribute("apartments", result.getList().get(2));
 
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
@@ -72,7 +72,7 @@ public class AccommodationController {
         Accommodation hotelAccommodation = hotelAccommodationService.findById(id);
 
         List customerList = customerService.findAll(1, 1000, "id");
-        List apartmentList = apartmentService.findAll(1, 1000, "id");
+        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
@@ -91,7 +91,7 @@ public class AccommodationController {
         Accommodation hotelAccommodation = new Accommodation();
 
         List customerList = customerService.findAll(1, 1000, "id");
-        List apartmentList = apartmentService.findAll(1, 1000, "id");
+        List apartmentList = apartmentService.findAll(1, 1000, "id").getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 

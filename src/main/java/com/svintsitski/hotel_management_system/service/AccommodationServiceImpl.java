@@ -24,7 +24,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     private ApartmentDao apartmentDao;
 
     @Override
-    public List<List<?>> findAll(int start, int total, String sort) throws Exception {
+    public ResultQuery findAll(int start, int total, String sort) throws Exception {
 
         start = start - 1;
         total += start;
@@ -41,6 +41,8 @@ public class AccommodationServiceImpl implements AccommodationService {
         } else {
             accommodations = accommodationDao.findAll(sort);
         }
+
+        int count = accommodations.size();
 
         if (sortByApartment) {
 
@@ -81,7 +83,8 @@ public class AccommodationServiceImpl implements AccommodationService {
             apartments.add(apartmentDao.findById(accommodation.getApartment_id()));
         }
         //нашли customers и apartments
-        return Arrays.asList(accommodations, customers, apartments);
+
+        return new ResultQuery (count, Arrays.asList(accommodations, customers, apartments));
     }
 
     @Override

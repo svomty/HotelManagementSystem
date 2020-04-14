@@ -2,7 +2,9 @@ package com.svintsitski.hotel_management_system.controller;
 
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
+import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
@@ -39,16 +41,16 @@ public class ApartmentController {
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        List<List<? extends Object>> result = apartmentService
+        ResultQuery result = apartmentService
                 .findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
 
-        int full_elem_count = result.get(0).size();
+        int full_elem_count = result.getCount();
         int total_page = pagination.getTotalPage(full_elem_count);
 
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addAttribute("apartment_list", result.get(0));
-        model.addAttribute("apartment_type_list", result.get(1));
+        model.addAttribute("apartment_list", result.getList().get(0));
+        model.addAttribute("apartment_type_list", result.getList().get(1));
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
@@ -64,12 +66,14 @@ public class ApartmentController {
                              HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = apartmentService.findById(id);
-        List apartmentType = apartmentTypeService.findAll(1, 1000, "id");
+
+        ResultQuery resultQuery = apartmentTypeService.findAll(1, 1000, "id");
+        List<ApartmentType> apartmentTypes = resultQuery.getList();
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject(mainObject, apartment);
-        model.addObject("apartmentType", apartmentType);
+        model.addObject("apartmentType", apartmentTypes);
         model.setViewName(jspAdd);
 
         model.addObject("config", Config.getInstance());
@@ -80,12 +84,14 @@ public class ApartmentController {
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = new Apartment();
-        List apartmentType = apartmentTypeService.findAll(1, 1000, "id");
+
+        ResultQuery resultQuery = apartmentTypeService.findAll(1, 1000, "id");
+        List<ApartmentType> apartmentTypes = resultQuery.getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject(mainObject, apartment);
-        model.addObject("apartmentType", apartmentType);
+        model.addObject("apartmentType", apartmentTypes);
         model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;

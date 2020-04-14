@@ -4,6 +4,7 @@ import com.svintsitski.hotel_management_system.dao.ApartmentDaoImpl;
 import com.svintsitski.hotel_management_system.dao.ApartmentTypeDaoImpl;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     private ApartmentTypeDaoImpl apartmentTypeDao;
 
     @Override
-    public List<List<?>> findAll(int start, int total, String sort) {
+    public ResultQuery findAll(int start, int total, String sort) {
 
         start = start - 1;
         total += start;
@@ -36,6 +37,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         } else {
             apartments = apartmentDao.findAll(sort);
         }
+        int count = apartments.size();
 
         if (sortByType) {
 
@@ -63,7 +65,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
         //apartmentType нашли
 
-        return Arrays.asList(apartments, apartmentType);
+        return new ResultQuery(count, Arrays.asList(apartments, apartmentType));
     }
 
     @Override

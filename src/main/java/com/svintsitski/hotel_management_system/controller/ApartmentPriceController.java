@@ -4,6 +4,7 @@ import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.enam.Type;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,13 @@ public class ApartmentPriceController {
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        List<ApartmentType> result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
-        int full_elem_count = result.size();
+        ResultQuery result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+        int full_elem_count = result.getCount();
         int total_page = pagination.getTotalPage(full_elem_count);
 
         URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addAttribute("apartment_list", result);
+        model.addAttribute("apartment_list", result.getList());
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());

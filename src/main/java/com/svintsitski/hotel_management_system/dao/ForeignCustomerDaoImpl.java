@@ -21,7 +21,7 @@ public class ForeignCustomerDaoImpl implements ForeignCustomerDao {
     }
 
     @Override
-    public List<ForeignCustomer> findAll(int start, int total, String sort) {
+    public List<ForeignCustomer> findAll(String sort) {
         String sql = "SELECT * FROM foreign_customers;";
         List<ForeignCustomer> customerList = jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(ForeignCustomer.class));
