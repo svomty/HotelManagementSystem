@@ -77,7 +77,7 @@ public class AccommodationController {
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
-        List customerList = customerService.findAll(1, 1000, "id");
+        List customerList = customerService.findAll("id");
         List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1)).getList();
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
@@ -103,7 +103,7 @@ public class AccommodationController {
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
-        List customerList = customerService.findAll(1, 1000, "id");
+        List customerList = customerService.findAll("id");
         List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1)).getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);

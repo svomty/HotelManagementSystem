@@ -12,11 +12,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerDaoImpl customerDao;
-    @Autowired
-    private ForeignCustomerServiceImpl foreignCustomerService;
 
     @Override
-    public List<Customer> findAll(int start, int total, String sort) throws Exception {
+    public List<Customer> findAll(String sort) {
         return customerDao.findAll(sort);
     }
 

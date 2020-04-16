@@ -5,7 +5,7 @@ import com.svintsitski.hotel_management_system.model.database.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    List<Customer> findAll(int start, int total, String sort) throws Exception;
+    List<Customer> findAll(String sort);
 
     Customer findById(int id);
 
