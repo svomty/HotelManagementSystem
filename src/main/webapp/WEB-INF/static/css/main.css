@@ -204,11 +204,36 @@ nav a {
 .btn-red {
     color: rgb(237, 237, 243);
     background-color: rgb(126, 47, 47);
+    animation: pulse 1.5s infinite;
 }
 
 .btn-red:hover {
     color: rgb(237, 237, 243);
-    text-shadow: 0 0 5px white, 0 0 10px rgb(117, 53, 53), 0 0 20px rgb(126, 47, 47);
+    text-decoration: none;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        text-shadow: 0 0 5px white;
+    }
+    70% {
+        text-shadow: 0 0 10px rgb(117, 53, 53);
+    }
+    100% {
+        text-shadow: 0 0 20px rgb(126, 47, 47);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        text-shadow: 0 0 5px white;
+    }
+    70% {
+        text-shadow: 0 0 10px rgb(117, 53, 53);
+    }
+    100% {
+        text-shadow: 0 0 20px rgb(126, 47, 47);
+    }
 }
 
 main {

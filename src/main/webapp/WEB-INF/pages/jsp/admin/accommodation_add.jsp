@@ -52,6 +52,7 @@
                     <input type="date" name="departure_date_filter" id="departure_date_filter"
                            value="departure_date_filter">
                     <input type="submit" value="Найти">
+                    <span class="display-none btn-red" id="error_filter">Ошибка! Даты не могут быть одинаковыми!</span>
                 </form>
 
                 <form:form modelAttribute="accommodation" method="post" action="${createURL}" cssClass="form"

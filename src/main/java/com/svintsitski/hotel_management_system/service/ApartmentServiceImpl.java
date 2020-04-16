@@ -80,7 +80,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         List<Accommodation> accommodations;
         List<Byte> totalPlaces;
 
-        apartments = apartmentDao.findAll("id");
+        apartments = apartmentDao.findAll("number");
         accommodations = accommodationDao.findAll("id");
         totalPlaces = new ArrayList<>();
         apartmentType = new ArrayList<>();
@@ -93,8 +93,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         for (Accommodation accommodation : accommodations) {//идем по заселению
             if (//если на текущую дату апартамент занят - минусуем места на 1
                     accommodation.getArrival_date().after(arrival_date)
-                            && (accommodation.getArrival_date().before(departure_date)
-                            || accommodation.getArrival_date().equals(departure_date))
+                            && accommodation.getArrival_date().before(departure_date)
 
                             ||
 
@@ -124,16 +123,6 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
 
         return new ResultQuery(apartments.size(), Arrays.asList(apartments, apartmentType, totalPlaces));
-
-        /*
-         * найти все апартаменты
-         * найти все заселения на эту дату
-         * найти все бронирования на эту дату
-         * объединить
-         * вывести число свободных мест или если мест = 0 , то не отображать вообще
-         *
-         *
-         * */
     }
 
     @Override

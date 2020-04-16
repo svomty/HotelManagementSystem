@@ -95,20 +95,44 @@ function setDate() {
     var departure_date1 = document.getElementById("departure_date").value;
 
     if (departure_date && 0 !== departure_date.length && arrival_date && 0 !== arrival_date.length) {
-        document.getElementById("accommodation").classList.remove('display-none');
-        document.getElementById("arrival_date").value = arrival_date;
-        document.getElementById("arrival_date_filter").value = arrival_date;
-        document.getElementById("departure_date_filter").value = departure_date;
-        document.getElementById("departure_date").value = departure_date;
+
+        if (arrival_date > departure_date) {
+            var temp = arrival_date;
+            arrival_date = departure_date;
+            departure_date = temp;
+        }
+
+        if (arrival_date === departure_date) {
+            document.getElementById("error_filter").classList.remove('display-none');
+            document.getElementById("accommodation").classList.add('display-none');
+        } else {
+            document.getElementById("accommodation").classList.remove('display-none');
+            document.getElementById("arrival_date").value = arrival_date;
+            document.getElementById("arrival_date_filter").value = arrival_date;
+            document.getElementById("departure_date_filter").value = departure_date;
+            document.getElementById("departure_date").value = departure_date;
+        }
+
+
     } else {
 
         if (!departure_date1 || 0 === departure_date1.length || !arrival_date1 || 0 === arrival_date1.length
             || "" === departure_date1 || "" === arrival_date1) {
             document.getElementById("accommodation").classList.add('display-none');
         } else {
-            window
-                .location
-                .search = "?arrival_date_filter=" + arrival_date1 + "&departure_date_filter=" + departure_date1;
+
+            if (departure_date1 !== arrival_date1) {
+
+                document.getElementById("accommodation").classList.add('display-none');
+
+            } else {
+
+                window
+                    .location
+                    .search = "?arrival_date_filter=" + arrival_date1 + "&departure_date_filter=" + departure_date1;
+
+            }
+
         }
 
     }

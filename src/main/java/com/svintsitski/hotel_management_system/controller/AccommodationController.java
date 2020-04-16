@@ -85,6 +85,12 @@ public class AccommodationController {
         Date arrival_date = Date.valueOf(filter_arrival_date);
         Date departure_date = Date.valueOf(filter_departure_date);
 
+        if (departure_date.before(arrival_date)) {
+            Date tmp = arrival_date;
+            arrival_date = departure_date;
+            departure_date = tmp;
+        }
+
         List customerList = customerService.findAll(1, 1000, "id");
         List apartmentList = apartmentService.findForDate(arrival_date, departure_date).getList();
 
@@ -118,6 +124,12 @@ public class AccommodationController {
 
         Date arrival_date = Date.valueOf(filter_arrival_date);
         Date departure_date = Date.valueOf(filter_departure_date);
+
+        if (departure_date.before(arrival_date)) {
+            Date tmp = arrival_date;
+            arrival_date = departure_date;
+            departure_date = tmp;
+        }
 
         List customerList = customerService.findAll(1, 1000, "id");
 
