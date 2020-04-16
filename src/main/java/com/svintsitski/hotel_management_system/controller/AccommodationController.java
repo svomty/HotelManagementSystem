@@ -24,7 +24,7 @@ import java.util.Optional;
 public class AccommodationController {
 
     @Autowired
-    private AccommodationServiceImpl hotelAccommodationService;
+    private AccommodationServiceImpl accommodationService;
     @Autowired
     private CustomerServiceImpl customerService;
     @Autowired
@@ -45,7 +45,7 @@ public class AccommodationController {
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        ResultQuery result = hotelAccommodationService.
+        ResultQuery result = accommodationService.
                 findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
         List<Accommodation> accommodationList = (List<Accommodation>) result.getList().get(0);
 
@@ -72,7 +72,7 @@ public class AccommodationController {
                              @RequestParam Optional<String> arrival_date_filter,
                              @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
-        Accommodation hotelAccommodation = hotelAccommodationService.findById(id);
+        Accommodation hotelAccommodation = accommodationService.findById(id);
 
         String filter_arrival_date = arrival_date_filter.orElse("1980-01-01");
         String filter_departure_date = departure_date_filter.orElse("1980-01-01");
@@ -155,10 +155,10 @@ public class AccommodationController {
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 
-        if (hotelAccommodationService.findById(hotelAccommodation.getId()) != null) {
-            hotelAccommodationService.update(hotelAccommodation);
+        if (accommodationService.findById(hotelAccommodation.getId()) != null) {
+            accommodationService.update(hotelAccommodation);
         } else {
-            hotelAccommodationService.add(hotelAccommodation);
+            accommodationService.add(hotelAccommodation);
         }
         return new ModelAndView(redirectURL);
     }
@@ -168,7 +168,7 @@ public class AccommodationController {
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
-        hotelAccommodationService.delete(id);
+        accommodationService.delete(id);
 
         return new ModelAndView(redirectURL);
     }
