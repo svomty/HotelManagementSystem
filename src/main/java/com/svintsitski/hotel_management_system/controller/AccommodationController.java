@@ -2,6 +2,7 @@ package com.svintsitski.hotel_management_system.controller;
 
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Accommodation;
+import com.svintsitski.hotel_management_system.model.support.Checker;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
@@ -74,30 +75,15 @@ public class AccommodationController {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = accommodationService.findById(id);
 
-        String filter_arrival_date = arrival_date_filter.orElse("1980-01-01");
-        String filter_departure_date = departure_date_filter.orElse("1980-01-01");
-
-        if (filter_arrival_date.equals("") || filter_departure_date.equals("")) {
-            filter_arrival_date = "1980-01-01";
-            filter_departure_date = "1980-01-01";
-        }
-
-        Date arrival_date = Date.valueOf(filter_arrival_date);
-        Date departure_date = Date.valueOf(filter_departure_date);
-
-        if (departure_date.before(arrival_date)) {
-            Date tmp = arrival_date;
-            arrival_date = departure_date;
-            departure_date = tmp;
-        }
+        List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
         List customerList = customerService.findAll(1, 1000, "id");
-        List apartmentList = apartmentService.findForDate(arrival_date, departure_date).getList();
+        List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1)).getList();
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addObject("arrival_date_filter", arrival_date);
-        model.addObject("departure_date_filter", departure_date);
+        model.addObject("arrival_date_filter", dates.get(0));
+        model.addObject("departure_date_filter", dates.get(1));
         model.addObject("totalPlaces", apartmentList.get(2));
         model.addObject("customerList", customerList);
         model.addObject("apartmentList", apartmentList.get(0));
@@ -114,31 +100,16 @@ public class AccommodationController {
                             @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
         Accommodation hotelAccommodation = new Accommodation();
-        String filter_arrival_date = arrival_date_filter.orElse("1980-01-01");
-        String filter_departure_date = departure_date_filter.orElse("1980-01-01");
 
-        if (filter_arrival_date.equals("") || filter_departure_date.equals("")) {
-            filter_arrival_date = "1980-01-01";
-            filter_departure_date = "1980-01-01";
-        }
-
-        Date arrival_date = Date.valueOf(filter_arrival_date);
-        Date departure_date = Date.valueOf(filter_departure_date);
-
-        if (departure_date.before(arrival_date)) {
-            Date tmp = arrival_date;
-            arrival_date = departure_date;
-            departure_date = tmp;
-        }
+        List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
         List customerList = customerService.findAll(1, 1000, "id");
-
-        List apartmentList = apartmentService.findForDate(arrival_date, departure_date).getList();
+        List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1)).getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addObject("arrival_date_filter", arrival_date);
-        model.addObject("departure_date_filter", departure_date);
+        model.addObject("arrival_date_filter", dates.get(0));
+        model.addObject("departure_date_filter", dates.get(1));
         model.addObject("totalPlaces", apartmentList.get(2));
         model.addObject("customerList", customerList);
         model.addObject("apartmentList", apartmentList.get(0));
