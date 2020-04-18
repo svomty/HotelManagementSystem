@@ -73,7 +73,7 @@ public class AccommodationController {
                              @RequestParam Optional<String> arrival_date_filter,
                              @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
-        Accommodation hotelAccommodation = accommodationService.findById(id);
+        Accommodation accommodation = accommodationService.findById(id);
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
@@ -88,7 +88,7 @@ public class AccommodationController {
         model.addObject("customerList", customerList);
         model.addObject("apartmentList", apartmentList.get(0));
         model.addObject("apartmentTypeList", apartmentList.get(1));
-        model.addObject(mainObject, hotelAccommodation);
+        model.addObject(mainObject, accommodation);
         model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;
@@ -99,7 +99,7 @@ public class AccommodationController {
                             @RequestParam Optional<String> arrival_date_filter,
                             @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
-        Accommodation hotelAccommodation = new Accommodation();
+        Accommodation accommodation = new Accommodation();
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
@@ -114,22 +114,22 @@ public class AccommodationController {
         model.addObject("customerList", customerList);
         model.addObject("apartmentList", apartmentList.get(0));
         model.addObject("apartmentTypeList", apartmentList.get(1));
-        model.addObject(mainObject, hotelAccommodation);
+        model.addObject(mainObject, accommodation);
         model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;
     }
 
     @PostMapping(value = {"/add/", "/add"})
-    public ModelAndView save(@ModelAttribute("hotelAccommodation") Accommodation hotelAccommodation,
+    public ModelAndView save(@ModelAttribute("hotelAccommodation") Accommodation accommodation,
                              HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 
-        if (accommodationService.findById(hotelAccommodation.getId()) != null) {
-            accommodationService.update(hotelAccommodation);
+        if (accommodationService.findById(accommodation.getId()) != null) {
+            accommodationService.update(accommodation);
         } else {
-            accommodationService.add(hotelAccommodation);
+            accommodationService.add(accommodation);
         }
         return new ModelAndView(redirectURL);
     }

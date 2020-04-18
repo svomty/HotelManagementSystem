@@ -47,10 +47,12 @@
 
                 <form action="${pageContext.request.contextPath}">
                     <lable for="arrival_date_filter">Дата приезда</lable>
-                    <input type="date" name="arrival_date_filter" id="arrival_date_filter" value="arrival_date_filter">
+                    <input type="date" name="arrival_date_filter" id="arrival_date_filter"
+                           value="${accommodation.arrival_date}">
+                    <!--arrival_date_filter value="departure_date_filter"> -->
                     <lable for="departure_date_filter">Дата выезда</lable>
                     <input type="date" name="departure_date_filter" id="departure_date_filter"
-                           value="departure_date_filter">
+                           value="${accommodation.departure_date}">
                     <input type="submit" value="Найти">
                     <span class="display-none btn-red" id="error_filter">Ошибка! Даты не могут быть одинаковыми!</span>
                 </form>
@@ -139,6 +141,6 @@
 <jsp:include page="../static/footer.jsp"/>
 <script>
     popup_active("${pageContext.request.contextPath}/admin/accommodation/");
-    setDate();
+    setDate("accommodation");
 </script>
 </body>

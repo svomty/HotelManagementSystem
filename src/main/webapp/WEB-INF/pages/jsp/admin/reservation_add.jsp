@@ -114,6 +114,6 @@
 <jsp:include page="../static/footer.jsp"/>
 <script>
     popup_active("${pageContext.request.contextPath}/admin/reservation/");
-    setDate2();
+    setDate("reservation");
 </script>
 </body>
