@@ -1,12 +1,11 @@
 package com.svintsitski.hotel_management_system.controller;
 
+import com.svintsitski.hotel_management_system.dao.ReservationDao;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Accommodation;
+import com.svintsitski.hotel_management_system.model.database.Reservation;
 import com.svintsitski.hotel_management_system.model.enam.Activity;
-import com.svintsitski.hotel_management_system.model.support.Checker;
-import com.svintsitski.hotel_management_system.model.support.Pagination;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
-import com.svintsitski.hotel_management_system.model.support.URL;
+import com.svintsitski.hotel_management_system.model.support.*;
 import com.svintsitski.hotel_management_system.service.AccommodationServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
@@ -27,6 +26,8 @@ public class AccommodationController {
 
     @Autowired
     private AccommodationServiceImpl accommodationService;
+    @Autowired
+    private ReservationDao reservationDao;
     @Autowired
     private CustomerServiceImpl customerService;
     @Autowired
@@ -87,6 +88,7 @@ public class AccommodationController {
         model.addObject("departure_date_filter", dates.get(1));
         model.addObject("totalPlaces", apartmentList.get(2));
         model.addObject("customerList", customerList);
+        model.addObject("identity", new Identity());
         model.addObject("apartmentList", apartmentList.get(0));
         model.addObject("apartmentTypeList", apartmentList.get(1));
         model.addObject(mainObject, accommodation);
@@ -98,21 +100,39 @@ public class AccommodationController {
     @GetMapping(value = {"/add/", "/add"})
     public ModelAndView add(HttpServletRequest request,
                             @RequestParam Optional<String> arrival_date_filter,
-                            @RequestParam Optional<String> departure_date_filter) throws Exception {
+                            @RequestParam Optional<String> departure_date_filter,
+                            @RequestParam Optional<String> apartment,
+                            @RequestParam Optional<String> full_name,
+                            @RequestParam Optional<String> reservation) throws Exception {
         ModelAndView model = new ModelAndView();
         Accommodation accommodation = new Accommodation();
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
         List customerList = customerService.findAll("id");
-        List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Accommodation, 0).getList();
+        List apartmentList;
+        Identity identity = new Identity();
+
+        if (apartment.isPresent()) {
+            apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.ReservationToAccommodation,
+                    Integer.parseInt(apartment.get())).getList();
+            accommodation.setApartment_id(Integer.parseInt(apartment.get()));
+        } else {
+            apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Accommodation, 0).getList();
+        }
+
+        reservation.ifPresent(s -> identity.setIdentificator(Integer.parseInt(s)));
+
+        String name = full_name.orElse("");
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("arrival_date_filter", dates.get(0));
+        model.addObject("full_name", name);
         model.addObject("departure_date_filter", dates.get(1));
         model.addObject("totalPlaces", apartmentList.get(2));
         model.addObject("customerList", customerList);
+        model.addObject("identity", identity);
         model.addObject("apartmentList", apartmentList.get(0));
         model.addObject("apartmentTypeList", apartmentList.get(1));
         model.addObject(mainObject, accommodation);
@@ -123,6 +143,7 @@ public class AccommodationController {
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("hotelAccommodation") Accommodation accommodation,
+                             @ModelAttribute("identity") Optional<Identity> reservation,
                              HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
@@ -131,6 +152,16 @@ public class AccommodationController {
             accommodationService.update(accommodation);
         } else {
             accommodationService.add(accommodation);
+        }
+        if (reservation.isPresent()) {
+            int reservationId = reservation.get().getIdentificator();
+            System.out.println(reservationId);
+            if (reservationId != 0) {
+                Reservation reservation1 = reservationDao.findById(reservationId);
+                reservation1.setArrived((byte) 1);
+                reservationDao.update(reservation1);
+            }
+
         }
         return new ModelAndView(redirectURL);
     }

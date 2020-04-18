@@ -149,6 +149,6 @@
 </body>
 <script>
     btnActive("${sort}");
-    popup_active("${pageContext.request.contextPath}/admin/customer");
+    popup_active("${pageContext.request.contextPath}/admin/customer/");
 </script>
 </html>

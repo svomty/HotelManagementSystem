@@ -54,7 +54,7 @@
                         </div>
                         <div class="divTableCell">
                             <a id="full_name"
-                               href="${pageContext.request.contextPath}?page=1&sort=surname&size=${size}">
+                               href="${pageContext.request.contextPath}?page=1&sort=full_name&size=${size}">
                                 ФИО
                             </a>
                         </div>
@@ -102,6 +102,12 @@
                                         value="${urlBase}${urlReturn}update/${reservation.id }" var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
+                                </a>
+                                <spring:url
+                                        value="${urlBase}/admin/accommodation/add?arrival_date_filter=${reservation.arrival_date }&departure_date_filter=${reservation.departure_date}&apartment=${apartments[loop.index].id}&reservation=${reservation.id}&full_name=${reservation.full_name}"
+                                        var="finishURL"/>
+                                <a class="btn btn-primary" href="${finishURL }" role="button">
+                                    <i style="color: #5197E6" class="fa fa-child" aria-hidden="true"></i>
                                 </a>
                                 <spring:url
                                         value="${urlBase}${urlReturn}delete/${reservation.id }" var="deleteURL"/>

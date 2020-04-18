@@ -84,6 +84,9 @@
                                placeholder="Поиск клиента..">
                     </div>
                     <div class="form-group">
+                        <c:if test="${not empty full_name}">
+                            <span class="btn-red" id="customer_filter">Выберите '${full_name}' или создайте нового клиента</span>
+                        </c:if>
                         <select name="customer_id" id="customer_id" path="customer_id">
                             <c:forEach items="${customerList}" var="customerList">
                                 <option value="${customerList.id}"
@@ -96,7 +99,9 @@
                                 </option>
                             </c:forEach>
                         </select>
+
                     </div>
+
 
                     <div class="form-group">
                         <label for="apartment_id">Апартамент</label>
@@ -132,7 +137,14 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <form:form modelAttribute="identity" method="post" action="${createURL}"
+                               cssClass="form">
+
+                        <form:hidden path="identificator" id="identificator"/>
+
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form:form>
+
                 </form:form>
             </div>
         </div>

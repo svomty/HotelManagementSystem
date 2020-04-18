@@ -137,7 +137,7 @@
 </div>
 <jsp:include page="../static/footer.jsp"/>
 <script>
-    popup_active("${pageContext.request.contextPath}/admin/customer");
+    popup_active("${pageContext.request.contextPath}/admin/customer/");
     foreign_active();
 </script>
 </body>
