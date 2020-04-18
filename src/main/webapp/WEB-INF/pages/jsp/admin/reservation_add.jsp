@@ -84,7 +84,7 @@
                         <select name="apartment_id" id="apartment_id" path="apartment_id">
                             <c:forEach items="${apartmentList}" var="apartmentList" varStatus="loop">
                                 <option value="${apartmentList.id}"
-                                        <c:if test="${apartmentList.id == accommodation.apartment_id}"> selected </c:if>>
+                                        <c:if test="${apartmentList.id == reservation.apartment_id}"> selected class="bold" </c:if>>
                                     №${apartmentList.number},
                                         ${apartmentTypeList[loop.index].type};
                                         ${apartmentTypeList[loop.index].price};
@@ -102,8 +102,10 @@
                         </select>
                     </div>
 
-                    <lable for="arrived">Подтверждено</lable>
-                    <form:input path="arrived" cssClass="form-control" id="arrived"/>
+                    <c:if test="${0 != reservation.id}">
+                        <lable for="arrived">Подтверждено</lable>
+                        <form:input path="arrived" cssClass="form-control" id="arrived"/>
+                    </c:if>
 
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form:form>

@@ -114,7 +114,7 @@
                         <select name="apartment_id" id="apartment_id" path="apartment_id">
                             <c:forEach items="${apartmentList}" var="apartmentList" varStatus="loop">
                                 <option value="${apartmentList.id}"
-                                        <c:if test="${apartmentList.id == accommodation.apartment_id}"> selected </c:if>>
+                                        <c:if test="${apartmentList.id == accommodation.apartment_id}"> selected class="bold" </c:if>>
                                     №${apartmentList.number},
                                         ${apartmentTypeList[loop.index].type};
                                         ${apartmentTypeList[loop.index].price};

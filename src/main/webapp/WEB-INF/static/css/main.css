@@ -41,6 +41,10 @@ body {
     color: darkgreen;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 #logo {
     font-weight: bold;
 }
