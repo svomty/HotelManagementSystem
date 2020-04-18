@@ -1,6 +1,7 @@
 package com.svintsitski.hotel_management_system.service;
 
 import com.svintsitski.hotel_management_system.model.database.Apartment;
+import com.svintsitski.hotel_management_system.model.enam.Activity;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 
 import java.sql.Date;
@@ -11,7 +12,7 @@ public interface ApartmentService {
 
     Apartment findById(int id);
 
-    ResultQuery findForDate(Date arrival_date, Date departure_date) throws Exception;
+    ResultQuery findForDate(Date arrival_date, Date departure_date, Activity activity, int id) throws Exception;
 
     List<Apartment> findByType(int id);
 

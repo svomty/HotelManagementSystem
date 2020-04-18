@@ -2,6 +2,7 @@ package com.svintsitski.hotel_management_system.controller;
 
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Accommodation;
+import com.svintsitski.hotel_management_system.model.enam.Activity;
 import com.svintsitski.hotel_management_system.model.support.Checker;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
@@ -78,7 +79,7 @@ public class AccommodationController {
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
         List customerList = customerService.findAll("id");
-        List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1)).getList();
+        List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Accommodation, id).getList();
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
@@ -104,7 +105,7 @@ public class AccommodationController {
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
         List customerList = customerService.findAll("id");
-        List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1)).getList();
+        List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Accommodation, 0).getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
