@@ -76,8 +76,11 @@ public class ReservationController {
         List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Reservation,
                 id).getList();
 
+        Checker checker = new Checker(reservation.getArrived() == 1);
+
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addObject("checker", checker);
         model.addObject("arrival_date_filter", dates.get(0));
         model.addObject("departure_date_filter", dates.get(1));
         model.addObject("totalPlaces", apartmentList.get(2));
@@ -95,6 +98,7 @@ public class ReservationController {
                             @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
         Reservation reservation = new Reservation();
+        Checker checker = new Checker();
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
@@ -102,6 +106,7 @@ public class ReservationController {
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addObject("checker", checker);
         model.addObject("arrival_date_filter", dates.get(0));
         model.addObject("departure_date_filter", dates.get(1));
         model.addObject("totalPlaces", apartmentList.get(2));
@@ -115,7 +120,15 @@ public class ReservationController {
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("reservation") Reservation reservation,
+                             @ModelAttribute("checker") Optional<Checker> checker,
                              HttpServletRequest request) {
+
+        Checker checker1 = checker.orElse(new Checker());
+        if (checker1.isCheck()) {
+            reservation.setArrived((byte) 1);
+        } else {
+            reservation.setArrived((byte) 0);
+        }
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 

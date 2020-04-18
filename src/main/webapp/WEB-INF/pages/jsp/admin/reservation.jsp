@@ -88,7 +88,15 @@
                             <div class="divTableCell">${reservation.full_name}</div>
                             <div class="divTableCell">${reservation.customer_phone}</div>
                             <div class="divTableCell">${apartments[loop.index].number}</div>
-                            <div class="divTableCell">${reservation.arrived}</div>
+
+                            <div class="divTableCell">
+                                <input type='checkbox' name='option1'
+                                       value='a1'
+                                    <c:out default="None" escapeXml="true"
+                                           value="${reservation.arrived == 1 ? 'checked ' : ' '}"/>
+                                       readonly disabled>
+                            </div>
+
                             <div class="divTableCell">
                                 <spring:url
                                         value="${urlBase}${urlReturn}update/${reservation.id }" var="updateURL"/>

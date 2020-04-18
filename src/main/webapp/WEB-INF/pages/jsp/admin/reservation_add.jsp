@@ -102,12 +102,23 @@
                         </select>
                     </div>
 
-                    <c:if test="${0 != reservation.id}">
-                        <lable for="arrived">Подтверждено</lable>
-                        <form:input path="arrived" cssClass="form-control" id="arrived"/>
-                    </c:if>
+                    <form:form modelAttribute="checker" method="post" action="${createURL}"
+                               cssClass="form">
+                        <c:if test="${0 == reservation.id}">
+                            <div class="custom-control custom-checkbox">
+                                <form:hidden path="check" class="custom-control-input" id="check"/>
+                                <label class="custom-control-label" for="check">Заселен</label>
+                            </div>
+                        </c:if>
+                        <c:if test="${0 != reservation.id}">
+                            <div class="custom-control custom-checkbox">
+                                <form:checkbox path="check" class="custom-control-input" id="check"/>
+                                <label class="custom-control-label" for="check">Заселен</label>
+                            </div>
+                        </c:if>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form:form>
 
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form:form>
             </div>
         </div>
