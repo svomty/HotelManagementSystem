@@ -17,8 +17,6 @@
             <h1>Гостиница "${config.name}"</h1>
             <ul>
                 <li class="header__itm"><a href="${pageContext.request.contextPath}/" class="btn">Об отеле</a></li>
-                <li class="header__itm"><a href="${pageContext.request.contextPath}/apartment/" class="btn">Номера и
-                    цены</a></li>
                 <li class="header__itm"><a href="${pageContext.request.contextPath}/reservation/" class="btn-red">Бронирование</a>
                 </li>
                 <c:if test="${isAdmin}">
