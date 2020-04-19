@@ -31,9 +31,9 @@
     <jsp:include page="static/header.jsp"/>
     <main>
         <div class="header-wrap">
-            <jsp:include page="static/tableTopBar.jsp"/>
+            <jsp:include page="static/page_size.jsp"/>
 
-            <c:forEach items="${apartment_list}" var="apartment">
+            <c:forEach items="${apartment_list}" var="apartment" varStatus="loop">
 
                 <div class="card">
 
@@ -41,7 +41,7 @@
 
                         <div class="flex-container">
                             <div class="flex-item"><h2>${apartment.places_number }-местный ${apartment.type}</h2></div>
-                            <div class="flex-item"><h3>Осталось мест: ВЫСЧИТАТЬ</h3></div>
+                            <div class="flex-item"><h3>Осталось мест: ${counter[loop.index]}</h3></div>
                         </div>
                         <div class="flex-container">
                             <div class="flex-item">
@@ -71,7 +71,7 @@
 
             </c:forEach>
 
-            <jsp:include page="static/bottomBar.jsp"/>
+            <jsp:include page="static/pagination.jsp"/>
         </div>
     </main>
 </div>

@@ -446,6 +446,16 @@ main {
     width: 100%;
 }
 
+.tableBottomBarUser {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.tableBottomBarUser .pagination {
+    align-content: center;
+}
+
 .tableTopBar {
     display: flex;
     justify-content: space-between;
@@ -537,6 +547,14 @@ main {
     align-items: center;
 }
 
+.flex-right {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
 .btn-blue, .btn-green {
     font-weight: bold;
     border-radius: 5px;
@@ -613,6 +631,8 @@ form span label:before {
 }
 
 .card {
+    margin-top: 10px;
+    background-color: #F3EFDB;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 5px; /* 5px rounded corners */
