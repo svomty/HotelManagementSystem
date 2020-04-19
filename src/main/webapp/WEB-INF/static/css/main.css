@@ -654,7 +654,7 @@ a.button7:hover {
 
 a.button7:active {
     background: #7E2F2F;
-
+}
 
 @media screen and (max-width: 1550px) {
     .popupbg {
