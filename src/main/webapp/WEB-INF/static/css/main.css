@@ -630,6 +630,10 @@ form span label:before {
     content: "\2000";
 }
 
+#reservation {
+    width: 100%;
+}
+
 .card {
     margin-top: 10px;
     background-color: #F3EFDB;

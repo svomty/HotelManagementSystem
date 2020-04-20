@@ -31,47 +31,66 @@
     <jsp:include page="static/header.jsp"/>
     <main>
         <div class="header-wrap">
+
+            <form action="${pageContext.request.contextPath}">
+                <lable for="arrival_date_filter">Дата приезда</lable>
+                <input type="date" name="arrival_date_filter" id="arrival_date_filter"
+                       value="${accommodation.arrival_date}">
+                <!--arrival_date_filter value="departure_date_filter"> -->
+                <lable for="departure_date_filter">Дата выезда</lable>
+                <input type="date" name="departure_date_filter" id="departure_date_filter"
+                       value="${accommodation.departure_date}">
+                <input type="submit" value="Найти">
+                <span class="display-none btn-red" id="error_filter">Ошибка! Даты не могут быть одинаковыми!</span>
+                <span class="display-none btn-red" id="error_filter2">Ошибка! Не все даты введены!</span>
+            </form>
+
             <jsp:include page="static/page_size.jsp"/>
 
-            <c:forEach items="${apartment_list}" var="apartment" varStatus="loop">
+            <div id="reservation">
+                <script>
+                    setDate2("reservation");
+                </script>
+                <c:forEach items="${apartment_list}" var="apartment" varStatus="loop">
 
-                <div class="card">
+                    <div class="card">
 
-                    <div class="container">
+                        <div class="container">
 
-                        <div class="flex-container">
-                            <div class="flex-item"><h2>${apartment.places_number }-местный ${apartment.type}</h2></div>
-                            <div class="flex-item"><h3>Осталось мест: ${counter[loop.index]}</h3></div>
-                        </div>
-                        <div class="flex-container">
-                            <div class="flex-item">
-                                <h4><b>Количество комнат: </b> ${apartment.rooms_number}</h4>
-                                <h4><b>Цена: </b> ${apartment.price} BYN</h4>
-                                <h4><b>ОПЛАТА: </b> ПРИ ЗАСЕЛЕНИИ</h4>
+                            <div class="flex-container">
+                                <div class="flex-item"><h2>${apartment.places_number }-местный ${apartment.type}</h2></div>
+                                <div class="flex-item"><h3>Осталось мест: ${counter[loop.index]}</h3></div>
                             </div>
-                            <div class="flex-item">
-                                <h4><b>Описание: </b></h4>
-                                <h4>${apartment.description }</h4>
+                            <div class="flex-container">
+                                <div class="flex-item">
+                                    <h4><b>Количество комнат: </b> ${apartment.rooms_number}</h4>
+                                    <h4><b>Цена: </b> ${apartment.price} BYN</h4>
+                                    <h4><b>ОПЛАТА: </b> ПРИ ЗАСЕЛЕНИИ</h4>
+                                </div>
+                                <div class="flex-item">
+                                    <h4><b>Описание: </b></h4>
+                                    <h4>${apartment.description }</h4>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-container">
-                            <div class="flex-item">
-                                <img src="${pageContext.request.contextPath}/img/cards.jpg" alt="Avatar" width="100px">
-                            </div>
-                            <div class="flex-item">
-                                <spring:url
-                                        value="${urlBase}${urlReturn}${apartment.id }" var="reservationURL"/>
-                                <a class="button7" href="${reservationURL }" role="button">
-                                    Забронировать
-                                </a>
+                            <div class="flex-container">
+                                <div class="flex-item">
+                                    <img src="${pageContext.request.contextPath}/img/cards.jpg" alt="Avatar" width="100px">
+                                </div>
+                                <div class="flex-item">
+                                    <spring:url
+                                            value="${urlBase}${urlReturn}${apartment.id }" var="reservationURL"/>
+                                    <a class="button7" href="${reservationURL }" role="button">
+                                        Забронировать
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </c:forEach>
+                </c:forEach>
 
-            <jsp:include page="static/pagination.jsp"/>
+                <jsp:include page="static/pagination.jsp"/>
+            </div>
         </div>
     </main>
 </div>
