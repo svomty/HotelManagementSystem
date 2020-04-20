@@ -3,6 +3,7 @@ package com.svintsitski.hotel_management_system.controller;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
+import com.svintsitski.hotel_management_system.model.enam.Activity;
 import com.svintsitski.hotel_management_system.model.support.Checker;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
@@ -52,7 +53,8 @@ public class MainController {
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
 
-        ResultQuery result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+        //ResultQuery result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+        ResultQuery result = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Reservation, 0);
         //find for date ИЗМЕНИТЬ
         int full_elem_count = result.getCount();
         //инициализировали листы
@@ -94,6 +96,7 @@ public class MainController {
 
         model.addAttribute("apartment_list", apartmentTypesFree);
         model.addAttribute("counter", apartmentListCounter);
+        model.addAttribute("counterTotal", apartmentListCounter.stream().reduce(0, Integer::sum));
         model.addAttribute("arrival_date_filter", dates.get(0));
         model.addAttribute("departure_date_filter", dates.get(1));
         model.addAttribute("current_page", pagination.getCurrent_page());

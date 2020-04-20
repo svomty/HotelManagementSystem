@@ -15,7 +15,8 @@
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
     <c:url var="urlReturn" value="/reservation/"/>
     <spring:url value="${urlBase}${urlReturn}add/" var="createURL"/>
-
+    <c:set var="arrival_date_filter" value="${arrival_date_filter}" scope="request"/>
+    <c:set var="departure_date_filter" value="${departure_date_filter}" scope="request"/>
 
     <c:set var="total_page" value="${total_page}" scope="request"/>
     <c:set var="current_page" value="${current_page}" scope="request"/>
@@ -45,9 +46,13 @@
                 <span class="display-none btn-red" id="error_filter2">Ошибка! Не все даты введены!</span>
             </form>
 
-            <jsp:include page="static/page_size.jsp"/>
 
             <div id="reservation">
+                <div style="display: flex; flex-wrap: nowrap">
+                    <span>Свободных апартаментов: ${counterTotal}</span>
+                    <jsp:include page="static/page_size.jsp"/>
+                </div>
+
                 <script>
                     setDate2("reservation");
                 </script>
@@ -58,8 +63,9 @@
                         <div class="container">
 
                             <div class="flex-container">
-                                <div class="flex-item"><h2>${apartment.places_number }-местный ${apartment.type}</h2></div>
-                                <div class="flex-item"><h3>Осталось мест: ${counter[loop.index]}</h3></div>
+                                <div class="flex-item"><h2>${apartment.places_number }-местный ${apartment.type}</h2>
+                                </div>
+                                <div class="flex-item"><h3>Осталось номеров: ${counter[loop.index]}</h3></div>
                             </div>
                             <div class="flex-container">
                                 <div class="flex-item">

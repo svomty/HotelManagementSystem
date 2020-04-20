@@ -65,17 +65,18 @@
                 <a class="inactive">»</a>
             </c:if>
         </div>
+
+
+        <div class="right">
+            <span>стр. №</span>
+            <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
+            <button type="button" class="btn-blue"
+                    onclick=goToPage("${pageContext.request.contextPath}?sort=${sort}&size=${size}&surname_filter=${surname_filter}")>
+                Перейти
+            </button>
+        </div>
+
     </c:if>
-
-    <div class="right">
-        <span>стр. №</span>
-        <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
-        <button type="button" class="btn-blue"
-                onclick=goToPage("${pageContext.request.contextPath}?sort=${sort}&size=${size}&surname_filter=${surname_filter}")>
-            Перейти
-        </button>
-    </div>
-
 </div>
 </body>
 </html>

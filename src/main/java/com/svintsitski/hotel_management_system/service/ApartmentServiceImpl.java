@@ -98,40 +98,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         //apartmentType нашли
 
         int idForReservation;
-        System.out.println("accommodation");
-        for (Accommodation accommodation : accommodations) {//идем по заселению
-            if (//если на текущую дату апартамент занят - минусуем места на 1
-                    accommodation.getArrival_date().after(arrival_date)
-                            && accommodation.getArrival_date().before(departure_date)
 
-                            ||
-
-                            accommodation.getDeparture_date().after(arrival_date)
-                                    && (accommodation.getDeparture_date().before(departure_date)
-                                    || accommodation.getDeparture_date().equals(departure_date))
-            ) {
-                if (accommodation.getId() == id && Activity.Accommodation == activity) {
-                    continue;
-                }
-                for (int i = 0; i < apartments.size(); i++) { //ищем апартамент
-
-                    if (apartments.get(i).getId() == accommodation.getApartment_id()) {
-                        System.out.println(accommodation.getApartment_id());
-                        byte places_number = apartmentType.get(i).getPlaces_number();
-
-                        apartmentType.get(i).setPlaces_number((byte) (places_number - 1));
-
-                        if (apartmentType.get(i).getPlaces_number() == places_number) { //удаляем апартамент и его тип
-                            System.out.println("delete " + accommodation.getApartment_id());
-                            apartmentType.remove(i);
-                            apartments.remove(i);
-                            totalPlaces.remove(i);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
         System.out.println("reservation");
         for (Reservation reservation : reservations) {//идем по reservations
             if (//если на текущую дату апартамент забронирован - минусуем места на 1
@@ -168,21 +135,25 @@ public class ApartmentServiceImpl implements ApartmentService {
                                 reservation.getArrived() == 1) {
                             break;
                         } else {
-
-                            byte places_number = apartmentType.get(i).getPlaces_number();
+                            apartmentType.remove(i);
+                            apartments.remove(i);
+                            totalPlaces.remove(i);
+                            /*byte places_number = apartmentType.get(i).getPlaces_number();
                             apartmentType.get(i).setPlaces_number((byte) (places_number - 1));
 
                             System.out.println("reservation.getApartment_id() = " + reservation.getApartment_id());
                             System.out.println("activity = " + activity);
-                            System.out.println("apartmentType.get(i).getPlaces_number() = " + apartmentType.get(i).getPlaces_number());
+                            System.out.println("apartmentType.get(i).getPlaces_number() = " + apartmentType.get(i)
+                                    .getPlaces_number());
 
 
-                            if (apartmentType.get(i).getPlaces_number() == places_number) { //удаляем апартамент и его тип
+                            if (apartmentType.get(i).getPlaces_number() == places_number) {
+                                //удаляем апартамент и его тип
                                 System.out.println("delete " + reservation.getApartment_id());
                                 apartmentType.remove(i);
                                 apartments.remove(i);
                                 totalPlaces.remove(i);
-                            }
+                            }*/
                         }
 
                         break;
@@ -191,6 +162,48 @@ public class ApartmentServiceImpl implements ApartmentService {
             }
 
         }
+
+        System.out.println("accommodation");
+        for (Accommodation accommodation : accommodations) {//идем по заселению
+            if (//если на текущую дату апартамент занят - минусуем места на 1
+                    accommodation.getArrival_date().after(arrival_date)
+                            && accommodation.getArrival_date().before(departure_date)
+
+                            ||
+
+                            accommodation.getDeparture_date().after(arrival_date)
+                                    && (accommodation.getDeparture_date().before(departure_date)
+                                    || accommodation.getDeparture_date().equals(departure_date))
+            ) {
+                if (accommodation.getId() == id && Activity.Accommodation == activity) {
+                    continue;
+                }
+                for (int i = 0; i < apartments.size(); i++) { //ищем апартамент
+
+                    if (apartments.get(i).getId() == accommodation.getApartment_id()) {
+                        if (Activity.Reservation == activity) {
+                            apartmentType.remove(i);
+                            apartments.remove(i);
+                            totalPlaces.remove(i);
+                            break;
+                        }
+                        System.out.println(accommodation.getApartment_id());
+                        byte places_number = apartmentType.get(i).getPlaces_number();
+
+                        apartmentType.get(i).setPlaces_number((byte) (places_number - 1));
+
+                        if (apartmentType.get(i).getPlaces_number() == places_number) { //удаляем апартамент и его тип
+                            System.out.println("delete " + accommodation.getApartment_id());
+                            apartmentType.remove(i);
+                            apartments.remove(i);
+                            totalPlaces.remove(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
 
         return new ResultQuery(apartments.size(), Arrays.asList(apartments, apartmentType, totalPlaces));
     }
