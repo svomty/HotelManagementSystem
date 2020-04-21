@@ -155,6 +155,18 @@ function setDate2(object) {
     var arrival_date = params['arrival_date_filter'];
     var departure_date = params['departure_date_filter'];
 
+    if (arrival_date === undefined && departure_date === undefined) {
+
+        let arrival_date = new Date().toISOString();
+        let newDate = new Date();
+        newDate.setDate(newDate.getDate() + 1);
+        let departure_date = newDate.toISOString();
+
+        window
+            .location
+            .search = "?arrival_date_filter=" + arrival_date.slice(0, 10) + "&departure_date_filter=" + departure_date.slice(0, 10);
+    }
+
     if (departure_date && 0 !== departure_date.length && arrival_date && 0 !== arrival_date.length) {
         if (arrival_date > departure_date) {
             var temp = arrival_date;

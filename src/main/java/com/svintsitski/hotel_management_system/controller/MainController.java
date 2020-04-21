@@ -13,9 +13,8 @@ import com.svintsitski.hotel_management_system.service.ApartmentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
@@ -88,9 +87,29 @@ public class MainController {
         }
 
         //apartments.size(), Arrays.asList(apartments, apartmentType, totalPlaces)
-
+        apartmentTypesFree.forEach(System.out::println);
+        apartmentListCounter.forEach(System.out::println);
+        System.out.println("mnmnmnm");
         //рассчитали количество номеров с этим типом
-        int total_page = pagination.getTotalPage(full_elem_count);
+        //int total_page = pagination.getTotalPage(full_elem_count);
+
+        int start = pagination.getStartElem();
+        int total = pagination.getPage_size();
+
+        int total_page = pagination.getTotalPage(apartmentTypesFree.size());
+
+        System.out.println("-------------------");
+        System.out.println("start" + start);
+        System.out.println("total" + total);
+        System.out.println("total_page" + total_page);
+        System.out.println("size" + apartmentTypesFree.size());
+        System.out.println("getStartElem" + pagination.getStartElem());
+        System.out.println("getCurrent_page" + pagination.getCurrent_page());
+        System.out.println("getPage_size" + pagination.getPage_size());
+        System.out.println("getStart_page" + pagination.getStart_page());
+        System.out.println("-------------------");
+
+        apartmentTypesFree = new ArrayList<>(apartmentTypesFree.subList(pagination.getStartElem() - 1, total));
 
         URL.IPInfo("", request.getRemoteAddr(), RequestMethod.GET);
 
@@ -106,5 +125,19 @@ public class MainController {
 
         model.addAttribute("config", Config.getInstance());
         return "reservation";
+    }
+
+    @GetMapping(value = "/reservation/{id}")
+    public ModelAndView addReservation(@PathVariable int id,
+
+                                       HttpServletRequest request) {
+        ModelAndView model = new ModelAndView();
+
+        //ApartmentType apartmentType = apartmentTypeService.findById(id);
+        List<Apartment> apartments = apartmentService.findByType(id);
+
+
+        model.addObject("config", Config.getInstance());
+        return model;
     }
 }
