@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,14 +34,25 @@ public class MainController {
     @Autowired
     private ReservationServiceImpl reservationService;
 
-    @RequestMapping("/")
-    public String welcome(HttpServletRequest request,
-                          Model model) {
-
+    @GetMapping("/")
+    public ModelAndView welcome(HttpServletRequest request) {
+        ModelAndView model = new ModelAndView();
         URL.IPInfo("", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addAttribute("config", Config.getInstance());
-        return "index";
+        java.util.Date d1 = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(d1.getTime());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        String newDate = sdf.format(cal.getTime());
+        java.sql.Date sqlDate2 = java.sql.Date.valueOf(newDate);
+
+        model.addObject("config", Config.getInstance());
+        model.addObject("arrival_date_filter", sqlDate);
+        model.addObject("departure_date_filter", sqlDate2);
+        model.setViewName("index");
+        return model;
     }
 
     @GetMapping("/reservation/")

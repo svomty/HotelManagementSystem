@@ -198,3 +198,13 @@ function setDate2(object) {
 
 }
 
+function setDate3() {
+
+    var arrival_date = document.getElementById("arrival_date_filter").value;
+    var departure_date = document.getElementById("departure_date_filter").value;
+
+    document.location.href = "/reservation/?arrival_date_filter=" + arrival_date + "&departure_date_filter=" + departure_date;
+
+    alert();
+}
+

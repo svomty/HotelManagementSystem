@@ -13,7 +13,7 @@
     <title>АСОИ "Гостиница"</title>
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
-
+    <script src="${pageContext.request.contextPath}/js/btn-active.js"></script>
     <c:set var="urlBase"
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
     <c:url var="urlReturn" value="/admin/apartment/price/"/>
@@ -34,25 +34,31 @@
                 <div class="tagline"><span></span></div>
                 <div class="center">
                     <div class="booking">
-                        <form>
+                        <form onSubmit="JavaScript:setDate3()">
                             <fieldset>
                                 <legend>Система онлайн-бронирования</legend>
-                                <p><label for="arrival">Заезд</label><input type="date" id="arrival"
-                                                                            value="2018-05-02" min="2018-05-02"></p>
-                                <p><label for="departure">Выезд</label><input type="date" id="departure"
-                                                                              value="2018-05-03" min="2018-05-03"></p>
-                                <p><label for="days">Дней</label><input type="text" readonly id="days"></p>
-                                <p><label for="departure">Гостей</label><select name="guests">
-                                    <option selected value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select></p>
+
+                                <p><label for="arrival_date_filter">Заезд</label><input type="date"
+                                                                                        id="arrival_date_filter"
+                                                                                        value="${arrival_date_filter}"
+                                                                                        min="${arrival_date_filter}">
+                                </p>
+
+                                <p><label for="departure_date_filter">Выезд</label><input type="date"
+                                                                                          id="departure_date_filter"
+                                                                                          value="${departure_date_filter}"
+                                                                                          min="${arrival_date_filter}">
+                                </p>
+
+                                <span class="display-none btn-red" id="error_filter">Ошибка! Даты не могут быть одинаковыми!</span>
+
                                 <input type="submit" value="Поиск свободного номера">
                             </fieldset>
                         </form>
                     </div>
                 </div>
             </div>
+
 
             <div class="contacts">
                 <h1 class="headline">Наши контакты</h1>
