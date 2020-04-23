@@ -128,12 +128,25 @@ public class MainController {
         if (apartment != null) {
             reservation.setApartment_id(apartment.getId());
             System.out.println(reservation);
-            reservationService.add(reservation);
-
-            return "reservation";
+            int info = reservationService.add(reservation);
+            return "redirect:/reservation/info/" + info;
         } else {
             return "failure";
         }
         //return "reservation";
     }
+
+    @GetMapping("/reservation/info/{id}")
+    public ModelAndView addReservation(HttpServletRequest request,
+                                       @PathVariable("id") int id) throws Exception {
+        ModelAndView model = new ModelAndView();
+
+        Reservation reservation = reservationService.findById(id);
+
+        model.addObject("config", Config.getInstance());
+        model.addObject("reservation", reservation);
+        model.setViewName("reservation_info");
+        return model;
+    }
 }
+
