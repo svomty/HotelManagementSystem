@@ -674,6 +674,8 @@ a.button7 {
 
 a.button7:hover {
     background: #9D4E4E;
+    color: white;
+    text-decoration: none;
 }
 
 a.button7:active {

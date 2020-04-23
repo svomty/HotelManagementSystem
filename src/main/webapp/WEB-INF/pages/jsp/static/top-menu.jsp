@@ -27,8 +27,8 @@
                                                          aria-hidden="true"></i>
                     ${config.address}
                 </a></li>
-                <li class="top-menu__itm"><a href="mailto:best-hotel@mail.ru"><i class="fa fa-envelope-o"
-                                                                                 aria-hidden="true">
+                <li class="top-menu__itm"><a href="mailto:best-hotel@mail.ru"> <i class="fa fa-envelope-o"
+                                                                                  aria-hidden="true">
 
                 </i>${config.email}</a>
                 </li>

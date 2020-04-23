@@ -1,0 +1,117 @@
+
+* {
+    box-sizing: border-box;
+}
+
+#modal-container { /*сокрытие окна*/
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
+}
+
+#modal-container.one {
+    animation: unfoldIn 0.25s forwards;
+}
+
+#modal-container.one.out {
+    transform: scale(0);
+    animation: unfoldOut 0.25s forwards;
+}
+
+#modal-container .modal-background { /*затемнение*/
+    display: table-cell;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#modal-container .modal-background .modal { /* белый фон*/
+    background: white;
+    /*padding: 50px 50px 50px 50px ;*/
+    display: inline-block;
+    border-radius: 3px;
+    font-weight: 300;
+    position: relative;
+}
+
+.block {
+    padding: 50px;
+}
+
+#modal-container .modal-background .modal .modal-svg { /*белая рамка*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+}
+
+@keyframes unfoldIn {
+    0% {
+        transform: scaleY(0.005) scaleX(0);
+    }
+    50% {
+        transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+        transform: scaleY(1) scaleX(1);
+    }
+}
+
+@keyframes unfoldOut {
+    0% {
+        transform: scaleY(1) scaleX(1);
+    }
+    50% {
+        transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+        transform: scaleY(0.005) scaleX(0);
+    }
+}
+
+.close {
+    position: relative;
+    display: flex;
+    padding-right: 0.3em;
+    padding-top: 0.3em;
+    justify-content: right;
+    font-size: 3rem;
+    color: #CC7D7D;
+}
+
+.close:hover {
+    color: #7E2F2F;
+}
+
+.close:active {
+    color: #4b1212;
+}
+
+button[type=submit] {
+    font-weight: 600;
+    color: white;
+    width: 100%;
+    margin-top: 0.5em;
+    background: #CC7D7D;
+}
+
+button[type=submit] {
+    background: #9D4E4E;
+}
+
+button[type=submit]:hover {
+    background: #842121;
+    color: white;
+}
+
+button[type=submit]:active {
+    background: #4b1212;
+    color: white;
+}

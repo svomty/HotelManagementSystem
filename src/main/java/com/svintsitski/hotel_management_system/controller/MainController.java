@@ -3,6 +3,7 @@ package com.svintsitski.hotel_management_system.controller;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
+import com.svintsitski.hotel_management_system.model.database.Reservation;
 import com.svintsitski.hotel_management_system.model.enam.Activity;
 import com.svintsitski.hotel_management_system.model.support.Checker;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
@@ -41,7 +42,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/reservation/")
+    @GetMapping("/reservation/")
     public String reservation(HttpServletRequest request,
                               @RequestParam Optional<Integer> page,
                               @RequestParam Optional<Integer> size,
@@ -73,6 +74,7 @@ public class MainController {
 
         URL.IPInfo("/reservation/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addAttribute("reservation", new Reservation());
         model.addAttribute("apartment_list", apartmentTypesFree);
         model.addAttribute("counter", apartmentListCounter);
         model.addAttribute("counterTotal", resultQuery.getList().get(2));
@@ -87,17 +89,22 @@ public class MainController {
         return "reservation";
     }
 
-    @GetMapping(value = "/reservation/{id}")
-    public ModelAndView addReservation(@PathVariable int id,
-
-                                       HttpServletRequest request) {
+    @PostMapping(value = "/reservation/")
+    public String addReservation(@ModelAttribute("reservation") Reservation reservation,
+                                 HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        int typeId = reservation.getApartment_id();
+        List<Apartment> apartments = apartmentService.findByType(typeId);
+        if (apartments != null) {
 
-        //ApartmentType apartmentType = apartmentTypeService.findById(id);
-        List<Apartment> apartments = apartmentService.findByType(id);
+            reservation.setApartment_id(apartments.stream().findFirst().get().getId());
+            System.out.println(reservation);
+            reservationService.add(reservation);
 
-
-        model.addObject("config", Config.getInstance());
-        return model;
+            return "reservation";
+        } else {
+            return "failure";
+        }
+        //return "reservation";
     }
 }
