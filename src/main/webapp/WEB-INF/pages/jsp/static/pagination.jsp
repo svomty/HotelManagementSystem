@@ -53,17 +53,17 @@
             </c:if>
         </div>
     </c:if>
-</div>
+
 <c:if test="${total_page != 1}">
-    <div class="right">
-        <span>стр. №</span>
+<div>
+    <span>стр. №</span>
         <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
         <button type="button" class="btn-blue"
                 onclick=goToPage("${pageContext.request.contextPath}?sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}")>
             Перейти
         </button>
-    </div>
+</div>
 </c:if>
-
+</div>
 </body>
 </html>
