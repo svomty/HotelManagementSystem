@@ -121,6 +121,20 @@ public class ReservationServiceImpl implements ReservationService {
         return new ResultQuery(size, Arrays.asList(apartmentTypesFree, apartmentListCounter, counterTotal));
     }
 
+    @Override
+    public Apartment reservationForUsers(List<Apartment> apartmentList,
+                                         int typeId) {
+        Apartment apartment = null;
+
+        for (Apartment value : apartmentList) {
+            if (value.getType_id() == typeId) {
+                apartment = value;
+                break;
+            }
+        }
+
+        return apartment;
+    }
 
     @Override
     public int add(Reservation reservation) {

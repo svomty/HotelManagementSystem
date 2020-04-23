@@ -17,6 +17,9 @@ public interface ReservationService {
                                  List<Apartment> apartmentList,
                                  List<ApartmentType> apartmentTypes);
 
+    Apartment reservationForUsers(List<Apartment> apartmentList,
+                                  int typeId);
+
     int add(Reservation reservation);
 
     int update(Reservation reservation);

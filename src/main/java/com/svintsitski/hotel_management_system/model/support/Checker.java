@@ -45,5 +45,4 @@ public class Checker {
 
         return Arrays.asList(arrival_date, departure_date);
     }
-
 }

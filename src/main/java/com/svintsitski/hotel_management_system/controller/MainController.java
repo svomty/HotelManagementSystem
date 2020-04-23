@@ -63,7 +63,6 @@ public class MainController {
                               @RequestParam Optional<String> departure_date_filter,
                               Model model) throws Exception {
 
-        //String sorting = "id";
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
         List<Date> dates = Checker.validateDateForAccommodation(arrival_date_filter, departure_date_filter);
@@ -104,13 +103,30 @@ public class MainController {
 
     @PostMapping(value = "/reservation/")
     public String addReservation(@ModelAttribute("reservation") Reservation reservation,
-                                 HttpServletRequest request) {
+                                 HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         int typeId = reservation.getApartment_id();
-        List<Apartment> apartments = apartmentService.findByType(typeId);
-        if (apartments != null) {
 
-            reservation.setApartment_id(apartments.stream().findFirst().get().getId());
+        ResultQuery result = apartmentService.findForDate(reservation.getArrival_date(),
+                reservation.getDeparture_date(),
+                Activity.Reservation,
+                0);
+
+        //инициализировали лист
+        List<Apartment> apartmentList = (List<Apartment>) result.getList().get(0);
+        List<ApartmentType> apartmentType = (List<ApartmentType>) result.getList().get(1);
+
+        for (int i = 0; i < apartmentList.size(); i++) {
+            System.out.println(i + " apartmentList = " + apartmentList.get(i));
+            System.out.println(i + " apartmentType = " + apartmentType.get(i));
+        }
+
+        Apartment apartment = reservationService
+                .reservationForUsers(apartmentList,
+                        typeId);
+
+        if (apartment != null) {
+            reservation.setApartment_id(apartment.getId());
             System.out.println(reservation);
             reservationService.add(reservation);
 
