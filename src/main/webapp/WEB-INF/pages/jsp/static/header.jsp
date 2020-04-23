@@ -25,8 +25,6 @@
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </a>
                         <ul class="submenu">
-                            <li><a href="${pageContext.request.contextPath}/admin/status/" class="submenu__item btn">Статус
-                                гостиницы</a></li>
                             <li><a href="${pageContext.request.contextPath}/admin/apartment/"
                                    class="submenu__item btn">Апартаменты</a></li>
                             <li><a href="${pageContext.request.contextPath}/admin/apartment/price/list/"

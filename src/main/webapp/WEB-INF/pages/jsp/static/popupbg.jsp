@@ -15,7 +15,6 @@
 <div class="popupbg" id="popupbg">
     <div class="answer-popup">
         <span>Панель администратора</span>
-        <a id="/admin/status/" href="${pageContext.request.contextPath}/admin/status/">Статус гостиницы</a>
         <a id="/admin/apartment/" href="${pageContext.request.contextPath}/admin/apartment/">Апартаменты</a>
         <a id="/admin/apartment/price/" href="${pageContext.request.contextPath}/admin/apartment/price/list/">Цены</a>
         <a id="/admin/reservation/" href="${pageContext.request.contextPath}/admin/reservation/">Система онлайн
