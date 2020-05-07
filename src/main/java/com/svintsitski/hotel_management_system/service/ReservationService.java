@@ -12,6 +12,8 @@ public interface ReservationService {
 
     Reservation findById(int id);
 
+    Reservation findByUUID(String UUID);
+
     ResultQuery findFreeForUsers(int start,
                                  int total,
                                  List<Apartment> apartmentList,

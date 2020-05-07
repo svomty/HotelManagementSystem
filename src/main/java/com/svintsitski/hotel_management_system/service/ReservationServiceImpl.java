@@ -76,6 +76,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public Reservation findByUUID(String UUID) {
+        return reservationDao.findByUUID(UUID);
+    }
+
+    @Override
     public ResultQuery findFreeForUsers(int start,
                                         int total,
                                         List<Apartment> apartmentList,

@@ -663,7 +663,7 @@ h4 b {
     font-weight: 600;
 }
 
-a.button7 {
+a.button7, a.button6 {
     font-weight: 600;
     color: white;
     text-decoration: none;
@@ -672,14 +672,26 @@ a.button7 {
     background: #CC7D7D;
 }
 
-a.button7:hover {
+a.button7:hover, a.button6:hover {
     background: #9D4E4E;
     color: white;
     text-decoration: none;
 }
 
-a.button7:active {
+a.button7:active, a.button6:active {
     background: #7E2F2F;
+}
+
+a.button6 {
+    background: #0EA956;
+}
+
+a.button6:hover {
+    background: #09713A;
+}
+
+a.button6:active {
+    background: #064925;
 }
 
 .flex-wrap {

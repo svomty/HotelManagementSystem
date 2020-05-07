@@ -11,7 +11,9 @@
     <title>Цены на апартаменты</title>
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
-
+    <c:set var="urlBase"
+           value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
+    <c:url var="urlReturn" value="/report/"/>
 </head>
 <body>
 <div class="content">
@@ -26,7 +28,13 @@
                 <div>Ваше ФИО: ${reservation.full_name}</div>
                 <div>Ваш телефон: ${reservation.customer_phone}</div>
                 <div>Номер апартамента, в который Вас заселят — ${reservation.apartment_id}</div>
+                <div>UUID — ${reservation.UUID}</div>
             </div>
+            <spring:url value="${urlBase}${urlReturn}${reservation.UUID }" var="reservationURL"/>
+            <a id="one" href="${reservationURL}" class="button button6" name="${reservation.UUID}" href="#"
+               role="button">
+                Скачать чек
+            </a>
         </div>
     </main>
 </div>

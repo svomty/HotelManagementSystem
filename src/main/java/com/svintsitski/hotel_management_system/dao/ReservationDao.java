@@ -9,6 +9,8 @@ public interface ReservationDao {
 
     Reservation findById(int id);
 
+    Reservation findByUUID(String UUID);
+
     List<Reservation> findByApartmentId(int id);
 
     int add(Reservation reservation);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Transactional
 @Repository
@@ -45,15 +46,25 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
+    public Reservation findByUUID(String UUID) {
+        String sql = "SELECT * FROM reservation WHERE UUID='" + UUID + "';";
+        return jdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(Reservation.class)).stream().findFirst().orElse(null);
+    }
+
+    @Override
     public int add(Reservation reservation) {
+        UUID uuid = UUID.randomUUID();
+
         String sql = "INSERT INTO `hotel`.`reservation` " +
                 "(`arrival_date`," +
                 " `departure_date`," +
                 " `full_name`," +
                 " `apartment_id`," +
                 " `arrived`," +
-                " `customer_phone`)" +
-                " VALUES (?, ?, ?, ?, ?, ?);";
+                " `customer_phone`," +
+                " `UUID`)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         jdbcTemplate.update(sql,
                 reservation.getArrival_date(),
@@ -61,7 +72,8 @@ public class ReservationDaoImpl implements ReservationDao {
                 reservation.getFull_name(),
                 reservation.getApartment_id(),
                 reservation.getArrived(),
-                reservation.getCustomer_phone());
+                reservation.getCustomer_phone(),
+                uuid.toString());
 
         return ResultQuery.getLastInsertId(jdbcTemplate);
     }

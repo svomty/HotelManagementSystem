@@ -15,11 +15,12 @@ public class Reservation {
     private byte arrived;
     private String full_name;
     private String customer_phone;
+    private String UUID;
 
     public Reservation() {
     }
 
-    public Reservation(int id, Date arrival_date, Date departure_date, int apartment_id, byte arrived, String full_name, String customer_phone) {
+    public Reservation(int id, Date arrival_date, Date departure_date, int apartment_id, byte arrived, String full_name, String customer_phone, String UUID) {
         this.id = id;
         this.arrival_date = arrival_date;
         this.departure_date = departure_date;
@@ -27,6 +28,15 @@ public class Reservation {
         this.arrived = arrived;
         this.full_name = full_name;
         this.customer_phone = customer_phone;
+        this.UUID = UUID;
+    }
+
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
     }
 
     public byte getArrived() {
@@ -96,12 +106,13 @@ public class Reservation {
                 Objects.equals(arrival_date, that.arrival_date) &&
                 Objects.equals(departure_date, that.departure_date) &&
                 Objects.equals(full_name, that.full_name) &&
-                Objects.equals(customer_phone, that.customer_phone);
+                Objects.equals(customer_phone, that.customer_phone) &&
+                Objects.equals(UUID, that.UUID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, arrival_date, departure_date, apartment_id, arrived, full_name, customer_phone);
+        return Objects.hash(id, arrival_date, departure_date, apartment_id, arrived, full_name, customer_phone, UUID);
     }
 
     @Override
@@ -114,6 +125,7 @@ public class Reservation {
                 ", arrived=" + arrived +
                 ", full_name='" + full_name + '\'' +
                 ", customer_phone='" + customer_phone + '\'' +
+                ", UUID='" + UUID + '\'' +
                 '}';
     }
 }
