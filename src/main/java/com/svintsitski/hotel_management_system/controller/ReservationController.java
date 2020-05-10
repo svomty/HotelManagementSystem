@@ -45,7 +45,18 @@ public class ReservationController {
 
         ResultQuery result = reservationService.
                 findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+
         List<Reservation> reservationList = (List<Reservation>) result.getList().get(0);
+        //удаление
+        if (reservationList.size() == 0) {
+            pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
+
+            result = reservationService.
+                    findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+
+            reservationList = (List<Reservation>) result.getList().get(0);
+        }
+        //удаление
 
         int total_page = pagination.getTotalPage(result.getCount());
 
@@ -142,11 +153,14 @@ public class ReservationController {
 
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id,
+                               @RequestParam Optional<Integer> page,
+                               @RequestParam Optional<Integer> size,
+                               @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         reservationService.delete(id);
 
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
     }
 }

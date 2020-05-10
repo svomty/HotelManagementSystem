@@ -39,11 +39,14 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
         if (customerListNew.size() < total) {
             total = customerListNew.size();
         }
-        customerListNew = new ArrayList<>(customerListNew.subList(start, total));
 
         List<ForeignCustomer> customerForeignList = new ArrayList<>();
 
-        customerListNew.forEach(x -> customerForeignList.add(foreignCustomerDao.findById(x.getId())));
+        if (start <= total) {
+            customerListNew = new ArrayList<>(customerListNew.subList(start, total));
+
+            customerListNew.forEach(x -> customerForeignList.add(foreignCustomerDao.findById(x.getId())));
+        }
 
         return new ResultQuery(count, Arrays.asList(customerListNew, customerForeignList));
     }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -39,12 +40,26 @@ public class ApartmentPriceController {
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
         ResultQuery result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+
+        List<ApartmentType> apartmentTypes = (List<ApartmentType>) result.getList();
+
+        //удаление
+        if (apartmentTypes.size() == 0) {
+            pagination = new Pagination(pagination.getTotalPage(result.getCount()),
+                    size.orElse(Config.getInstance().getCountElem()));
+
+            result = apartmentService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+
+            apartmentTypes = (List<ApartmentType>) result.getList();
+        }
+        //удаление
+
         int full_elem_count = result.getCount();
         int total_page = pagination.getTotalPage(full_elem_count);
 
         URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
-        model.addAttribute("apartment_list", result.getList());
+        model.addAttribute("apartment_list", apartmentTypes);
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
@@ -102,11 +117,14 @@ public class ApartmentPriceController {
 
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id,
+                               @RequestParam Optional<Integer> page,
+                               @RequestParam Optional<Integer> size,
+                               @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
     }
 }

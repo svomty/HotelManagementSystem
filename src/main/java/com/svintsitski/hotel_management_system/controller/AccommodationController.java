@@ -52,6 +52,17 @@ public class AccommodationController {
                 findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
         List<Accommodation> accommodationList = (List<Accommodation>) result.getList().get(0);
 
+        //удаление
+        if (accommodationList.size() == 0) {
+            pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
+
+            result = accommodationService.
+                    findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+
+            accommodationList = (List<Accommodation>) result.getList().get(0);
+        }
+        //удаление
+
         int total_page = pagination.getTotalPage(result.getCount());
 
         URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
@@ -168,11 +179,14 @@ public class AccommodationController {
 
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id,
+                               @RequestParam Optional<Integer> page,
+                               @RequestParam Optional<Integer> size,
+                               @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         accommodationService.delete(id);
 
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
     }
 }

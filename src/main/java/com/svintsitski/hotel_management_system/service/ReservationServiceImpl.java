@@ -57,15 +57,20 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservations.size() < total) {
             total = reservations.size();
         }
-        reservations = new ArrayList<>(reservations.subList(start, total));
-        //reservations урезали для пагинации
 
         apartments = new ArrayList<>();
 
-        for (Reservation reservation : reservations) {
-            apartments.add(apartmentDao.findById(reservation.getApartment_id()));
+        if (start > total) {
+            reservations = new ArrayList<>();
+        } else {
+            reservations = new ArrayList<>(reservations.subList(start, total));
+            //reservations урезали для пагинации
+
+            for (Reservation reservation : reservations) {
+                apartments.add(apartmentDao.findById(reservation.getApartment_id()));
+            }
+            //нашли apartments
         }
-        //нашли apartments
 
         return new ResultQuery(count, Arrays.asList(reservations, apartments));
     }

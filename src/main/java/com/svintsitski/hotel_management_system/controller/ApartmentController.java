@@ -44,6 +44,17 @@ public class ApartmentController {
         ResultQuery result = apartmentService
                 .findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
 
+        List<Apartment> apartments = (List<Apartment>) result.getList();
+
+        //удаление
+        if (apartments.size() == 0) {
+            pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
+
+            result = apartmentService
+                    .findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
+        }
+        //удаление
+
         int full_elem_count = result.getCount();
         int total_page = pagination.getTotalPage(full_elem_count);
 
@@ -114,11 +125,14 @@ public class ApartmentController {
 
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id,
+                               @RequestParam Optional<Integer> page,
+                               @RequestParam Optional<Integer> size,
+                               @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
     }
 }

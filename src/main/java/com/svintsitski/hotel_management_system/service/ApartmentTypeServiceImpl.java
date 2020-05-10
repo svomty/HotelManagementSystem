@@ -27,7 +27,9 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService {
             total = apartments.size();
         }
 
-        apartments = new ArrayList<>(apartments.subList(start, total));
+        if (start <= total) {
+            apartments = new ArrayList<>(apartments.subList(start, total));
+        }
 
         return new ResultQuery(count, apartments);
     }

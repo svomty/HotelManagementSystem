@@ -66,14 +66,19 @@ public class ApartmentServiceImpl implements ApartmentService {
         if (apartments.size() < total) {
             total = apartments.size();
         }
-        apartments = new ArrayList<>(apartments.subList(start, total));
-        //apartments урезали для пагинации
 
-        apartmentType = new ArrayList<>();
-        for (int i = 0; i < apartments.size(); i++) {
-            apartmentType.add(apartmentTypeDao.findById(apartments.get(i).getType_id()));
+        if (start > total) {
+            apartmentType = new ArrayList<>();
+        } else {
+            apartments = new ArrayList<>(apartments.subList(start, total));
+            //apartments урезали для пагинации
+
+            apartmentType = new ArrayList<>();
+            for (int i = 0; i < apartments.size(); i++) {
+                apartmentType.add(apartmentTypeDao.findById(apartments.get(i).getType_id()));
+            }
+            //apartmentType нашли
         }
-        //apartmentType нашли
 
         return new ResultQuery(count, Arrays.asList(apartments, apartmentType));
     }
@@ -138,22 +143,6 @@ public class ApartmentServiceImpl implements ApartmentService {
                             apartmentType.remove(i);
                             apartments.remove(i);
                             totalPlaces.remove(i);
-                            /*byte places_number = apartmentType.get(i).getPlaces_number();
-                            apartmentType.get(i).setPlaces_number((byte) (places_number - 1));
-
-                            System.out.println("reservation.getApartment_id() = " + reservation.getApartment_id());
-                            System.out.println("activity = " + activity);
-                            System.out.println("apartmentType.get(i).getPlaces_number() = " + apartmentType.get(i)
-                                    .getPlaces_number());
-
-
-                            if (apartmentType.get(i).getPlaces_number() == places_number) {
-                                //удаляем апартамент и его тип
-                                System.out.println("delete " + reservation.getApartment_id());
-                                apartmentType.remove(i);
-                                apartments.remove(i);
-                                totalPlaces.remove(i);
-                            }*/
                         }
 
                         break;
@@ -203,7 +192,6 @@ public class ApartmentServiceImpl implements ApartmentService {
                 }
             }
         }
-
 
         return new ResultQuery(apartments.size(), Arrays.asList(apartments, apartmentType, totalPlaces));
     }

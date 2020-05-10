@@ -49,8 +49,20 @@ public class CustomerController {
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
         ResultQuery result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting, filter);
-        int full_elem_count = result.getCount();
+
         List<Customer> customerList = (List<Customer>) result.getList().get(0);
+
+        //удаление
+        if (customerList.size() == 0) {
+            pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
+
+            result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting, filter);
+
+            customerList = (List<Customer>) result.getList().get(0);
+        }
+        //удаление
+
+        int full_elem_count = result.getCount();
         List<ForeignCustomer> foreignCustomerList = (List<ForeignCustomer>) result.getList().get(1);
 
         int total_page = pagination.getTotalPage(full_elem_count);
@@ -151,6 +163,9 @@ public class CustomerController {
 
     @GetMapping(value = "/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id,
+                               @RequestParam Optional<Integer> page,
+                               @RequestParam Optional<Integer> size,
+                               @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
@@ -158,6 +173,6 @@ public class CustomerController {
         foreignCustomerService.delete(id);
         customerService.delete(id);
 
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
     }
 }

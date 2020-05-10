@@ -72,17 +72,23 @@ public class AccommodationServiceImpl implements AccommodationService {
         if (accommodations.size() < total) {
             total = accommodations.size();
         }
-        accommodations = new ArrayList<>(accommodations.subList(start, total));
-        //accommodations урезали для пагинации
 
-        customers = new ArrayList<>();
-        apartments = new ArrayList<>();
+        if (start > total) {
+            customers = new ArrayList<>();
+            apartments = new ArrayList<>();
+        } else {
+            accommodations = new ArrayList<>(accommodations.subList(start, total));
+            //accommodations урезали для пагинации
 
-        for (Accommodation accommodation : accommodations) {
-            customers.add(customerDao.findById(accommodation.getCustomer_id()));
-            apartments.add(apartmentDao.findById(accommodation.getApartment_id()));
+            customers = new ArrayList<>();
+            apartments = new ArrayList<>();
+
+            for (Accommodation accommodation : accommodations) {
+                customers.add(customerDao.findById(accommodation.getCustomer_id()));
+                apartments.add(apartmentDao.findById(accommodation.getApartment_id()));
+            }
+            //нашли customers и apartments
         }
-        //нашли customers и apartments
 
         return new ResultQuery(count, Arrays.asList(accommodations, customers, apartments));
     }

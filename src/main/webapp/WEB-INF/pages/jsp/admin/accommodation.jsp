@@ -93,7 +93,8 @@
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
                                 <spring:url
-                                        value="${urlBase}${urlReturn}delete/${accommodation.id }" var="deleteURL"/>
+                                        value="${urlBase}${urlReturn}delete/${accommodation.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                        var="deleteURL"/>
                                 <a class="btn btn-primary" href="${deleteURL }" role="button">
                                     <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>
