@@ -70,7 +70,7 @@ public class AccommodationController {
         model.addAttribute("accommodation_list", accommodationList);
         model.addAttribute("customers", result.getList().get(1));
         model.addAttribute("apartments", result.getList().get(2));
-
+        model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
@@ -83,6 +83,9 @@ public class AccommodationController {
     @GetMapping(value = "/update/{id}")
     public ModelAndView edit(@PathVariable int id,
                              HttpServletRequest request,
+                             @RequestParam Optional<Integer> page,
+                             @RequestParam Optional<Integer> size,
+                             @RequestParam Optional<String> sort,
                              @RequestParam Optional<String> arrival_date_filter,
                              @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
@@ -94,6 +97,9 @@ public class AccommodationController {
         List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Accommodation, id).getList();
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
+
+        View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
+        model.addObject("view", view);
 
         model.addObject("arrival_date_filter", dates.get(0));
         model.addObject("departure_date_filter", dates.get(1));
@@ -113,6 +119,7 @@ public class AccommodationController {
                             @RequestParam Optional<String> arrival_date_filter,
                             @RequestParam Optional<String> departure_date_filter,
                             @RequestParam Optional<String> apartment,
+                            @ModelAttribute("view") View view,
                             @RequestParam Optional<String> full_name,
                             @RequestParam Optional<String> reservation) throws Exception {
         ModelAndView model = new ModelAndView();
@@ -140,6 +147,7 @@ public class AccommodationController {
 
         model.addObject("arrival_date_filter", dates.get(0));
         model.addObject("full_name", name);
+        model.addObject("view", view);
         model.addObject("departure_date_filter", dates.get(1));
         model.addObject("totalPlaces", apartmentList.get(2));
         model.addObject("customerList", customerList);
@@ -154,6 +162,7 @@ public class AccommodationController {
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("hotelAccommodation") Accommodation accommodation,
+                             @ModelAttribute("view") View view,
                              @ModelAttribute("identity") Optional<Identity> reservation,
                              HttpServletRequest request) {
 
@@ -174,7 +183,8 @@ public class AccommodationController {
             }
 
         }
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "/?page=" + view.getPage() + "&size=" + view.getSize()
+                + "&sort=" + view.getSort());
     }
 
     @GetMapping(value = "/delete/{id}")

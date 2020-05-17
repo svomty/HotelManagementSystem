@@ -43,74 +43,80 @@
 
                 <form:form modelAttribute="customer" method="post" action="${createURL}" cssClass="form">
 
-                    <div class="flex50">
-                        <div class="column">
-                            <form:hidden path="id"/>
-                            <lable for="surname">Фамилия</lable>
-                            <form:input path="surname" cssClass="form-control" id="surname"/>
+                <div class="flex50">
+                    <div class="column">
+                        <form:hidden path="id"/>
+                        <lable for="surname">Фамилия</lable>
+                        <form:input path="surname" cssClass="form-control" id="surname"/>
 
-                            <lable for="name">Имя</lable>
-                            <form:input path="name" cssClass="form-control" id="name"/>
+                        <lable for="name">Имя</lable>
+                        <form:input path="name" cssClass="form-control" id="name"/>
 
-                            <lable for="patronymic">Отчество</lable>
-                            <form:input path="patronymic" cssClass="form-control" id="patronymic"/>
+                        <lable for="patronymic">Отчество</lable>
+                        <form:input path="patronymic" cssClass="form-control" id="patronymic"/>
 
-                            <lable for="birth_date">Дата рождения</lable>
-                            <form:input path="birth_date" type="date" cssClass="form-control" id="birth_date"/>
+                        <lable for="birth_date">Дата рождения</lable>
+                        <form:input path="birth_date" type="date" cssClass="form-control" id="birth_date"/>
 
-                            <lable for="passport_serial_number">Серийный номер паспорта</lable>
-                            <form:input path="passport_serial_number" cssClass="form-control"
-                                        id="passport_serial_number"/>
+                        <lable for="passport_serial_number">Серийный номер паспорта</lable>
+                        <form:input path="passport_serial_number" cssClass="form-control"
+                                    id="passport_serial_number"/>
 
-                            <lable for="identification_number">Идентификационный номер</lable>
-                            <form:input path="identification_number" cssClass="form-control"
-                                        id="identification_number"/>
+                        <lable for="identification_number">Идентификационный номер</lable>
+                        <form:input path="identification_number" cssClass="form-control"
+                                    id="identification_number"/>
 
-                            <lable for="date_issue_passport">Дата выдачи паспорта</lable>
-                            <form:input path="date_issue_passport" type="date" cssClass="form-control"
-                                        id="date_issue_passport"/>
+                        <lable for="date_issue_passport">Дата выдачи паспорта</lable>
+                        <form:input path="date_issue_passport" type="date" cssClass="form-control"
+                                    id="date_issue_passport"/>
 
-                            <lable for="issuing_authority">Кем выдан</lable>
-                            <form:input path="issuing_authority" cssClass="form-control" id="issuing_authority"/>
+                        <lable for="issuing_authority">Кем выдан</lable>
+                        <form:input path="issuing_authority" cssClass="form-control" id="issuing_authority"/>
 
 
-                            <lable for="registration_address">Регистрационный адрес</lable>
-                            <form:input path="registration_address" cssClass="form-control"
-                                        id="registration_address"/>
-                        </div>
-                        <div class="column">
-                            <form:form modelAttribute="checker" method="post" action="${createURL}"
+                        <lable for="registration_address">Регистрационный адрес</lable>
+                        <form:input path="registration_address" cssClass="form-control"
+                                    id="registration_address"/>
+                    </div>
+                    <div class="column">
+                        <form:form modelAttribute="checker" method="post" action="${createURL}"
+                                   cssClass="form">
+                            <div class="custom-control custom-checkbox">
+                                <form:checkbox path="check" class="custom-control-input" id="check"
+                                               onchange="foreign_active()"/>
+                                <label class="custom-control-label" for="check">Иностранец</label>
+                            </div>
+                            <form:form modelAttribute="view" method="post" action="${createURL}"
                                        cssClass="form">
-                                <div class="custom-control custom-checkbox">
-                                    <form:checkbox path="check" class="custom-control-input" id="check"
-                                                   onchange="foreign_active()"/>
-                                    <label class="custom-control-label" for="check">Иностранец</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">
-                                    Сохранить
-                                </button>
+                                <form:input path="page" class="custom-control-input" id="page"/>
+                                <form:input path="size" class="custom-control-input" id="size"/>
+                                <form:input path="sort" class="custom-control-input" id="sort"/>
 
-                                <div class="foreign column">
+                                <div class="column foreign">
                                     <form:form modelAttribute="foreignCustomer" method="post" action="${createURL}"
                                                cssClass="form">
+                                    <div class="column foreign">
                                         <form:hidden path="customer_id"/>
                                         <lable for="date_entry_to_Belarus">Дата приезда в РБ</lable>
                                         <form:input path="date_entry_to_Belarus" type="date" cssClass="form-control"
                                                     id="date_entry_to_Belarus"/>
-
+                                        <div></div>
+                                        <div></div>
                                         <lable for="insurance_policy_number">Номер страхового полиса</lable>
                                         <form:input path="insurance_policy_number" cssClass="form-control"
                                                     id="insurance_policy_number"/>
 
                                         <lable for="visa_number">Номер визы</lable>
-                                        <form:input path="visa_number" cssClass="form-control" id="visa_number"/>
+                                        <form:input path="visa_number" cssClass="form-control" id="visa_number"
+                                        />
 
                                         <lable for="passport_validity_date">Срок действия паспорта</lable>
                                         <form:input path="passport_validity_date" type="date" cssClass="form-control"
                                                     id="passport_validity_date"/>
 
                                         <lable for="citizenship">Гражданство</lable>
-                                        <form:input path="citizenship" cssClass="form-control" id="citizenship"/>
+                                        <form:input path="citizenship" cssClass="form-control" id="citizenship"
+                                        />
 
                                         <lable for="insurance_policy_issue_date">Дата выдачи страхового полиса
                                         </lable>
@@ -123,14 +129,15 @@
                                         <form:input path="insurance_policy_validity" type="date" cssClass="form-control"
                                                     id="insurance_policy_validity"/>
 
-                                    </form:form>
+                                        </form:form>
+                                    </div>
                                 </div>
-
                             </form:form>
-                        </div>
+                            <button type="submit" class="btn btn-primary submit">Сохранить</button>
+                        </form:form>
                     </div>
-
-                </form:form>
+                    </form:form>
+                </div>
             </div>
         </div>
     </main>

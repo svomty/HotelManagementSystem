@@ -48,6 +48,12 @@
                     <form:hidden path="id"/>
                     <div class="form-group">
                         <label for="number">Номер апартамента</label>
+                        <input name="page" id="page"
+                               value="page" hidden>
+                        <input name="size" id="size"
+                               value="size" hidden>
+                        <input name="sort" id="sort"
+                               value="sort" hidden>
                         <form:input path="number" cssClass="form-control" id="number"/>
                     </div>
 
@@ -63,13 +69,18 @@
                         <select name="type_id" id="type_id" path="type_id">
                             <c:forEach items="${apartmentType}" var="apartmentType">
                                 <option value="${apartmentType.id}"
-                                <c:if  test="${apartmentType.id == apartment.type_id}"> selected </c:if>>
-                                ${apartmentType.toString()}</option>
+                                        <c:if test="${apartmentType.id == apartment.type_id}"> selected </c:if>>
+                                        ${apartmentType.toString()}</option>
                             </c:forEach>
                         </select>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <form:form modelAttribute="view" method="post" action="${createURL}"
+                               cssClass="form">
+                        <form:input path="page" class="custom-control-input" id="page"/>
+                        <form:input path="size" class="custom-control-input" id="size"/>
+                        <form:input path="sort" class="custom-control-input" id="sort"/>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form:form>
                 </form:form>
             </div>
         </div>
@@ -78,6 +89,7 @@
 <jsp:include page="../static/footer.jsp"/>
 <script>
     popup_active("${pageContext.request.contextPath}/admin/apartment/");
+    setView();
 </script>
 </body>
 </html>

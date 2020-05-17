@@ -345,6 +345,12 @@ main {
     background-color: rgba(63, 25, 25, 0.8);
 }
 
+.submit {
+    position: absolute;
+    margin-left: 150px;
+    width: 295px;
+}
+
 .headline {
     text-align: center;
 }

@@ -5,6 +5,7 @@
   Time: 0:21
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -15,9 +16,12 @@
 <div class="tableBottomBar">
 
     <div>
-        <form action="${createURL}">
+        <form:form action="${createURL}add" modelAttribute="view" method="get">
+            <form:hidden path="page" class="custom-control-input" id="page"/>
+            <form:hidden path="size" class="custom-control-input" id="size"/>
+            <form:hidden path="sort" class="custom-control-input" id="sort"/>
             <button class="btn-green" type="submit">Добавить новую запись</button>
-        </form>
+        </form:form>
     </div>
 
     <c:if test="${total_page != 1}">

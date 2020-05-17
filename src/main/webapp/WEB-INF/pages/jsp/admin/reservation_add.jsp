@@ -44,6 +44,12 @@
                     <lable for="departure_date_filter">Дата выезда</lable>
                     <input type="date" name="departure_date_filter" id="departure_date_filter"
                            value="departure_date_filter">
+                    <input name="page" id="page"
+                           value="page" hidden>
+                    <input name="size" id="size"
+                           value="size" hidden>
+                    <input name="sort" id="sort"
+                           value="sort" hidden>
                     <input type="submit" value="Найти">
                     <span class="display-none btn-red" id="error_filter">Ошибка! Даты не могут быть одинаковыми!</span>
                 </form>
@@ -116,7 +122,13 @@
                                 <label class="custom-control-label" for="check">Заселен</label>
                             </div>
                         </c:if>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <form:form modelAttribute="view" method="post" action="${createURL}"
+                                   cssClass="form">
+                            <form:input path="page" class="custom-control-input" id="page"/>
+                            <form:input path="size" class="custom-control-input" id="size"/>
+                            <form:input path="sort" class="custom-control-input" id="sort"/>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form:form>
                     </form:form>
 
                 </form:form>
@@ -127,6 +139,7 @@
 <jsp:include page="../static/footer.jsp"/>
 <script>
     popup_active("${pageContext.request.contextPath}/admin/reservation/");
+    //setDate("reservation", ${view.page}, ${view.size}, ${view.sort});
     setDate("reservation");
 </script>
 </body>

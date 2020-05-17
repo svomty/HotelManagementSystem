@@ -3,10 +3,7 @@ package com.svintsitski.hotel_management_system.controller;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Reservation;
 import com.svintsitski.hotel_management_system.model.enam.Activity;
-import com.svintsitski.hotel_management_system.model.support.Checker;
-import com.svintsitski.hotel_management_system.model.support.Pagination;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
-import com.svintsitski.hotel_management_system.model.support.URL;
+import com.svintsitski.hotel_management_system.model.support.*;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ReservationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +61,7 @@ public class ReservationController {
 
         model.addAttribute("reservation_list", reservationList);
         model.addAttribute("apartments", result.getList().get(1));
-
+        model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
@@ -77,6 +74,9 @@ public class ReservationController {
     @GetMapping(value = "/update/{id}")
     public ModelAndView edit(@PathVariable int id,
                              HttpServletRequest request,
+                             @RequestParam Optional<Integer> page,
+                             @RequestParam Optional<Integer> size,
+                             @RequestParam Optional<String> sort,
                              @RequestParam Optional<String> arrival_date_filter,
                              @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
@@ -90,6 +90,9 @@ public class ReservationController {
         Checker checker = new Checker(reservation.getArrived() == 1);
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
+
+        View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
+        model.addObject("view", view);
 
         model.addObject("checker", checker);
         model.addObject("arrival_date_filter", dates.get(0));
@@ -106,6 +109,7 @@ public class ReservationController {
     @GetMapping(value = {"/add/", "/add"})
     public ModelAndView add(HttpServletRequest request,
                             @RequestParam Optional<String> arrival_date_filter,
+                            @ModelAttribute("view") View view,
                             @RequestParam Optional<String> departure_date_filter) throws Exception {
         ModelAndView model = new ModelAndView();
         Reservation reservation = new Reservation();
@@ -116,6 +120,7 @@ public class ReservationController {
         List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Reservation, 0).getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
+        model.addObject("view", view);
 
         model.addObject("checker", checker);
         model.addObject("arrival_date_filter", dates.get(0));
@@ -131,6 +136,7 @@ public class ReservationController {
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("reservation") Reservation reservation,
+                             @ModelAttribute("view") View view,
                              @ModelAttribute("checker") Optional<Checker> checker,
                              HttpServletRequest request) {
 
@@ -148,7 +154,8 @@ public class ReservationController {
         } else {
             reservationService.add(reservation);
         }
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "/?page=" + view.getPage() + "&size=" + view.getSize()
+                + "&sort=" + view.getSort());
     }
 
     @GetMapping(value = "/delete/{id}")

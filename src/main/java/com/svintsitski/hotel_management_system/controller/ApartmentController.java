@@ -6,6 +6,7 @@ import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
+import com.svintsitski.hotel_management_system.model.support.View;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,7 @@ public class ApartmentController {
         model.addAttribute("apartment_type_list", result.getList().get(1));
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
+        model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("size", pagination.getPage_size());
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
@@ -74,7 +76,10 @@ public class ApartmentController {
 
     @GetMapping(value = "/update/{id}")
     public ModelAndView edit(@PathVariable int id,
-                             HttpServletRequest request) {
+                             @RequestParam Optional<Integer> page,
+                             @RequestParam Optional<Integer> size,
+                             @RequestParam Optional<String> sort,
+                             HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         Apartment apartment = apartmentService.findById(id);
 
@@ -83,16 +88,21 @@ public class ApartmentController {
 
         URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
 
+        View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
+        model.addObject("view", view);
+
         model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentTypes);
         model.setViewName(jspAdd);
 
         model.addObject("config", Config.getInstance());
+        System.out.println("jyyjyjyjyjyjy");
         return model;
     }
 
     @GetMapping(value = {"/add/", "/add"})
-    public ModelAndView add(HttpServletRequest request) {
+    public ModelAndView add(HttpServletRequest request,
+                            @ModelAttribute("view") View view) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = new Apartment();
 
@@ -100,18 +110,21 @@ public class ApartmentController {
         List<ApartmentType> apartmentTypes = resultQuery.getList();
 
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
+        model.addObject("view", view);
 
         model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentTypes);
         model.addObject("config", Config.getInstance());
+        System.out.println("asasassasaassasaassa");
         model.setViewName(jspAdd);
         return model;
     }
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("apartment") Apartment apartment,
+                             @ModelAttribute("view") View view,
                              HttpServletRequest request) {
-
+        System.out.println("ns xjjsahdjghasd");
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 
         if (apartmentService.findById(apartment.getId()) != null) {
@@ -120,7 +133,12 @@ public class ApartmentController {
             apartmentService.add(apartment);
         }
 
-        return new ModelAndView(redirectURL);
+        System.out.println(view.getPage());
+        System.out.println(view.getSize());
+        System.out.println(view.getSort());
+
+        return new ModelAndView(redirectURL + "/?page=" + view.getPage() + "&size=" + view.getSize()
+                + "&sort=" + view.getSort());
     }
 
     @GetMapping(value = "/delete/{id}")

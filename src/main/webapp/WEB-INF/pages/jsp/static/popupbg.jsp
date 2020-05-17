@@ -22,13 +22,6 @@
         <a id="/admin/customer/" href="${pageContext.request.contextPath}/admin/customer/">Клиенты</a>
         <a id="/admin/accommodation/" href="${pageContext.request.contextPath}/admin/accommodation/">Заселение</a>
         <a id="/admin/config/" href="${pageContext.request.contextPath}/admin/config/">Конфигурация главного меню</a>
-        <span>Отчетность</span>
-        <a id="/admin/report/residence/" href="${pageContext.request.contextPath}/admin/report/residence/">Отчет о
-            заселении</a>
-        <a id="/admin/report/profit/" href="${pageContext.request.contextPath}/admin/report/profit/">Отчет о
-            доходности</a>
-        <a id="/admin/report/customer/" href="${pageContext.request.contextPath}/admin/report/customer/">Отчет о
-            клиентах</a>
     </div>
 </div>
 </body>

@@ -6,6 +6,7 @@ import com.svintsitski.hotel_management_system.model.enam.Type;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import com.svintsitski.hotel_management_system.model.support.URL;
+import com.svintsitski.hotel_management_system.model.support.View;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class ApartmentPriceController {
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
                           Model model,
-                          HttpServletRequest request) {
+                          HttpServletRequest request) throws Exception {
 
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
@@ -65,18 +66,24 @@ public class ApartmentPriceController {
         model.addAttribute("size", pagination.getPage_size());
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
-
+        model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("config", Config.getInstance());
         return relativeURL;
     }
 
     @GetMapping(value = "/update/{id}")
     public ModelAndView edit(@PathVariable int id,
+                             @RequestParam Optional<Integer> page,
+                             @RequestParam Optional<Integer> size,
+                             @RequestParam Optional<String> sort,
                              HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = apartmentService.findById(id);
 
         URL.IPInfo(relativeURL + "/update/", request.getRemoteAddr(), RequestMethod.GET);
+
+        View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
+        model.addObject("view", view);
 
         model.addObject("apartmentType", apartmentType);
         model.addObject("types", Type.values());
@@ -86,11 +93,13 @@ public class ApartmentPriceController {
     }
 
     @GetMapping(value = {"/add/", "/add"})
-    public ModelAndView add(HttpServletRequest request) {
+    public ModelAndView add(HttpServletRequest request,
+                            @ModelAttribute("view") View view) {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = new ApartmentType();
 
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
+        model.addObject("view", view);
 
         model.addObject("apartmentType", apartmentType);
         model.addObject("types", Type.values());
@@ -102,6 +111,7 @@ public class ApartmentPriceController {
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType,
                              @ModelAttribute("type") String type,
+                             @ModelAttribute("view") View view,
                              HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
@@ -112,7 +122,8 @@ public class ApartmentPriceController {
         } else {
             apartmentService.add(apartmentType);
         }
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "?page=" + view.getPage() + "&size=" + view.getSize()
+                + "&sort=" + view.getSort());
     }
 
     @GetMapping(value = "/delete/{id}")

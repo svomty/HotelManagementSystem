@@ -36,7 +36,7 @@ function foreign_active() {
     if (!checkWrapper.checked) {
         foreignWrapper.classList.add('display-none');
     } else {
-        foreignWrapper.classList.remove('display-none');
+       foreignWrapper.classList.remove('display-none');
     }
 }
 
@@ -72,6 +72,7 @@ function filtering(selectId, filterId) {
     }
 }
 
+//function setDate(object, page, size, sort) {
 function setDate(object) {
     var params = window
         .location
@@ -94,17 +95,34 @@ function setDate(object) {
     var arrival_date1 = document.getElementById("arrival_date").value;
     var departure_date1 = document.getElementById("departure_date").value;
 
+    var page;
+    var size;
+    var sort;
+
+    if (!page || !size || !sort) {
+        page = params['page'];
+        size = params['size'];
+        sort = params['sort'];
+        document.getElementById("page").value = page;
+        document.getElementById("size").value = size;
+        document.getElementById("sort").value = sort;
+    }
+
     if (departure_date && 0 !== departure_date.length && arrival_date && 0 !== arrival_date.length) {
+        //alert(2);
         if (arrival_date > departure_date) {
+            //alert(3);
             var temp = arrival_date;
             arrival_date = departure_date;
             departure_date = temp;
         }
 
         if (arrival_date === departure_date) {
+            //alert(4);
             document.getElementById("error_filter").classList.remove('display-none');
             document.getElementById(object).classList.add('display-none');
         } else {
+            //alert(5);
             document.getElementById(object).classList.remove('display-none');
             document.getElementById("arrival_date").value = arrival_date;
             document.getElementById("arrival_date_filter").value = arrival_date;
@@ -114,19 +132,25 @@ function setDate(object) {
 
 
     } else {
+        //alert(6);
         if (!departure_date1 || 0 === departure_date1.length || !arrival_date1 || 0 === arrival_date1.length
             || "" === departure_date1 || "" === arrival_date1) {
+            //alert(7);
             document.getElementById(object).classList.add('display-none');
         } else {
-
+            //alert(8);
             if (departure_date1 === arrival_date1) {
                 document.getElementById(object).classList.add('display-none');
-
+                //alert(9);
             } else {
+                //alert(10);
                 window
                     .location
-                    .search = "?arrival_date_filter=" + arrival_date1 + "&departure_date_filter=" + departure_date1;
-
+                    .search = "?arrival_date_filter=" + arrival_date1 + "&departure_date_filter=" + departure_date1 +
+                    "&page=" + page + "&size=" + size + "&sort=" + sort.value();
+                /*window
+                    .location
+                    .search = "?arrival_date_filter=" + arrival_date1 + "&departure_date_filter=" + departure_date1;*/
             }
 
         }
@@ -208,3 +232,26 @@ function setDate3() {
     alert();
 }
 
+function setView() {
+    var params = window
+        .location
+        .search
+        .replace('?', '')
+        .split('&')
+        .reduce(
+            function (p, e) {
+                var a = e.split('=');
+                p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                return p;
+            },
+            {}
+        );
+
+    var page = params['page'];
+    var size = params['size'];
+    var sort = params['sort'];
+
+    document.getElementById("page").value = page;
+    document.getElementById("size").value = size;
+    document.getElementById("sort").value = sort;
+}

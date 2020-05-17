@@ -28,7 +28,7 @@
     <c:set var="urlBase"
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
     <c:url var="urlReturn" value="/admin/customer/"/>
-    <spring:url value="${urlBase}${urlReturn}add/" var="createURL"/>
+    <spring:url value="${urlBase}${urlReturn}" var="createURL"/>
 
     <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
 
@@ -127,7 +127,8 @@
                             </div>
                             <div class="divTableCell">
                                 <spring:url
-                                        value="${urlBase}${urlReturn}update/${customer.id }" var="updateURL"/>
+                                        value="${urlBase}${urlReturn}update/${customer.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                        var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>

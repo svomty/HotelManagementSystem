@@ -31,7 +31,7 @@
     <c:set var="size" value="${size}" scope="request"/>
     <c:set var="start_page" value="${start_page}" scope="request"/>
     <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
-    <c:set var="createURL" value="${createURL}" scope="request"/>
+    <c:set var="createURL" value="/admin/apartment/" scope="request"/>
 
 </head>
 <body>
@@ -101,7 +101,8 @@
 
                             <div class="divTableCell">
                                 <spring:url
-                                        value="${urlBase}${urlReturn}update/${apartments.id }" var="updateURL"/>
+                                        value="${urlBase}${urlReturn}update/${apartments.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                        var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>

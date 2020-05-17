@@ -3,10 +3,7 @@ package com.svintsitski.hotel_management_system.controller;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Customer;
 import com.svintsitski.hotel_management_system.model.database.ForeignCustomer;
-import com.svintsitski.hotel_management_system.model.support.Checker;
-import com.svintsitski.hotel_management_system.model.support.Pagination;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
-import com.svintsitski.hotel_management_system.model.support.URL;
+import com.svintsitski.hotel_management_system.model.support.*;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
 import com.svintsitski.hotel_management_system.service.ForeignCustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +64,9 @@ public class CustomerController {
 
         int total_page = pagination.getTotalPage(full_elem_count);
 
-        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("customer_list", customerList);
         model.addAttribute("surname_filter", filter);
         model.addAttribute("foreign_customer_list", foreignCustomerList);
@@ -84,13 +82,19 @@ public class CustomerController {
 
     @GetMapping(value = "/update/{id}")
     public ModelAndView edit(@PathVariable int id,
+                             @RequestParam Optional<Integer> page,
+                             @RequestParam Optional<Integer> size,
+                             @RequestParam Optional<String> sort,
                              HttpServletRequest request) throws Exception {
         ModelAndView model = new ModelAndView();
         Customer customer = customerService.findById(id);
         ForeignCustomer foreignCustomer = foreignCustomerService.findById(id);
         Checker checker = new Checker(foreignCustomer.getCustomer_id() != 0);
 
-        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/update/", request.getRemoteAddr(), RequestMethod.GET);
+
+        View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
+        model.addObject("view", view);
 
         model.addObject("customer", customer);
         model.addObject("checker", checker);
@@ -101,15 +105,17 @@ public class CustomerController {
     }
 
     @GetMapping(value = {"/add/", "/add"})
-    public ModelAndView add(HttpServletRequest request) {
+    public ModelAndView add(HttpServletRequest request,
+                            @ModelAttribute("view") View view) {
         ModelAndView model = new ModelAndView();
 
         Customer customer = new Customer();
         ForeignCustomer foreignCustomer = new ForeignCustomer();
         Checker checker = new Checker();
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
 
+        model.addObject("view", view);
         model.addObject("customer", customer);
         model.addObject("checker", checker);
         model.addObject("foreignCustomer", foreignCustomer);
@@ -124,8 +130,10 @@ public class CustomerController {
                              BindingResult bindingResult1,
                              @ModelAttribute("checker") Optional<Checker> checker,
                              BindingResult bindingResult,
+                             @ModelAttribute("view") View view,
                              HttpServletRequest request) {
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
+
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
         Checker checker1 = checker.orElse(new Checker());
 
         if (customerService.findById(customer.getId()) != null) {
@@ -158,7 +166,8 @@ public class CustomerController {
         bindingResult1.hasErrors();
         bindingResult.hasErrors();
 
-        return new ModelAndView(redirectURL);
+        return new ModelAndView(redirectURL + "/?page=" + view.getPage() + "&size=" + view.getSize()
+                + "&sort=" + view.getSort());
     }
 
     @GetMapping(value = "/delete/{id}")
@@ -168,7 +177,7 @@ public class CustomerController {
                                @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
 
         foreignCustomerService.delete(id);
         customerService.delete(id);

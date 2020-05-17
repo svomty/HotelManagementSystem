@@ -21,7 +21,7 @@
     <c:set var="urlBase"
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
     <c:url var="urlReturn" value="/admin/apartment/price/"/>
-    <spring:url value="${urlBase}${urlReturn}add/" var="createURL"/>
+    <spring:url value="${urlBase}${urlReturn}add" var="createURL"/>
 
     <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
 
@@ -31,7 +31,7 @@
     <c:set var="size" value="${size}" scope="request"/>
     <c:set var="start_page" value="${start_page}" scope="request"/>
     <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
-    <c:set var="createURL" value="${createURL}" scope="request"/>
+    <c:set var="createURL" value="/admin/apartment/price/" scope="request"/>
 
 </head>
 <body>
@@ -84,7 +84,8 @@
                             <div class="divTableCell">${apartment.description }</div>
                             <div class="divTableCell">
                                 <spring:url
-                                        value="${urlBase}${urlReturn}update/${apartment.id }" var="updateURL"/>
+                                        value="${urlBase}${urlReturn}update/${apartment.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                        var="updateURL"/>
                                 <a class="btn btn-primary" href="${updateURL }" role="button">
                                     <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </a>
