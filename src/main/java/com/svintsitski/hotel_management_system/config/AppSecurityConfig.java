@@ -10,11 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -28,16 +27,27 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @author Артем Свинтицкий
      */
-
+    /*
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }*/
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        List<UserDetails> userDetailsList = new ArrayList<>();
-
         Config config = Config.getInstance();
-        userDetailsList.add(users.username(config.getLogin()).password(config.getPassword()).roles("ADMIN").build());
 
-        return new InMemoryUserDetailsManager(userDetailsList);
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(config.getPassword());
+        config.setPassword(hashedPassword);*/
+
+        UserDetails userDetails = User.withUsername(config.getLogin())
+                .password(encoder.encode(config.getPassword()))
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(userDetails);
     }
 
     @Override

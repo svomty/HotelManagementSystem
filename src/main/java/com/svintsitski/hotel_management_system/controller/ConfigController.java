@@ -6,6 +6,9 @@ import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -50,10 +53,19 @@ public class ConfigController {
 
         Config config1 = Config.getInstance();
 
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        inMemoryUserDetailsManager.createUser(users.username(config1.getLogin())
-                .password(config1.getPassword()).roles("ADMIN").build());
+        //User.UserBuilder users = User.withDefaultPasswordEncoder();
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
+        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(config1.getPassword());
+        config1.setPassword(hashedPassword);*/
+
+        UserDetails userDetails = User.withUsername(config1.getLogin())
+                .password(encoder.encode(config1.getPassword()))
+                .roles("ADMIN")
+                .build();
+
+        inMemoryUserDetailsManager.createUser(userDetails);
 
         return new ModelAndView(redirectURL);
     }
