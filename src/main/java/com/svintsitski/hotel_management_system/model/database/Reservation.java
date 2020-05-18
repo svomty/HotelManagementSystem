@@ -117,15 +117,13 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", arrival_date=" + arrival_date +
-                ", departure_date=" + departure_date +
-                ", apartment_id=" + apartment_id +
-                ", arrived=" + arrived +
-                ", full_name='" + full_name + '\'' +
-                ", customer_phone='" + customer_phone + '\'' +
-                ", UUID='" + UUID + '\'' +
-                '}';
+        return "id = " + id +
+                "; дата приезда = " + arrival_date +
+                "; дата выезда = " + departure_date +
+                "; id апартамента = " + apartment_id +
+                "; подтверждено = '" + arrived +
+                "; ФИО = " + full_name +
+                "; номер телефона = " + customer_phone +
+                "; UUID = " + UUID;
     }
 }

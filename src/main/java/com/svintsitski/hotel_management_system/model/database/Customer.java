@@ -173,17 +173,15 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", surname='" + surname + '\'' +
-                ", name='" + name + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", birth_date=" + birth_date +
-                ", passport_serial_number='" + passport_serial_number + '\'' +
-                ", identification_number='" + identification_number + '\'' +
-                ", date_issue_passport=" + date_issue_passport +
-                ", issuing_authority='" + issuing_authority + '\'' +
-                ", registration_address='" + registration_address + '\'' +
-                '}';
+        return "id = " + id +
+                "; фамилия = " + surname +
+                "; имя = " + name +
+                "; отчество = " + patronymic +
+                "; дата рождения = '" + birth_date +
+                "; серийный номер паспорта = " + passport_serial_number +
+                "; идентификационный номер = " + identification_number +
+                "; дата выдачи паспорта = " + date_issue_passport +
+                "; кем выдан = '" + issuing_authority +
+                "; регистрационный адрес ='" + registration_address;
     }
 }

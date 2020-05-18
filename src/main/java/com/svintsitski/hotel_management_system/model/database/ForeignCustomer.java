@@ -129,15 +129,13 @@ public class ForeignCustomer {
 
     @Override
     public String toString() {
-        return "ForeignCustomer{" +
-                "customer_id=" + customer_id +
-                ", date_entry_to_Belarus=" + date_entry_to_Belarus +
-                ", insurance_policy_number='" + insurance_policy_number + '\'' +
-                ", visa_number='" + visa_number + '\'' +
-                ", passport_validity_date=" + passport_validity_date +
-                ", citizenship='" + citizenship + '\'' +
-                ", insurance_policy_issue_date=" + insurance_policy_issue_date +
-                ", insurance_policy_validity=" + insurance_policy_validity +
-                '}';
+        return "id клиента = " + customer_id +
+                "; дата приезда в РБ = " + date_entry_to_Belarus +
+                "; номер страхового полиса = " + insurance_policy_number +
+                "; номер визы = " + visa_number +
+                "; срок действия паспорта = '" + passport_validity_date +
+                "; гражданство = " + citizenship +
+                "; дата выдачи страхового полиса = " + insurance_policy_issue_date +
+                "; срок действия страхового полиса = " + insurance_policy_validity;
     }
 }

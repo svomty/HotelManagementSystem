@@ -62,11 +62,8 @@ public class Apartment {
 
     @Override
     public String toString() {
-        return "Apartment{" +
-                "id=" + id +
-                ", number=" + number +
-                ", type_id=" + type_id +
-                '}';
+        return "id = " + id +
+                "; номер = " + number +
+                "; id цены = " + type_id;
     }
-
 }

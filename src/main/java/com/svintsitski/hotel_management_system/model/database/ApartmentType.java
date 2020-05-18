@@ -111,13 +111,11 @@ public class ApartmentType {
 
     @Override
     public String toString() {
-        return "ApartmentType{" +
-                "id=" + id +
-                ", price=" + price +
-                ", rooms_number=" + rooms_number +
-                ", places_number=" + places_number +
-                ", type='" + type + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return "id = " + id +
+                "; стоимость = " + price +
+                "; комнат = " + rooms_number +
+                "; мест = " + places_number +
+                "; тип = '" + type +
+                "; описание ='" + description;
     }
 }

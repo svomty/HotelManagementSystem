@@ -87,12 +87,10 @@ public class Accommodation {
 
     @Override
     public String toString() {
-        return "hotelAccommodation{" +
-                "id=" + id +
-                ", arrival_date=" + arrival_date +
-                ", departure_date=" + departure_date +
-                ", customer_id=" + customer_id +
-                ", apartment_id=" + apartment_id +
-                '}';
+        return "id = " + id +
+                "; дата заселения = " + arrival_date +
+                "; дата выезда = " + departure_date +
+                "; id клиента = " + customer_id +
+                "; id апартамента = '" + apartment_id;
     }
 }
