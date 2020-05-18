@@ -129,18 +129,12 @@ public class MainController {
         List<Apartment> apartmentList = (List<Apartment>) result.getList().get(0);
         List<ApartmentType> apartmentType = (List<ApartmentType>) result.getList().get(1);
 
-        for (int i = 0; i < apartmentList.size(); i++) {
-            System.out.println(i + " apartmentList = " + apartmentList.get(i));
-            System.out.println(i + " apartmentType = " + apartmentType.get(i));
-        }
-
         Apartment apartment = reservationService
                 .reservationForUsers(apartmentList,
                         typeId);
 
         if (apartment != null) {
             reservation.setApartment_id(apartment.getId());
-            System.out.println(reservation);
             int infoId = reservationService.add(reservation);
             String UUID = reservationService.findById(infoId).getUUID();
             return "redirect:/reservation/info/" + UUID;
@@ -168,8 +162,7 @@ public class MainController {
             @PathVariable("id") String UUID) throws IOException {
 
         Reservation reservation = reservationService.findByUUID(UUID);
-        System.out.println("**");
-        System.out.println(reservation);
+
         MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext,
                 reservation.getId() + ".pdf");
 

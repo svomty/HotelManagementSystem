@@ -91,7 +91,6 @@ public class FirstPdf {
                         .add(new Text("Email: " + config.getEmail() + "\n").setFontSize(9))
         );
 
-        //Close document
         document.close();
 
         openPdf();
@@ -100,17 +99,9 @@ public class FirstPdf {
     public void openPdf() throws IOException {
         File pdfFile = new File(DEST);
         if (pdfFile.exists()) {
-
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(pdfFile);
-            } else {
-                System.out.println("Awt Desktop is not supported!");
             }
-
-        } else {
-            System.out.println("File is not exists!");
         }
-
-        System.out.println("Done");
     }
 }

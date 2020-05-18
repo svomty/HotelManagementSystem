@@ -94,9 +94,8 @@ public class ApartmentController {
         model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentTypes);
         model.setViewName(jspAdd);
-
         model.addObject("config", Config.getInstance());
-        System.out.println("jyyjyjyjyjyjy");
+
         return model;
     }
 
@@ -115,7 +114,6 @@ public class ApartmentController {
         model.addObject(mainObject, apartment);
         model.addObject("apartmentType", apartmentTypes);
         model.addObject("config", Config.getInstance());
-        System.out.println("asasassasaassasaassa");
         model.setViewName(jspAdd);
         return model;
     }
@@ -124,7 +122,7 @@ public class ApartmentController {
     public ModelAndView save(@ModelAttribute("apartment") Apartment apartment,
                              @ModelAttribute("view") View view,
                              HttpServletRequest request) {
-        System.out.println("ns xjjsahdjghasd");
+
         URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
 
         if (apartmentService.findById(apartment.getId()) != null) {
@@ -132,10 +130,6 @@ public class ApartmentController {
         } else {
             apartmentService.add(apartment);
         }
-
-        System.out.println(view.getPage());
-        System.out.println(view.getSize());
-        System.out.println(view.getSort());
 
         return new ModelAndView(redirectURL + "/?page=" + view.getPage() + "&size=" + view.getSize()
                 + "&sort=" + view.getSort());

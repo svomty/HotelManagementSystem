@@ -175,7 +175,6 @@ public class AccommodationController {
         }
         if (reservation.isPresent()) {
             int reservationId = reservation.get().getIdentificator();
-            System.out.println(reservationId);
             if (reservationId != 0) {
                 Reservation reservation1 = reservationDao.findById(reservationId);
                 reservation1.setArrived((byte) 1);

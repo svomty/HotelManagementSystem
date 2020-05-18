@@ -104,7 +104,6 @@ public class ApartmentServiceImpl implements ApartmentService {
 
         int idForReservation;
 
-        System.out.println("reservation");
         for (Reservation reservation : reservations) {//идем по reservations
             if (//если на текущую дату апартамент забронирован - минусуем места на 1
                     reservation.getArrival_date().after(arrival_date)
@@ -128,7 +127,6 @@ public class ApartmentServiceImpl implements ApartmentService {
                 for (int i = 0; i < apartments.size(); i++) { //ищем апартамент
 
                     if (apartments.get(i).getId() == reservation.getApartment_id()) {
-                        System.out.println(reservation.getApartment_id());
 
                         if (reservation.getApartment_id() == id &&
                                 Activity.ReservationToAccommodation == activity) {
@@ -152,7 +150,6 @@ public class ApartmentServiceImpl implements ApartmentService {
 
         }
 
-        System.out.println("accommodation");
         for (Accommodation accommodation : accommodations) {//идем по заселению
             if (//если на текущую дату апартамент занят - минусуем места на 1
                     accommodation.getArrival_date().after(arrival_date)
@@ -176,13 +173,12 @@ public class ApartmentServiceImpl implements ApartmentService {
                             totalPlaces.remove(i);
                             break;
                         }
-                        System.out.println(accommodation.getApartment_id());
+
                         byte places_number = apartmentType.get(i).getPlaces_number();
 
                         apartmentType.get(i).setPlaces_number((byte) (places_number - 1));
 
                         if (apartmentType.get(i).getPlaces_number() == places_number) { //удаляем апартамент и его тип
-                            System.out.println("delete " + accommodation.getApartment_id());
                             apartmentType.remove(i);
                             apartments.remove(i);
                             totalPlaces.remove(i);
