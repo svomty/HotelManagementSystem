@@ -52,12 +52,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.authorizeRequests()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .and().formLogin().defaultSuccessUrl("/", true)
+                .and().formLogin()
                 .and().logout().logoutSuccessUrl("/").permitAll();
-
     }
 
     @Override
