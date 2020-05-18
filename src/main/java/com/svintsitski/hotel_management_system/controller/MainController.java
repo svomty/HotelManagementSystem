@@ -1,16 +1,12 @@
 package com.svintsitski.hotel_management_system.controller;
 
-import com.svintsitski.hotel_management_system.FirstPdf;
-import com.svintsitski.hotel_management_system.MediaTypeUtils;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.database.Reservation;
 import com.svintsitski.hotel_management_system.model.enam.Activity;
-import com.svintsitski.hotel_management_system.model.support.Checker;
-import com.svintsitski.hotel_management_system.model.support.Pagination;
-import com.svintsitski.hotel_management_system.model.support.ResultQuery;
-import com.svintsitski.hotel_management_system.model.support.URL;
+import com.svintsitski.hotel_management_system.model.report.ReservationPdfGeneration;
+import com.svintsitski.hotel_management_system.model.support.*;
 import com.svintsitski.hotel_management_system.service.ApartmentService;
 import com.svintsitski.hotel_management_system.service.ApartmentTypeService;
 import com.svintsitski.hotel_management_system.service.ReservationServiceImpl;
@@ -166,7 +162,7 @@ public class MainController {
         MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext,
                 reservation.getId() + ".pdf");
 
-        FirstPdf pdf = new FirstPdf(reservation);
+        ReservationPdfGeneration pdf = new ReservationPdfGeneration(reservation);
         pdf.createPdf();
 
         File file = new File(DIRECTORY + "/" + reservation.getId() + ".pdf");

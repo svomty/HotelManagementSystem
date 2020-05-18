@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system;
+package com.svintsitski.hotel_management_system.model.support;
 
 import org.springframework.http.MediaType;
 

@@ -1,4 +1,4 @@
-package com.svintsitski.hotel_management_system;
+package com.svintsitski.hotel_management_system.model.report;
 
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class FirstPdf {
+public class ReservationPdfGeneration {
 
     public String DEST;
     private static final String DIRECTORY = "results/";
@@ -30,7 +30,7 @@ public class FirstPdf {
     @Autowired
     private ReservationServiceImpl reservationService;
 
-    public FirstPdf(Reservation reservation) {
+    public ReservationPdfGeneration(Reservation reservation) {
         this.reservation = reservation;
         DEST = DIRECTORY + reservation.getId() + ".pdf";
     }

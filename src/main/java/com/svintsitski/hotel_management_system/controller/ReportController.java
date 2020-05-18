@@ -1,5 +1,6 @@
-package com.svintsitski.hotel_management_system;
+package com.svintsitski.hotel_management_system.controller;
 
+import com.svintsitski.hotel_management_system.model.support.MediaTypeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +20,7 @@ import java.io.IOException;
  (Это данные файла, который скачал пользователь).
  */
 @Controller
-public class Example1Controller {
+public class ReportController {
 
     private static final String DIRECTORY = "results";
     private static final String DEFAULT_FILE_NAME = "hello.pdf";
