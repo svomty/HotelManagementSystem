@@ -57,7 +57,7 @@ public class ReservationController {
 
         int total_page = pagination.getTotalPage(result.getCount());
 
-        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addAttribute("reservation_list", reservationList);
         model.addAttribute("apartments", result.getList().get(1));
@@ -89,7 +89,7 @@ public class ReservationController {
 
         Checker checker = new Checker(reservation.getArrived() == 1);
 
-        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/update/", request.getRemoteAddr(), RequestMethod.GET);
 
         View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
         model.addObject("view", view);
@@ -119,7 +119,7 @@ public class ReservationController {
 
         List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Reservation, 0).getList();
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
         model.addObject("view", view);
 
         model.addObject("checker", checker);
@@ -147,7 +147,7 @@ public class ReservationController {
             reservation.setArrived((byte) 0);
         }
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
 
         if (reservationService.findById(reservation.getId()) != null) {
             reservationService.update(reservation);
@@ -165,7 +165,7 @@ public class ReservationController {
                                @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         reservationService.delete(id);
 
         return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());

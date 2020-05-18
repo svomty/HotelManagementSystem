@@ -59,7 +59,7 @@ public class ApartmentController {
         int full_elem_count = result.getCount();
         int total_page = pagination.getTotalPage(full_elem_count);
 
-        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addAttribute("apartment_list", result.getList().get(0));
         model.addAttribute("apartment_type_list", result.getList().get(1));
@@ -86,7 +86,7 @@ public class ApartmentController {
         ResultQuery resultQuery = apartmentTypeService.findAll(1, 1000, "id");
         List<ApartmentType> apartmentTypes = resultQuery.getList();
 
-        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/update/", request.getRemoteAddr(), RequestMethod.GET);
 
         View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
         model.addObject("view", view);
@@ -108,7 +108,7 @@ public class ApartmentController {
         ResultQuery resultQuery = apartmentTypeService.findAll(1, 1000, "id");
         List<ApartmentType> apartmentTypes = resultQuery.getList();
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
         model.addObject("view", view);
 
         model.addObject(mainObject, apartment);
@@ -123,7 +123,7 @@ public class ApartmentController {
                              @ModelAttribute("view") View view,
                              HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
 
         if (apartmentService.findById(apartment.getId()) != null) {
             apartmentService.update(apartment);
@@ -142,7 +142,7 @@ public class ApartmentController {
                                @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
         return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());

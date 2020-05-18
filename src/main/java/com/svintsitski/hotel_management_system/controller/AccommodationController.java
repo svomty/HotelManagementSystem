@@ -65,7 +65,7 @@ public class AccommodationController {
 
         int total_page = pagination.getTotalPage(result.getCount());
 
-        URL.IPInfo(relativeURL + "list/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addAttribute("accommodation_list", accommodationList);
         model.addAttribute("customers", result.getList().get(1));
@@ -96,7 +96,7 @@ public class AccommodationController {
         List customerList = customerService.findAll("id");
         List apartmentList = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Accommodation, id).getList();
 
-        URL.IPInfo(relativeURL + "update/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/update/", request.getRemoteAddr(), RequestMethod.GET);
 
         View view = new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sort.orElse("id"));
         model.addObject("view", view);
@@ -143,7 +143,7 @@ public class AccommodationController {
 
         String name = full_name.orElse("");
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addObject("arrival_date_filter", dates.get(0));
         model.addObject("full_name", name);
@@ -166,7 +166,7 @@ public class AccommodationController {
                              @ModelAttribute("identity") Optional<Identity> reservation,
                              HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "add/", request.getRemoteAddr(), RequestMethod.POST);
+        URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
 
         if (accommodationService.findById(accommodation.getId()) != null) {
             accommodationService.update(accommodation);
@@ -193,7 +193,7 @@ public class AccommodationController {
                                @RequestParam Optional<String> sort,
                                HttpServletRequest request) {
 
-        URL.IPInfo(relativeURL + "delete/", request.getRemoteAddr(), RequestMethod.GET);
+        URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         accommodationService.delete(id);
 
         return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
