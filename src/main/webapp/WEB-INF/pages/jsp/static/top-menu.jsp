@@ -24,13 +24,13 @@
                     ${config.phone}
                 </a></li>
                 <li class="top-menu__itm"><a><i class="fa fa-map-marker"
-                                                         aria-hidden="true"></i>
+                                                aria-hidden="true"></i>
                     ${config.address}
                 </a></li>
                 <li class="top-menu__itm"><a href="mailto:best-hotel@mail.ru"> <i class="fa fa-envelope-o"
                                                                                   aria-hidden="true">
 
-                </i>${config.email}</a>
+                </i> ${config.email}</a>
                 </li>
             </ul>
         </div>
