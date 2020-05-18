@@ -23,7 +23,7 @@ public class AccommodationDaoImpl implements AccommodationDao {
 
     @Override
     public List<Accommodation> findAll(String sort) {
-        String sql = "SELECT * FROM hotel_accommodation " +
+        String sql = "SELECT * FROM accommodation " +
                 "ORDER BY " + sort + ";";
 
         return jdbcTemplate.query(sql,
@@ -32,28 +32,28 @@ public class AccommodationDaoImpl implements AccommodationDao {
 
     @Override
     public Accommodation findById(int id) {
-        String sql = "SELECT * FROM hotel_accommodation WHERE id=" + id + ";";
+        String sql = "SELECT * FROM accommodation WHERE id=" + id + ";";
         return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Accommodation.class)).stream().findFirst().orElse(null);
     }
 
     @Override
     public List<Accommodation> findByApartmentId(int id) {
-        String sql = "SELECT * FROM hotel_accommodation WHERE apartment_id=" + id + ";";
+        String sql = "SELECT * FROM accommodation WHERE apartment_id=" + id + ";";
         return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Accommodation.class));
     }
 
     @Override
     public List<Accommodation> findByCustomerId(int id) {
-        String sql = "SELECT * FROM hotel_accommodation WHERE customer_id=" + id + ";";
+        String sql = "SELECT * FROM accommodation WHERE customer_id=" + id + ";";
         return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Accommodation.class));
     }
 
     @Override
     public int add(Accommodation accommodation) {
-        String sql = "INSERT INTO `hotel`.`hotel_accommodation` " +
+        String sql = "INSERT INTO `hotel`.`accommodation` " +
                 "(`arrival_date`," +
                 " `departure_date`," +
                 " `customer_id`," +
@@ -72,7 +72,7 @@ public class AccommodationDaoImpl implements AccommodationDao {
     @Override
     public int update(Accommodation accommodation) {
 
-        String sql = "UPDATE `hotel`.`hotel_accommodation` SET " +
+        String sql = "UPDATE `hotel`.`accommodation` SET " +
                 "`arrival_date` = ?, " +
                 "`departure_date` = ?, " +
                 "`customer_id` = ?," +
@@ -91,7 +91,7 @@ public class AccommodationDaoImpl implements AccommodationDao {
     @Override
     public int delete(int id) {
 
-        String sql = "DELETE FROM `hotel`.`hotel_accommodation` WHERE (`id` = '" + id + "');";
+        String sql = "DELETE FROM `hotel`.`accommodation` WHERE (`id` = '" + id + "');";
         jdbcTemplate.execute(sql);
 
         return ResultQuery.getLastInsertId(jdbcTemplate);
