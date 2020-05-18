@@ -1,5 +1,6 @@
 package com.svintsitski.hotel_management_system.config;
 
+import com.svintsitski.hotel_management_system.model.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,9 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -26,13 +30,14 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
      */
 
     @Bean
-    public UserDetailsService userDetailsService() {
-
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         User.UserBuilder users = User.withDefaultPasswordEncoder();
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(users.username("admin").password("admin").roles("ADMIN").build());
-        return manager;
+        List<UserDetails> userDetailsList = new ArrayList<>();
 
+        Config config = Config.getInstance();
+        userDetailsList.add(users.username(config.getLogin()).password(config.getPassword()).roles("ADMIN").build());
+
+        return new InMemoryUserDetailsManager(userDetailsList);
     }
 
     @Override
@@ -47,7 +52,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
+        auth.userDetailsService(inMemoryUserDetailsManager());
     }
 
     /**
