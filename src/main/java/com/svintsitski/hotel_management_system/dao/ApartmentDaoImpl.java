@@ -74,7 +74,6 @@ public class ApartmentDaoImpl implements ApartmentDao {
     public int delete(int id) {
         String sql = "DELETE FROM `hotel`.`apartments` WHERE (`id` = '" + id + "');";
         jdbcTemplate.execute(sql);
-
         return ResultQuery.getLastInsertId(jdbcTemplate);
     }
 }
