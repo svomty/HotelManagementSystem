@@ -469,6 +469,10 @@ main {
     width: 100%;
 }
 
+.flex-two-icon {
+    display: flex;
+}
+
 .pagination {
     display: flex;
     padding-top: 1em;

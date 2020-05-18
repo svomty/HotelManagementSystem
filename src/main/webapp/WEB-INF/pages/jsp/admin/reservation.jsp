@@ -98,25 +98,34 @@
                             </div>
 
                             <div class="divTableCell">
-                                <spring:url
-                                        value="${urlBase}${urlReturn}update/${reservation.id }?page=${current_page}&size=${size}&sort=${sort}"
-                                        var="updateURL"/>
-                                <a class="btn btn-primary" href="${updateURL }" role="button">
-                                    <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
-                                </a>
-                                <spring:url
-                                        value="${urlBase}/admin/accommodation/add?arrival_date_filter=${reservation.arrival_date }&departure_date_filter=${reservation.departure_date}&apartment=${apartments[loop.index].id}&reservation=${reservation.id}&full_name=${reservation.full_name}"
-                                        var="finishURL"/>
-                                <a class="btn btn-primary" href="${finishURL }" role="button">
-                                    <i style="color: #5197E6" class="fa fa-child" aria-hidden="true"></i>
-                                </a>
-
-                                <spring:url
-                                        value="${urlBase}${urlReturn}delete/${reservation.id }?page=${current_page}&size=${size}&sort=${sort}"
-                                        var="deleteURL"/>
-                                <a class="btn btn-primary" href="${deleteURL}" role="button">
-                                    <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
+                                <div class="flex-two-icon">
+                                    <spring:url
+                                            value="${urlBase}${urlReturn}update/${reservation.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                            var="updateURL"/>
+                                    <a class="btn btn-primary" href="${updateURL }" role="button">
+                                        <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
+                                    </a>
+                                    <spring:url
+                                            value="${urlBase}/admin/accommodation/add?arrival_date_filter=${reservation.arrival_date }&departure_date_filter=${reservation.departure_date}&apartment=${apartments[loop.index].id}&reservation=${reservation.id}&full_name=${reservation.full_name}"
+                                            var="finishURL"/>
+                                    <a class="btn btn-primary" href="${finishURL }" role="button">
+                                        <i style="color: #5197E6" class="fa fa-child" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                                <div class="flex-two-icon">
+                                    <spring:url
+                                            value="${urlBase}/report/${reservation.UUID}"
+                                            var="reportURL"/>
+                                    <a class="btn btn-primary" href="${reportURL }" role="button">
+                                        <i style="color: #8B8D8C" class="fa fa-file-text-o" aria-hidden="true"></i>
+                                    </a>
+                                    <spring:url
+                                            value="${urlBase}${urlReturn}delete/${reservation.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                            var="deleteURL"/>
+                                    <a class="btn btn-primary" href="${deleteURL}" role="button">
+                                        <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

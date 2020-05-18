@@ -162,7 +162,11 @@ public class MainController {
         MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext,
                 reservation.getId() + ".pdf");
 
-        ReservationPdfGeneration pdf = new ReservationPdfGeneration(reservation);
+        Apartment apartment = apartmentService.findById(reservation.getApartment_id());
+        ApartmentType apartmentType = apartmentTypeService.findById(apartment.getType_id());
+
+        ReservationPdfGeneration pdf = new ReservationPdfGeneration(reservation, apartment, apartmentType);
+
         pdf.createPdf();
 
         File file = new File(DIRECTORY + "/" + reservation.getId() + ".pdf");
