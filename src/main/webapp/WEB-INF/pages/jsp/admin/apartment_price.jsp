@@ -53,7 +53,17 @@
                         <div style="display: flex; justify-content: right; width: 100%;">
                             <div>
                                 <lable for="type">Тип апартамента</lable>
-                                <input name="type" value="${type}">
+                                <select name="type">
+                                    <option value="" ${"Простой".toLowerCase() != type.toLowerCase() || "Люкс".toLowerCase() != type.toLowerCase() ? 'selected="selected"' : ''}>
+                                        Любой
+                                    </option>
+                                    <option value="Простой" ${"Простой".toLowerCase() == type.toLowerCase() ? 'selected="selected"' : ''}>
+                                        Простой
+                                    </option>
+                                    <option value="Люкс" ${"Люкс".toLowerCase() == type.toLowerCase() ? 'selected="selected"' : ''}>
+                                        Люкс
+                                    </option>
+                                </select>
 
                                 <lable for="place">Количество мест</lable>
                                 <input type="number" name="place" id="place" value="${place}">
