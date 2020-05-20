@@ -295,11 +295,6 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
-    public List<Apartment> findByType(int id) {
-        return apartmentDao.findByType(id);
-    }
-
-    @Override
     public int add(Apartment apartment) {
         return apartmentDao.add(apartment);
     }
