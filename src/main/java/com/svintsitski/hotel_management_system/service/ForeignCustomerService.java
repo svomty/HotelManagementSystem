@@ -5,7 +5,12 @@ import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 
 public interface ForeignCustomerService {
 
-    ResultQuery findAll(int start, int total, String sort, String surname_filter) throws Exception;
+    ResultQuery findAll(int start, int total, String sort) throws Exception;
+
+    ResultQuery findAll(String sort) throws Exception;
+
+    ResultQuery filter(int start, int total, String sort,
+                       String fio, String password) throws Exception;
 
     ForeignCustomer findById(int id);
 

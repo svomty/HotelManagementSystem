@@ -20,7 +20,7 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
     private CustomerDaoImpl customerDao;
 
     @Override
-    public ResultQuery findAll(int start, int total, String sort, String surname_filter) throws Exception {
+    public ResultQuery findAll(int start, int total, String sort) throws Exception {
 
         start = start - 1;
         total += start;
@@ -29,9 +29,7 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
         ArrayList<Customer> customerListNew = new ArrayList();
 
         for (Customer customer : customerList) {
-            if (customer.getSurname().toLowerCase().lastIndexOf(surname_filter.toLowerCase()) != -1) {
-                customerListNew.add(customer);
-            }
+            customerListNew.add(customer);
         }
 
         int count = customerListNew.size();
@@ -49,6 +47,63 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
         }
 
         return new ResultQuery(count, Arrays.asList(customerListNew, customerForeignList));
+    }
+
+    @Override
+    public ResultQuery findAll(String sort) throws Exception {
+
+        List<Customer> customerList = customerDao.findAll(sort);
+
+        List<ForeignCustomer> customerForeignList = new ArrayList<>();
+
+        customerList.forEach(x -> customerForeignList.add(foreignCustomerDao.findById(x.getId())));
+
+        return new ResultQuery(customerList.size(), Arrays.asList(customerList, customerForeignList));
+    }
+
+    @Override
+    public ResultQuery filter(int start, int total, String sort, String fio, String password) throws Exception {
+        start -= 1;
+        total += start;
+
+        ResultQuery resultQuery = findAll(sort);
+
+        List<Customer> customers = (List<Customer>) resultQuery.getList().get(0);
+        List<ForeignCustomer> foreignCustomers = (List<ForeignCustomer>) resultQuery.getList().get(1);
+
+        for (int k = 0; k < customers.size(); k++) {
+            if (!fio.equals("")) {
+                String fio2 = customers.get(k).getSurname() + " " + customers.get(k).getName() + " " +
+                        customers.get(k).getPatronymic();
+                if (fio2.toLowerCase().lastIndexOf(fio.toLowerCase()) == -1) {
+                    customers.remove(k);
+                    foreignCustomers.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+            if (!password.equals("")) {
+                if (customers.get(k).getPassport_serial_number().toLowerCase().lastIndexOf(password.toLowerCase()) == -1) {
+                    customers.remove(k);
+                    foreignCustomers.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+        }
+
+        int count = customers.size();
+
+        if (customers.size() < total) {
+            total = customers.size();
+        }
+
+        if (start <= total) {
+            customers = new ArrayList<>(customers.subList(start, total));
+            foreignCustomers = new ArrayList<>(foreignCustomers.subList(start, total));
+        }
+
+        return new ResultQuery(count, Arrays.asList(customers, foreignCustomers));
     }
 
     @Override

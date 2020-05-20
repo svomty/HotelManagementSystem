@@ -69,40 +69,41 @@
                     <div class="divTableHeading">
                         <div class="divTableRow">
                             <div class="divTableCell">
-                                <a id="id" href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}">id</a>
+                                <a id="id"
+                                   href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}&fio=${fio}&date=${date}&phone=${phone}">id</a>
                             </div>
                             <div class="divTableCell">
                                 <a id="arrival_date"
-                                   href="${pageContext.request.contextPath}?page=1&sort=arrival_date&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=arrival_date&size=${size}&fio=${fio}&date=${date}&phone=${phone}">
                                     Дата заселения</a>
                             </div>
                             <div class="divTableCell">
                                 <a id="departure_date"
-                                   href="${pageContext.request.contextPath}?page=1&sort=departure_date&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=departure_date&size=${size}&fio=${fio}&date=${date}&phone=${phone}">
                                     Дата выезда
                                 </a>
                             </div>
                             <div class="divTableCell">
                                 <a id="full_name"
-                                   href="${pageContext.request.contextPath}?page=1&sort=full_name&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=full_name&size=${size}&fio=${fio}&date=${date}&phone=${phone}">
                                     ФИО
                                 </a>
                             </div>
                             <div class="divTableCell">
                                 <a id="customer_phone"
-                                   href="${pageContext.request.contextPath}?page=1&sort=customer_phone&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=customer_phone&size=${size}&fio=${fio}&date=${date}&phone=${phone}">
                                     Телефон для связи
                                 </a>
                             </div>
                             <div class="divTableCell">
                                 <a id="number"
-                                   href="${pageContext.request.contextPath}?page=1&sort=number&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=number&size=${size}&fio=${fio}&date=${date}&phone=${phone}">
                                     Номер апартамента
                                 </a>
                             </div>
                             <div class="divTableCell">
                                 <a id="arrived"
-                                   href="${pageContext.request.contextPath}?page=1&sort=arrived&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=arrived&size=${size}&fio=${fio}&date=${date}&phone=${phone}">
                                     Подтверждено
                                 </a>
                             </div>
@@ -150,7 +151,7 @@
                                             <i style="color: #8B8D8C" class="fa fa-file-text-o" aria-hidden="true"></i>
                                         </a>
                                         <spring:url
-                                                value="${urlBase}${urlReturn}delete/${reservation.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                                value="${urlBase}${urlReturn}delete/${reservation.id }?page=${current_page}&size=${size}&sort=${sort}&fio=${fio}&date=${date}&phone=${phone}"
                                                 var="deleteURL"/>
                                         <a class="btn btn-primary" href="${deleteURL}" role="button">
                                             <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>

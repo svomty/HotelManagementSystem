@@ -131,11 +131,16 @@ public class ApartmentPriceController {
                                @RequestParam Optional<Integer> page,
                                @RequestParam Optional<Integer> size,
                                @RequestParam Optional<String> sort,
+                               @RequestParam Optional<String> type,
+                               @RequestParam Optional<String> place,
+                               @RequestParam Optional<String> room,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
-        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
+                + "&sort=" + sort.get() + "&type=" + type.orElse("") + "&place=" + place.orElse("")
+                + "&room=" + room.orElse(""));
     }
 }

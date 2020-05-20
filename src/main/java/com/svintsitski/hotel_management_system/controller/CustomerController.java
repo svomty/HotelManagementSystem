@@ -35,17 +35,15 @@ public class CustomerController {
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
-                          @RequestParam Optional<String> surname_filter,
+                          @RequestParam Optional<String> fio,
+                          @RequestParam Optional<String> password,
                           Model model,
                           HttpServletRequest request) throws Exception {
-
-        String filter = surname_filter.orElse("");
-        //сделать сортировку
 
         String sorting = sort.orElse("id");
         Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
 
-        ResultQuery result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting, filter);
+        ResultQuery result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
 
         List<Customer> customerList = (List<Customer>) result.getList().get(0);
 
@@ -53,12 +51,20 @@ public class CustomerController {
         if (customerList.size() == 0) {
             pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
 
-            result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting, filter);
+            result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
 
             customerList = (List<Customer>) result.getList().get(0);
         }
         //удаление
+//фильтрация
+        if (password.isPresent() || fio.isPresent()) {
 
+            result = foreignCustomerService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
+                    fio.get(), password.get());
+
+            customerList = (List<Customer>) result.getList().get(0);
+        }
+//фильтрация
         int full_elem_count = result.getCount();
         List<ForeignCustomer> foreignCustomerList = (List<ForeignCustomer>) result.getList().get(1);
 
@@ -68,14 +74,14 @@ public class CustomerController {
 
         model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("customer_list", customerList);
-        model.addAttribute("surname_filter", filter);
         model.addAttribute("foreign_customer_list", foreignCustomerList);
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
-
+        model.addAttribute("fio", fio.orElse(""));
+        model.addAttribute("password", password.orElse(""));
         model.addAttribute("config", Config.getInstance());
         return relativeURL;
     }
@@ -175,6 +181,8 @@ public class CustomerController {
                                @RequestParam Optional<Integer> page,
                                @RequestParam Optional<Integer> size,
                                @RequestParam Optional<String> sort,
+                               @RequestParam Optional<String> fio,
+                               @RequestParam Optional<String> password,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
@@ -182,6 +190,7 @@ public class CustomerController {
         foreignCustomerService.delete(id);
         customerService.delete(id);
 
-        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
+                + "&sort=" + sort.get() + "&fio=" + fio.orElse("") + "&password=" + password.orElse(""));
     }
 }

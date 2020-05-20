@@ -191,11 +191,16 @@ public class AccommodationController {
                                @RequestParam Optional<Integer> page,
                                @RequestParam Optional<Integer> size,
                                @RequestParam Optional<String> sort,
+                               @RequestParam Optional<String> fio,
+                               @RequestParam Optional<String> date,
+                               @RequestParam Optional<String> apart,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         accommodationService.delete(id);
 
-        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort=" + sort.get());
+        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
+                + "&sort=" + sort.get() + "&fio=" + fio.orElse("") + "&date=" + date.orElse("")
+                + "&apart=" + apart.orElse(""));
     }
 }
