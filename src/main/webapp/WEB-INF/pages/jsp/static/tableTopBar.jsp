@@ -22,6 +22,11 @@
             <button class="btn-green" type="submit">Добавить новую запись</button>
         </form:form>
     </div>
+    <div>
+
+        <button onclick="findButtonActive()" class="btn-find" type="submit">Расширенный поиск</button>
+
+    </div>
     <div class="right">
         <label for="page_size">Количество элементов на странице:</label>
         <input size="3" value="${size}" type="number" id="page_size" name="page_size" min="1"

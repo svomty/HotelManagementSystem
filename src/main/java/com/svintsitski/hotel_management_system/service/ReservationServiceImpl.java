@@ -76,8 +76,103 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public ResultQuery findAll(String sort) throws Exception {
+
+        List<Reservation> reservations;
+        List<Apartment> apartments;
+
+        boolean sortByApartment = sort.equals("number");
+
+        if (sortByApartment) {
+            reservations = reservationDao.findAll("id");
+        } else {
+            reservations = reservationDao.findAll(sort);
+        }
+
+        int count = reservations.size();
+
+        if (sortByApartment) {
+
+            apartments = apartmentDao.findAll(sort);
+            //получили весь список апартаментов
+
+            reservations = new ArrayList<>();
+            //обнулили reservations
+
+            for (int i = 0; i < apartments.size(); i++) {
+                reservations.addAll(reservationDao.findByApartmentId(apartments.get(i).getId()));
+            }
+            //нашли reservations
+        }
+
+        apartments = new ArrayList<>();
+
+
+        for (Reservation reservation : reservations) {
+            apartments.add(apartmentDao.findById(reservation.getApartment_id()));
+        }
+        //нашли apartments
+
+        return new ResultQuery(count, Arrays.asList(reservations, apartments));
+    }
+
+    @Override
     public Reservation findById(int id) {
         return reservationDao.findById(id);
+    }
+
+    @Override
+    public ResultQuery filter(int start, int total, String sort,
+                              String fio, String date, String phone
+    ) throws Exception {
+
+        start -= 1;
+        total += start;
+
+        ResultQuery resultQuery = findAll(sort);
+
+        List<Reservation> reservations = (List<Reservation>) resultQuery.getList().get(0);
+        List<Apartment> apartments = (List<Apartment>) resultQuery.getList().get(1);
+
+        for (int k = 0; k < reservations.size(); k++) {
+            if (!fio.equals("")) {
+                if (reservations.get(k).getFull_name().toLowerCase().lastIndexOf(fio.toLowerCase()) == -1) {
+                    reservations.remove(k);
+                    apartments.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+            if (!date.equals("")) {
+                if (reservations.get(k).getArrival_date().toString().toLowerCase().lastIndexOf(date.toLowerCase()) == -1) {
+                    reservations.remove(k);
+                    apartments.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+            if (!phone.equals("")) {
+                if (reservations.get(k).getCustomer_phone().toLowerCase().lastIndexOf(phone.toLowerCase()) == -1) {
+                    reservations.remove(k);
+                    apartments.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+        }
+
+        int count = reservations.size();
+
+        if (reservations.size() < total) {
+            total = reservations.size();
+        }
+
+        if (start <= total) {
+            reservations = new ArrayList<>(reservations.subList(start, total));
+            apartments = new ArrayList<>(apartments.subList(start, total));
+        }
+
+        return new ResultQuery(count, Arrays.asList(reservations, apartments));
     }
 
     @Override

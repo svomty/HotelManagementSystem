@@ -199,6 +199,19 @@ nav a {
     position: sticky;
 }
 
+.btn-discharge {
+    text-decoration: none;
+    color: red;
+    border: 1px groove red;
+    border-radius: 5px;
+}
+
+.btn-discharge:hover {
+    color: white;
+    background-color: #7E2F2F;
+    border-radius: 5px;
+}
+
 .btn-active {
     color: rgb(237, 237, 243);
     background-color: #5197E6;
@@ -565,7 +578,7 @@ main {
     align-items: center;
 }
 
-.btn-blue, .btn-green {
+.btn-blue, .btn-green, .btn-find {
     font-weight: bold;
     border-radius: 5px;
     height: 3em;
@@ -579,6 +592,16 @@ main {
 .btn-green:hover {
     color: #DAFFD3;
     background-color: #0A8A03;
+}
+
+.btn-find {
+    background-color: #FFF8C5;
+    color: #A58085;
+}
+
+.btn-find:hover {
+    background-color: #A5BEB8;
+    color: #FFFFFF;
 }
 
 .btn-blue {

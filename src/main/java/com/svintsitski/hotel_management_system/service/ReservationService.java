@@ -10,6 +10,11 @@ import java.util.List;
 public interface ReservationService {
     ResultQuery findAll(int start, int total, String sort) throws Exception;
 
+    ResultQuery findAll(String sort) throws Exception;
+
+    ResultQuery filter(int start, int total, String sort,
+                       String fio, String date, String phone) throws Exception;
+
     Reservation findById(int id);
 
     Reservation findByUUID(String UUID);

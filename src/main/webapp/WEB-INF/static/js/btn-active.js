@@ -36,7 +36,7 @@ function foreign_active() {
     if (!checkWrapper.checked) {
         foreignWrapper.classList.add('display-none');
     } else {
-       foreignWrapper.classList.remove('display-none');
+        foreignWrapper.classList.remove('display-none');
     }
 }
 
@@ -254,4 +254,16 @@ function setView() {
     document.getElementById("page").value = page;
     document.getElementById("size").value = size;
     document.getElementById("sort").value = sort;
+}
+
+function findButtonActive() {
+    let filter = document.querySelector('.poisk-filter');
+
+    if (filter.style.visibility === 'hidden' || filter.style.display === 'none') {
+        filter.style.display = 'block';
+        filter.style.visibility = 'visible';
+    } else {
+        filter.style.visibility = 'hidden';
+        filter.style.display = 'none';
+    }
 }

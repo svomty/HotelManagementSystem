@@ -10,8 +10,8 @@
     <c:if test="${total_page != 1}">
         <div class="pagination">
             <c:if test="${current_page != 1}">
-                <a href="${pageContext.request.contextPath}?page=${current_page-1}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}">«</a>
-                <a href="${pageContext.request.contextPath}?page=1&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}">1</a>
+                <a href="${pageContext.request.contextPath}?page=${current_page-1}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}&fio=${fio}&date=${date}&phone=${phone}">«</a>
+                <a href="${pageContext.request.contextPath}?page=1&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}&fio=${fio}&date=${date}&phone=${phone}">1</a>
             </c:if>
             <c:if test="${current_page == 1}">
                 <a class="inactive">«</a>
@@ -31,7 +31,7 @@
                         </c:when>
                         <c:otherwise>
                             <c:if test="${p > 1 && p < total_page}">
-                                <a href="${pageContext.request.contextPath}?page=${p}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}">${p}</a>
+                                <a href="${pageContext.request.contextPath}?page=${p}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}&fio=${fio}&date=${date}&phone=${phone}">${p}</a>
                             </c:if>
                         </c:otherwise>
                     </c:choose>
@@ -44,8 +44,8 @@
             </c:if>
 
             <c:if test="${current_page != total_page}">
-                <a href="${pageContext.request.contextPath}?page=${total_page}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}">${total_page}</a>
-                <a href="${pageContext.request.contextPath}?page=${current_page + 1}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}">»</a>
+                <a href="${pageContext.request.contextPath}?page=${total_page}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}&fio=${fio}&date=${date}&phone=${phone}">${total_page}</a>
+                <a href="${pageContext.request.contextPath}?page=${current_page + 1}&sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}&fio=${fio}&date=${date}&phone=${phone}">»</a>
             </c:if>
             <c:if test="${current_page == total_page}">
                 <a class="active">${total_page}</a>
@@ -54,16 +54,16 @@
         </div>
     </c:if>
 
-<c:if test="${total_page != 1}">
-<div>
-    <span>стр. №</span>
-        <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
-        <button type="button" class="btn-blue"
-                onclick=goToPage("${pageContext.request.contextPath}?sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}")>
-            Перейти
-        </button>
-</div>
-</c:if>
+    <c:if test="${total_page != 1}">
+        <div>
+            <span>стр. №</span>
+            <input size="3" type="number" id="pageNo" name="pageNo" min="1" max="${total_page}">
+            <button type="button" class="btn-blue"
+                    onclick=goToPage("${pageContext.request.contextPath}?sort=${sort}&size=${size}&surname_filter=${surname_filter}&arrival_date_filter=${arrival_date_filter}&departure_date_filter=${departure_date_filter}&fio=${fio}&date=${date}&phone=${phone}")>
+                Перейти
+            </button>
+        </div>
+    </c:if>
 </div>
 </body>
 </html>

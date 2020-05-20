@@ -34,6 +34,9 @@ public class ReservationController {
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
+                          @RequestParam Optional<String> fio,
+                          @RequestParam Optional<String> date,
+                          @RequestParam Optional<String> phone,
                           Model model,
                           HttpServletRequest request) throws Exception {
 
@@ -44,6 +47,7 @@ public class ReservationController {
                 findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
 
         List<Reservation> reservationList = (List<Reservation>) result.getList().get(0);
+
         //удаление
         if (reservationList.size() == 0) {
             pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
@@ -54,6 +58,16 @@ public class ReservationController {
             reservationList = (List<Reservation>) result.getList().get(0);
         }
         //удаление
+
+//фильтрация
+        if (phone.isPresent() || date.isPresent() || fio.isPresent()) {
+
+            result = reservationService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
+                    fio.get(), date.get(), phone.get());
+
+            reservationList = (List<Reservation>) result.getList().get(0);
+        }
+//фильтрация
 
         int total_page = pagination.getTotalPage(result.getCount());
 
@@ -67,6 +81,9 @@ public class ReservationController {
         model.addAttribute("size", pagination.getPage_size());
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
+        model.addAttribute("fio", fio.orElse(""));
+        model.addAttribute("date", date.orElse(""));
+        model.addAttribute("phone", phone.orElse(""));
         model.addAttribute("config", Config.getInstance());
         return relativeURL;
     }

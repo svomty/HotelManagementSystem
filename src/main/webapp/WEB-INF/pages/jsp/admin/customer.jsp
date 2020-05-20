@@ -51,7 +51,6 @@
         <div class="header-wrap">
             <jsp:include page="../static/tableTopBar.jsp"/>
 
-
             <form action="${pageContext.request.contextPath}">
                 <input name="page" id="page" value="1" hidden>
                 <input name="sort" id="sort" value="${sort}" hidden>
