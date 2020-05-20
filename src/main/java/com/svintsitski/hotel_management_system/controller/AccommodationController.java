@@ -42,6 +42,9 @@ public class AccommodationController {
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
+                          @RequestParam Optional<String> fio,
+                          @RequestParam Optional<String> date,
+                          @RequestParam Optional<Integer> apart,
                           Model model,
                           HttpServletRequest request) throws Exception {
 
@@ -62,7 +65,15 @@ public class AccommodationController {
             accommodationList = (List<Accommodation>) result.getList().get(0);
         }
         //удаление
+//фильтрация
+        if (apart.isPresent() || date.isPresent() || fio.isPresent()) {
 
+            result = accommodationService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
+                    fio.orElse(""), date.orElse(""), apart.orElse(null));
+
+            accommodationList = (List<Accommodation>) result.getList().get(0);
+        }
+//фильтрация
         int total_page = pagination.getTotalPage(result.getCount());
 
         URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
@@ -77,6 +88,9 @@ public class AccommodationController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
         model.addAttribute("config", Config.getInstance());
+        model.addAttribute("fio", fio.orElse(""));
+        model.addAttribute("date", date.orElse(""));
+        model.addAttribute("apart", apart.orElse(null));
         return relativeURL;
     }
 
@@ -193,7 +207,7 @@ public class AccommodationController {
                                @RequestParam Optional<String> sort,
                                @RequestParam Optional<String> fio,
                                @RequestParam Optional<String> date,
-                               @RequestParam Optional<String> apart,
+                               @RequestParam Optional<Integer> apart,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
@@ -201,6 +215,6 @@ public class AccommodationController {
 
         return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
                 + "&sort=" + sort.get() + "&fio=" + fio.orElse("") + "&date=" + date.orElse("")
-                + "&apart=" + apart.orElse(""));
+                + "&apart=" + apart.orElse(null));
     }
 }

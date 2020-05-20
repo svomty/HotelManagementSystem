@@ -63,7 +63,7 @@ public class ReservationController {
         if (phone.isPresent() || date.isPresent() || fio.isPresent()) {
 
             result = reservationService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
-                    fio.get(), date.get(), phone.get());
+                    fio.orElse(""), date.orElse(""), phone.orElse(""));
 
             reservationList = (List<Reservation>) result.getList().get(0);
         }

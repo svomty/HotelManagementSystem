@@ -60,7 +60,7 @@ public class CustomerController {
         if (password.isPresent() || fio.isPresent()) {
 
             result = foreignCustomerService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
-                    fio.get(), password.get());
+                    fio.orElse(""), password.orElse(""));
 
             customerList = (List<Customer>) result.getList().get(0);
         }

@@ -94,6 +94,126 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
+    public ResultQuery findAll(String sort) throws Exception {
+
+        List<Accommodation> accommodations;
+        List<Customer> customers;
+        List<Apartment> apartments;
+
+        boolean sortByApartment = sort.equals("number");
+        boolean sortByCustomer = sort.equals("surname");
+
+        if (sortByApartment || sortByCustomer) {
+            accommodations = accommodationDao.findAll("id");
+        } else {
+            accommodations = accommodationDao.findAll(sort);
+        }
+
+        int count = accommodations.size();
+
+        if (sortByApartment) {
+
+            apartments = apartmentDao.findAll(sort);
+            //получили весь список апартаментов
+
+            accommodations = new ArrayList<>();
+            //обнулили accommodations
+
+            for (int i = 0; i < apartments.size(); i++) {
+                accommodations.addAll(accommodationDao.findByApartmentId(apartments.get(i).getId()));
+            }
+            //нашли апартаменты
+        } else if (sortByCustomer) {
+            customers = customerDao.findAll(sort);
+            //получили весь список customers
+
+            accommodations = new ArrayList<>();
+            //обнулили accommodations
+
+            for (int i = 0; i < customers.size(); i++) {
+                accommodations.addAll(accommodationDao.findByCustomerId(customers.get(i).getId()));
+            }
+            //нашли апартаменты
+        }
+
+        customers = new ArrayList<>();
+        apartments = new ArrayList<>();
+
+        for (Accommodation accommodation : accommodations) {
+            customers.add(customerDao.findById(accommodation.getCustomer_id()));
+            apartments.add(apartmentDao.findById(accommodation.getApartment_id()));
+        }
+        //нашли customers и apartments
+
+
+        return new ResultQuery(count, Arrays.asList(accommodations, customers, apartments));
+    }
+
+    @Override
+    public ResultQuery filter(int start,
+                              int total,
+                              String sort,
+                              String fio,
+                              String date,
+                              Integer apart) throws Exception {
+
+        start -= 1;
+        total += start;
+
+        ResultQuery resultQuery = findAll(sort);
+
+        List<Accommodation> accommodations = (List<Accommodation>) resultQuery.getList().get(0);
+        List<Customer> customers = (List<Customer>) resultQuery.getList().get(1);
+        List<Apartment> apartments = (List<Apartment>) resultQuery.getList().get(2);
+
+        for (int k = 0; k < accommodations.size(); k++) {
+            if (!fio.equals("")) {
+                String fio2 = customers.get(k).getSurname() + " " + customers.get(k).getName() + " " +
+                        customers.get(k).getPatronymic();
+                if (fio2.toLowerCase().lastIndexOf(fio.toLowerCase()) == -1) {
+                    accommodations.remove(k);
+                    customers.remove(k);
+                    apartments.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+            if (!date.equals("")) {
+                if (accommodations.get(k).getArrival_date().toString().toLowerCase().lastIndexOf(date.toLowerCase()) == -1) {
+                    accommodations.remove(k);
+                    customers.remove(k);
+                    apartments.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+            if (apart != null) {
+                if (apartments.get(k).getNumber() != apart) {
+                    accommodations.remove(k);
+                    customers.remove(k);
+                    apartments.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+        }
+
+        int count = accommodations.size();
+
+        if (accommodations.size() < total) {
+            total = accommodations.size();
+        }
+
+        if (start <= total) {
+            accommodations = new ArrayList<>(accommodations.subList(start, total));
+            apartments = new ArrayList<>(apartments.subList(start, total));
+            customers = new ArrayList<>(customers.subList(start, total));
+        }
+
+        return new ResultQuery(count, Arrays.asList(accommodations, customers, apartments));
+    }
+
+    @Override
     public Accommodation findById(int id) {
         return accommodationDao.findById(id);
     }

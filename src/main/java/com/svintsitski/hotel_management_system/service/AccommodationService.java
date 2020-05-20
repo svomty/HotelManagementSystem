@@ -7,6 +7,11 @@ public interface AccommodationService {
 
     ResultQuery findAll(int start, int total, String sort) throws Exception;
 
+    ResultQuery findAll(String sort) throws Exception;
+
+    ResultQuery filter(int start, int total, String sort,
+                       String fio, String date, Integer apart) throws Exception;
+
     Accommodation findById(int id);
 
     int add(Accommodation accommodation);
