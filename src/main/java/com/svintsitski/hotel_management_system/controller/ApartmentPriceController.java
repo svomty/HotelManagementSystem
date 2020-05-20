@@ -34,6 +34,9 @@ public class ApartmentPriceController {
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
+                          @RequestParam Optional<String> type,
+                          @RequestParam Optional<Integer> place,
+                          @RequestParam Optional<Integer> room,
                           Model model,
                           HttpServletRequest request) throws Exception {
 
@@ -54,6 +57,15 @@ public class ApartmentPriceController {
             apartmentTypes = (List<ApartmentType>) result.getList();
         }
         //удаление
+//фильтрация
+        if (type.isPresent() || place.isPresent() || room.isPresent()) {
+
+            result = apartmentService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
+                    type.orElse(""), place.orElse(null), room.orElse(null));
+
+            apartmentTypes = (List<ApartmentType>) result.getList();
+        }
+//фильтрация
 
         int full_elem_count = result.getCount();
         int total_page = pagination.getTotalPage(full_elem_count);
@@ -68,6 +80,9 @@ public class ApartmentPriceController {
         model.addAttribute("sort", sorting);
         model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("config", Config.getInstance());
+        model.addAttribute("type", type.orElse(""));
+        model.addAttribute("place", place.orElse(null));
+        model.addAttribute("room", room.orElse(null));
         return relativeURL;
     }
 
@@ -132,15 +147,15 @@ public class ApartmentPriceController {
                                @RequestParam Optional<Integer> size,
                                @RequestParam Optional<String> sort,
                                @RequestParam Optional<String> type,
-                               @RequestParam Optional<String> place,
-                               @RequestParam Optional<String> room,
+                               @RequestParam Optional<Integer> place,
+                               @RequestParam Optional<Integer> room,
                                HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
         return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
-                + "&sort=" + sort.get() + "&type=" + type.orElse("") + "&place=" + place.orElse("")
-                + "&room=" + room.orElse(""));
+                + "&sort=" + sort.get() + "&type=" + type.orElse("") + "&place=" + place.orElse(null)
+                + "&room=" + room.orElse(null));
     }
 }
