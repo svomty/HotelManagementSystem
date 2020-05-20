@@ -84,6 +84,103 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
+    public ResultQuery findAll(String sort) throws Exception {
+
+        List<ApartmentType> apartmentType;
+        List<Apartment> apartments;
+
+        boolean sortByType = sort.equals("price") || sort.equals("rooms_number") || sort.equals("places_number")
+                || sort.equals("type") || sort.equals("description");
+
+        if (sortByType) {
+            apartments = apartmentDao.findAll("id");
+        } else {
+            apartments = apartmentDao.findAll(sort);
+        }
+        int count = apartments.size();
+
+        if (sortByType) {
+
+            apartmentType = apartmentTypeDao.findAll(sort);
+            //получили весь список типов апартаментов
+
+            apartments = new ArrayList<>();
+            //обнулили apartments
+
+            for (int i = 0; i < apartmentType.size(); i++) {
+                apartments.addAll(apartmentDao.findByType(apartmentType.get(i).getId()));
+            }
+            //нашли апартаменты
+        }
+
+        apartmentType = new ArrayList<>();
+        for (int i = 0; i < apartments.size(); i++) {
+            apartmentType.add(apartmentTypeDao.findById(apartments.get(i).getType_id()));
+        }
+
+        return new ResultQuery(count, Arrays.asList(apartments, apartmentType));
+    }
+
+    @Override
+    public ResultQuery filter(int start, int total, String sort, String type, Integer place, Integer room) throws Exception {
+        start -= 1;
+        total += start;
+
+        ResultQuery resultQuery = findAll(sort);
+
+        List<Apartment> apartments = (List<Apartment>) resultQuery.getList().get(0);
+        List<ApartmentType> apartmentType = (List<ApartmentType>) resultQuery.getList().get(1);
+
+        for (int k = 0; k < apartments.size(); k++) {
+            if (!type.equals("")) {
+                if (apartmentType.get(k).getType().toLowerCase().lastIndexOf(type.toLowerCase()) == -1) {
+                    apartments.remove(k);
+                    apartmentType.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+            if (place != null) {
+                if (apartmentType.get(k).getPlaces_number() != place) {
+                    apartments.remove(k);
+                    apartmentType.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+            if (room != null) {
+                if (apartmentType.get(k).getRooms_number() != room) {
+                    apartments.remove(k);
+                    apartmentType.remove(k);
+                    k--;
+                    continue;
+                }
+            }
+        }
+
+        int count = apartments.size();
+
+        if (apartments.size() < total) {
+            total = apartments.size();
+        }
+
+        if (start > total) {
+            apartmentType = new ArrayList<>();
+        } else {
+            apartments = new ArrayList<>(apartments.subList(start, total));
+            //apartments урезали для пагинации
+
+            apartmentType = new ArrayList<>();
+            for (int i = 0; i < apartments.size(); i++) {
+                apartmentType.add(apartmentTypeDao.findById(apartments.get(i).getType_id()));
+            }
+            //apartmentType нашли
+        }
+
+        return new ResultQuery(count, Arrays.asList(apartments, apartmentType));
+    }
+
+    @Override
     public ResultQuery findForDate(Date arrival_date, Date departure_date, Activity activity, int id) throws Exception {
         List<ApartmentType> apartmentType;
         List<Apartment> apartments;

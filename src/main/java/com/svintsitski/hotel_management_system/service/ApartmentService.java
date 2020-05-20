@@ -10,6 +10,11 @@ import java.util.List;
 public interface ApartmentService {
     ResultQuery findAll(int start, int total, String sort) throws Exception;
 
+    ResultQuery findAll(String sort) throws Exception;
+
+    ResultQuery filter(int start, int total, String sort,
+                       String type, Integer place, Integer room) throws Exception;
+
     Apartment findById(int id);
 
     ResultQuery findForDate(Date arrival_date, Date departure_date, Activity activity, int id) throws Exception;

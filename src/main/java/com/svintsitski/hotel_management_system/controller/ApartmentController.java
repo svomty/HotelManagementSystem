@@ -36,6 +36,9 @@ public class ApartmentController {
     public String findAll(@RequestParam Optional<Integer> page,
                           @RequestParam Optional<Integer> size,
                           @RequestParam Optional<String> sort,
+                          @RequestParam Optional<String> type,
+                          @RequestParam Optional<Integer> place,
+                          @RequestParam Optional<Integer> room,
                           Model model,
                           HttpServletRequest request) throws Exception {
 
@@ -55,7 +58,13 @@ public class ApartmentController {
                     .findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
         }
         //удаление
+//фильтрация
+        if (type.isPresent() || place.isPresent() || room.isPresent()) {
 
+            result = apartmentService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
+                    type.orElse(""), place.orElse(null), room.orElse(null));
+        }
+//фильтрация
         int full_elem_count = result.getCount();
         int total_page = pagination.getTotalPage(full_elem_count);
 
@@ -69,7 +78,9 @@ public class ApartmentController {
         model.addAttribute("size", pagination.getPage_size());
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
-
+        model.addAttribute("type", type.orElse(""));
+        model.addAttribute("place", place.orElse(null));
+        model.addAttribute("room", room.orElse(null));
         model.addAttribute("config", Config.getInstance());
         return relativeURL;
     }

@@ -75,28 +75,29 @@
                     <div class="divTableHeading">
                         <div class="divTableRow">
                             <div class="divTableCell">
-                                <a id="id" href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}">id</a>
+                                <a id="id"
+                                   href="${pageContext.request.contextPath}?page=1&sort=id&size=${size}&fio=${fio}&date=${date}&apart=${apart}">id</a>
                             </div>
                             <div class="divTableCell">
                                 <a id="arrival_date"
-                                   href="${pageContext.request.contextPath}?page=1&sort=arrival_date&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=arrival_date&size=${size}&fio=${fio}&date=${date}&apart=${apart}">
                                     Дата заселения</a>
                             </div>
                             <div class="divTableCell">
                                 <a id="departure_date"
-                                   href="${pageContext.request.contextPath}?page=1&sort=departure_date&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=departure_date&size=${size}&fio=${fio}&date=${date}&apart=${apart}">
                                     Дата выезда
                                 </a>
                             </div>
                             <div class="divTableCell">
                                 <a id="surname"
-                                   href="${pageContext.request.contextPath}?page=1&sort=surname&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=surname&size=${size}&fio=${fio}&date=${date}&apart=${apart}">
                                     ФИО
                                 </a>
                             </div>
                             <div class="divTableCell">
                                 <a id="number"
-                                   href="${pageContext.request.contextPath}?page=1&sort=number&size=${size}">
+                                   href="${pageContext.request.contextPath}?page=1&sort=number&size=${size}&fio=${fio}&date=${date}&apart=${apart}">
                                     Номер апартамента
                                 </a>
                             </div>
@@ -123,7 +124,7 @@
                                         <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>
                                     </a>
                                     <spring:url
-                                            value="${urlBase}${urlReturn}delete/${accommodation.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                            value="${urlBase}${urlReturn}delete/${accommodation.id }?page=${current_page}&size=${size}&sort=${sort}&fio=${fio}&date=${date}&apart=${apart}"
                                             var="deleteURL"/>
                                     <a class="btn btn-primary" href="${deleteURL }" role="button">
                                         <i style="color: #E22C2F" class="fa fa-trash-o" aria-hidden="true"></i>
