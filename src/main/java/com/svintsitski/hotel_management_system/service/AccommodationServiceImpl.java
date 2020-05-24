@@ -206,8 +206,7 @@ public class AccommodationServiceImpl implements AccommodationService {
                 if (fio2.toLowerCase().lastIndexOf(fio.toLowerCase()) == -1) {
                     accommodations.remove(k);
                     customers.remove(k);
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }
@@ -215,8 +214,7 @@ public class AccommodationServiceImpl implements AccommodationService {
                 if (accommodations.get(k).getArrival_date().toString().toLowerCase().lastIndexOf(date.toLowerCase()) == -1) {
                     accommodations.remove(k);
                     customers.remove(k);
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }
@@ -224,8 +222,7 @@ public class AccommodationServiceImpl implements AccommodationService {
                 if (apartments.get(k).getNumber() != apart) {
                     accommodations.remove(k);
                     customers.remove(k);
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }

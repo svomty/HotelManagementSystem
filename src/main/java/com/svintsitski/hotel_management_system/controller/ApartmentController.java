@@ -51,7 +51,7 @@ public class ApartmentController {
         List<Apartment> apartments = (List<Apartment>) result.getList();
 
         //удаление
-        if (apartments.size() == 0) {
+        if (apartments.isEmpty()) {
             pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
 
             result = apartmentService
@@ -90,7 +90,7 @@ public class ApartmentController {
                              @RequestParam Optional<Integer> page,
                              @RequestParam Optional<Integer> size,
                              @RequestParam Optional<String> sort,
-                             HttpServletRequest request) throws Exception {
+                             HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Apartment apartment = apartmentService.findById(id);
 

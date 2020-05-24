@@ -48,7 +48,7 @@ public class CustomerController {
         List<Customer> customerList = (List<Customer>) result.getList().get(0);
 
         //удаление
-        if (customerList.size() == 0) {
+        if (customerList.isEmpty()) {
             pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
 
             result = foreignCustomerService.findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
@@ -91,7 +91,7 @@ public class CustomerController {
                              @RequestParam Optional<Integer> page,
                              @RequestParam Optional<Integer> size,
                              @RequestParam Optional<String> sort,
-                             HttpServletRequest request) throws Exception {
+                             HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         Customer customer = customerService.findById(id);
         ForeignCustomer foreignCustomer = foreignCustomerService.findById(id);

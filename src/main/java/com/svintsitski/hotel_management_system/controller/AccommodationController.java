@@ -56,7 +56,7 @@ public class AccommodationController {
         List<Accommodation> accommodationList = (List<Accommodation>) result.getList().get(0);
 
         //удаление
-        if (accommodationList.size() == 0) {
+        if (accommodationList.isEmpty()) {
             pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
 
             result = accommodationService.

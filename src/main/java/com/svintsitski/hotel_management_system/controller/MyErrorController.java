@@ -4,16 +4,16 @@ import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.support.URL;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
+public class MyErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
-    @RequestMapping("error")
+    @GetMapping("error")
     public String handleError(HttpServletRequest request,
                               Model model) {
 

@@ -135,24 +135,21 @@ public class ApartmentServiceImpl implements ApartmentService {
             if (!type.equals("")) {
                 if (apartmentType.get(k).getType().toLowerCase().lastIndexOf(type.toLowerCase()) == -1) {
                     apartments.remove(k);
-                    apartmentType.remove(k);
-                    k--;
+                    apartmentType.remove(k--);
                     continue;
                 }
             }
             if (place != null) {
                 if (apartmentType.get(k).getPlaces_number() != place) {
                     apartments.remove(k);
-                    apartmentType.remove(k);
-                    k--;
+                    apartmentType.remove(k--);
                     continue;
                 }
             }
             if (room != null) {
                 if (apartmentType.get(k).getRooms_number() != room) {
                     apartments.remove(k);
-                    apartmentType.remove(k);
-                    k--;
+                    apartmentType.remove(k--);
                     continue;
                 }
             }
@@ -198,8 +195,6 @@ public class ApartmentServiceImpl implements ApartmentService {
             totalPlaces.add(apartmentType.get(i).getPlaces_number());
         }
         //apartmentType нашли
-
-        int idForReservation;
 
         for (Reservation reservation : reservations) {//идем по reservations
             if (//если на текущую дату апартамент забронирован - минусуем места на 1

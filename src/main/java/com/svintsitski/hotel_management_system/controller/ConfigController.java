@@ -53,12 +53,7 @@ public class ConfigController {
 
         Config config1 = Config.getInstance();
 
-        //User.UserBuilder users = User.withDefaultPasswordEncoder();
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(config1.getPassword());
-        config1.setPassword(hashedPassword);*/
 
         UserDetails userDetails = User.withUsername(config1.getLogin())
                 .password(encoder.encode(config1.getPassword()))

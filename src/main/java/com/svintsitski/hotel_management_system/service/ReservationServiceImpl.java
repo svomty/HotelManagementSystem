@@ -138,24 +138,21 @@ public class ReservationServiceImpl implements ReservationService {
             if (!fio.equals("")) {
                 if (reservations.get(k).getFull_name().toLowerCase().lastIndexOf(fio.toLowerCase()) == -1) {
                     reservations.remove(k);
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }
             if (!date.equals("")) {
                 if (reservations.get(k).getArrival_date().toString().toLowerCase().lastIndexOf(date.toLowerCase()) == -1) {
                     reservations.remove(k);
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }
             if (!phone.equals("")) {
                 if (reservations.get(k).getCustomer_phone().toLowerCase().lastIndexOf(phone.toLowerCase()) == -1) {
                     reservations.remove(k);
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }

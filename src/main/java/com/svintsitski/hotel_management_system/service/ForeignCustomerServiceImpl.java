@@ -77,16 +77,14 @@ public class ForeignCustomerServiceImpl implements ForeignCustomerService {
                         customers.get(k).getPatronymic();
                 if (fio2.toLowerCase().lastIndexOf(fio.toLowerCase()) == -1) {
                     customers.remove(k);
-                    foreignCustomers.remove(k);
-                    k--;
+                    foreignCustomers.remove(k--);
                     continue;
                 }
             }
             if (!password.equals("")) {
                 if (customers.get(k).getPassport_serial_number().toLowerCase().lastIndexOf(password.toLowerCase()) == -1) {
                     customers.remove(k);
-                    foreignCustomers.remove(k);
-                    k--;
+                    foreignCustomers.remove(k--);
                     continue;
                 }
             }

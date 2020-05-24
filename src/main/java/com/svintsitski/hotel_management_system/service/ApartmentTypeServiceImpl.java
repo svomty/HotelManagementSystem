@@ -56,22 +56,19 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService {
         for (int k = 0; k < apartments.size(); k++) {
             if (!type.equals("")) {
                 if (apartments.get(k).getType().toLowerCase().lastIndexOf(type.toLowerCase()) == -1) {
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }
             if (place != null) {
                 if (apartments.get(k).getPlaces_number() != place) {
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }
             if (room != null) {
                 if (apartments.get(k).getRooms_number() != room) {
-                    apartments.remove(k);
-                    k--;
+                    apartments.remove(k--);
                     continue;
                 }
             }

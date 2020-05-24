@@ -48,7 +48,7 @@ public class ApartmentPriceController {
         List<ApartmentType> apartmentTypes = (List<ApartmentType>) result.getList();
 
         //удаление
-        if (apartmentTypes.size() == 0) {
+        if (apartmentTypes.isEmpty()) {
             pagination = new Pagination(pagination.getTotalPage(result.getCount()),
                     size.orElse(Config.getInstance().getCountElem()));
 

@@ -60,7 +60,7 @@ public class ReportController {
     public ResponseEntity<InputStreamResource> getReservationReport(@PathVariable("id") String UUID) throws IOException {
 
         Reservation reservation = reservationService.findByUUID(UUID);
-        System.out.println("zzzzzzzzzzzzzz");
+
         MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext,
                 reservation.getId() + ".pdf");
 

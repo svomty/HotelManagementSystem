@@ -49,7 +49,7 @@ public class ReservationController {
         List<Reservation> reservationList = (List<Reservation>) result.getList().get(0);
 
         //удаление
-        if (reservationList.size() == 0) {
+        if (reservationList.isEmpty()) {
             pagination = new Pagination(pagination.getTotalPage(result.getCount()), size.orElse(Config.getInstance().getCountElem()));
 
             result = reservationService.

@@ -27,20 +27,12 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @author Артем Свинтицкий
      */
-    /*
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
+
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         Config config = Config.getInstance();
 
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(config.getPassword());
-        config.setPassword(hashedPassword);*/
 
         UserDetails userDetails = User.withUsername(config.getLogin())
                 .password(encoder.encode(config.getPassword()))
