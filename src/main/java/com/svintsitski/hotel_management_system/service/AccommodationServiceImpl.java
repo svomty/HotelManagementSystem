@@ -10,6 +10,7 @@ import com.svintsitski.hotel_management_system.model.support.ResultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -147,6 +148,38 @@ public class AccommodationServiceImpl implements AccommodationService {
 
 
         return new ResultQuery(count, Arrays.asList(accommodations, customers, apartments));
+    }
+
+    @Override
+    public ResultQuery findForDate(Date arrival_date, Date departure_date) throws Exception {
+        ResultQuery resultQuery = findAll("arrival_date");
+
+        List<Accommodation> accommodations = (List<Accommodation>) resultQuery.getList().get(0);
+        List<Customer> customers = (List<Customer>) resultQuery.getList().get(1);
+        List<Apartment> apartments = (List<Apartment>) resultQuery.getList().get(2);
+
+        List<Accommodation> accommodationList = new ArrayList<>();
+        List<Customer> customerList = new ArrayList<>();
+        List<Apartment> apartmentList = new ArrayList<>();
+
+        for (int i = 0; i < accommodations.size(); i++) {
+            if (
+                    accommodations.get(i).getArrival_date().after(arrival_date)
+                            && accommodations.get(i).getArrival_date().before(departure_date)
+
+                            ||
+
+                            accommodations.get(i).getDeparture_date().after(arrival_date)
+                                    && (accommodations.get(i).getDeparture_date().before(departure_date)
+                                    || accommodations.get(i).getDeparture_date().equals(departure_date))
+            ) {
+                accommodationList.add(accommodations.get(i));
+                customerList.add(customers.get(i));
+                apartmentList.add(apartments.get(i));
+            }
+        }
+
+        return new ResultQuery(accommodations.size(), Arrays.asList(accommodationList, customerList, apartmentList));
     }
 
     @Override

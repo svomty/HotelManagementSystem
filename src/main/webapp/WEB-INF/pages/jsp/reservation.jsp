@@ -29,7 +29,9 @@
     <c:set var="size" value="${size}" scope="request"/>
     <c:set var="start_page" value="${start_page}" scope="request"/>
     <c:set var="createURL" value="${createURL}" scope="request"/>
-
+    <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
+    <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
+    <c:set var="config" value="${config}" scope="request"/>
 </head>
 <body>
 <div class="content">

@@ -39,6 +39,14 @@
                             </li>
                             <li><a href="${pageContext.request.contextPath}/admin/config/" class="submenu__item btn">Конфигурация
                                 главного меню</a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin/reports/stay_report"
+                                   class="submenu__item btn">
+                                Отчет о проживании в гостинице
+                            </a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin/reports/foreign_stay_report"
+                                   class="submenu__item btn">
+                                Отчет об иностранных клиентах
+                            </a></li>
                         </ul>
                     </li>
                 </c:if>

@@ -5,26 +5,19 @@ import com.svintsitski.hotel_management_system.model.database.Apartment;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.database.Reservation;
 import com.svintsitski.hotel_management_system.model.enam.Activity;
-import com.svintsitski.hotel_management_system.model.report.ReservationPdfGeneration;
-import com.svintsitski.hotel_management_system.model.support.*;
+import com.svintsitski.hotel_management_system.model.support.Checker;
+import com.svintsitski.hotel_management_system.model.support.Pagination;
+import com.svintsitski.hotel_management_system.model.support.ResultQuery;
+import com.svintsitski.hotel_management_system.model.support.URL;
 import com.svintsitski.hotel_management_system.service.ApartmentService;
-import com.svintsitski.hotel_management_system.service.ApartmentTypeService;
 import com.svintsitski.hotel_management_system.service.ReservationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,13 +26,8 @@ import java.util.Optional;
 
 @Controller
 public class MainController {
-    private static final String DIRECTORY = "results";
-    @Autowired
-    private ServletContext servletContext;
     @Autowired
     private ApartmentService apartmentService;
-    @Autowired
-    private ApartmentTypeService apartmentTypeService;
     @Autowired
     private ReservationServiceImpl reservationService;
 
@@ -78,7 +66,6 @@ public class MainController {
 
         ResultQuery result = apartmentService.findForDate(dates.get(0), dates.get(1), Activity.Reservation, 0);
 
-        //инициализировали листы
         List<Apartment> apartmentList = (List<Apartment>) result.getList().get(0);
         List<ApartmentType> apartmentTypes = (List<ApartmentType>) result.getList().get(1);
 
@@ -113,7 +100,6 @@ public class MainController {
     @PostMapping(value = "/reservation/")
     public String addReservation(@ModelAttribute("reservation") Reservation reservation,
                                  HttpServletRequest request) throws Exception {
-        ModelAndView model = new ModelAndView();
         int typeId = reservation.getApartment_id();
 
         ResultQuery result = apartmentService.findForDate(reservation.getArrival_date(),
@@ -121,9 +107,7 @@ public class MainController {
                 Activity.Reservation,
                 0);
 
-        //инициализировали лист
         List<Apartment> apartmentList = (List<Apartment>) result.getList().get(0);
-        List<ApartmentType> apartmentType = (List<ApartmentType>) result.getList().get(1);
 
         Apartment apartment = reservationService
                 .reservationForUsers(apartmentList,
@@ -133,53 +117,10 @@ public class MainController {
             reservation.setApartment_id(apartment.getId());
             int infoId = reservationService.add(reservation);
             String UUID = reservationService.findById(infoId).getUUID();
-            return "redirect:/reservation/info/" + UUID;
+            return "redirect:/reports/reservation_report/info/" + UUID;
         } else {
             return "error";
         }
-    }
-
-    @GetMapping("/reservation/info/{id}")
-    public ModelAndView addReservation(HttpServletRequest request,
-                                       @PathVariable("id") String id
-    ) throws Exception {
-        ModelAndView model = new ModelAndView();
-
-        Reservation reservation = reservationService.findByUUID(id);
-
-        model.addObject("config", Config.getInstance());
-        model.addObject("reservation", reservation);
-        model.setViewName("reservation_info");
-        return model;
-    }
-
-    @RequestMapping("/report/{id}")
-    public ResponseEntity<InputStreamResource> downloadFile1(
-            @PathVariable("id") String UUID) throws IOException {
-
-        Reservation reservation = reservationService.findByUUID(UUID);
-
-        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext,
-                reservation.getId() + ".pdf");
-
-        Apartment apartment = apartmentService.findById(reservation.getApartment_id());
-        ApartmentType apartmentType = apartmentTypeService.findById(apartment.getType_id());
-
-        ReservationPdfGeneration pdf = new ReservationPdfGeneration(reservation, apartment, apartmentType);
-
-        pdf.createPdf();
-
-        File file = new File(DIRECTORY + "/" + reservation.getId() + ".pdf");
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-
-        return ResponseEntity.ok()
-                // Content-Disposition
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
-                // Content-Type
-                .contentType(mediaType)
-                // Content-Length
-                .contentLength(file.length()) //
-                .body(resource);
     }
 }
 

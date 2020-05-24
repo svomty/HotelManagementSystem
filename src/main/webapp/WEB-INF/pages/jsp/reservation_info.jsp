@@ -13,7 +13,10 @@
     <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
     <c:set var="urlBase"
            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
-    <c:url var="urlReturn" value="/report/"/>
+    <c:url var="urlReturn" value="/reports/reservation_report/"/>
+    <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
+    <c:set var="isAdmin" value="${isAdmin}" scope="request"/>
+    <c:set var="config" value="${config}" scope="request"/>
 </head>
 <body>
 <div class="content">
@@ -31,7 +34,7 @@
                 <div>UUID — ${reservation.UUID}</div>
             </div>
             <spring:url value="${urlBase}${urlReturn}${reservation.UUID }" var="reservationURL"/>
-            <a id="one" href="${reservationURL}" class="button button6" name="${reservation.UUID}" href="#"
+            <a id="one" href="${reservationURL}" class="button button6" name="${reservation.UUID}"
                role="button">
                 Скачать чек
             </a>

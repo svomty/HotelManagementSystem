@@ -20,11 +20,10 @@ public class AccommodationDaoImpl implements AccommodationDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
     @Override
     public List<Accommodation> findAll(String sort) {
         String sql = "SELECT * FROM accommodation " +
-                "ORDER BY " + sort + ";";
+                "ORDER BY " + sort + " ;";
 
         return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Accommodation.class));

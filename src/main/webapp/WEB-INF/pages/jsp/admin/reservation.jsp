@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="flex-two-icon">
                                         <spring:url
-                                                value="${urlBase}/report/${reservation.UUID}"
+                                                value="${urlBase}/reports/reservation_report/${reservation.UUID}"
                                                 var="reportURL"/>
                                         <a class="btn btn-primary" href="${reportURL }" role="button">
                                             <i style="color: #8B8D8C" class="fa fa-file-text-o" aria-hidden="true"></i>
