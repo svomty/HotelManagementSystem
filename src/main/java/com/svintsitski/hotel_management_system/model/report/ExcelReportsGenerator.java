@@ -24,7 +24,7 @@ public class ExcelReportsGenerator extends AbstractXlsView {
 
     @Override
     protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest
-            request, HttpServletResponse response) throws Exception {
+            request, HttpServletResponse response) {
         @SuppressWarnings("unchecked")
         String reportType = (String) model.get("report_type");
         @SuppressWarnings("unchecked")
@@ -53,8 +53,8 @@ public class ExcelReportsGenerator extends AbstractXlsView {
         sheet = workbook.createSheet(title);
         sheet.setDefaultColumnWidth(30);
 
-        CellStyle centeredBoldOnGray = setCellStyle2(workbook, HSSFColor.BLACK.index, HSSFColor.GREY_25_PERCENT.index, true, HorizontalAlignment.CENTER);
-        CellStyle CenteredNormalOnWhite = setCellStyle2(workbook, HSSFColor.BLACK.index, HSSFColor.LEMON_CHIFFON.index, false, HorizontalAlignment.CENTER);
+        CellStyle centeredBoldOnGray = setCellStyle2(workbook, HSSFColor.HSSFColorPredefined.BLACK.getIndex(), HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex(), true, HorizontalAlignment.CENTER);
+        CellStyle CenteredNormalOnWhite = setCellStyle2(workbook, HSSFColor.HSSFColorPredefined.BLACK.getIndex(), HSSFColor.HSSFColorPredefined.LEMON_CHIFFON.getIndex(), false, HorizontalAlignment.CENTER);
 
         createCell(new String[]{title, " ", " "}, centeredBoldOnGray);
         sheet.addMergedRegion(new CellRangeAddress(rowCount - 1, rowCount - 1, 0, 2));
