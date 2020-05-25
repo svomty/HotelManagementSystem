@@ -206,6 +206,8 @@ function setDate2(object) {
             document.getElementById(object).classList.remove('display-none');
             document.getElementById("arrival_date_filter").value = arrival_date;
             document.getElementById("departure_date_filter").value = departure_date;
+            document.getElementById("arrival_date_filter").min = arrival_date;
+            document.getElementById("departure_date_filter").min = departure_date;
         }
 
     } else {
