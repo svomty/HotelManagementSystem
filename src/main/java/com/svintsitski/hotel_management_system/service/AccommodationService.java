@@ -16,6 +16,10 @@ public interface AccommodationService {
     ResultQuery filter(int start, int total, String sort,
                        String fio, String date, Integer apart) throws Exception;
 
+    ResultQuery searchForCurrentDate(int start,
+                                     int total,
+                                     String sort) throws Exception;
+
     Accommodation findById(int id);
 
     int add(Accommodation accommodation);

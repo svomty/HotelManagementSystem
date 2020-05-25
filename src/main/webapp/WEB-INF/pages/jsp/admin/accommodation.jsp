@@ -43,7 +43,22 @@
     <main>
         <jsp:include page="../static/popupbg.jsp"/>
         <div class="header-wrap">
-            <jsp:include page="../static/tableTopBar.jsp"/>
+
+            <form action="${urlBase}${urlReturn}" method="get" style="width: 50px; padding-top: 5px;">
+                <div>
+                    <input name="page" id="page1" value="1" hidden>
+                    <input name="sort" id="sort1" value="${sort}" hidden>
+                    <input name="size" id="size1" value="${size}" hidden>
+                    <input name="date" id="date1" value="today" hidden>
+                </div>
+
+                <button class="btn-calendar" style="width: 36px; height: 36px;" type="submit">
+                    <i class="fa fa-calendar-o"></i>
+                </button>
+            </form>
+            <div style="width: 93%; min-width: 800px;">
+                <jsp:include page="../static/tableTopBar.jsp"/>
+            </div>
             <form style="display: none;" action="${urlBase}${urlReturn}" class="poisk-filter" method="get">
                 <div style="display: flex; justify-content: right; width: 100%;">
                     <div>

@@ -244,6 +244,67 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
+    public ResultQuery searchForCurrentDate(int start,
+                                            int total,
+                                            String sort) throws Exception {
+
+        start -= 1;
+        total += start;
+
+        ResultQuery resultQuery = findAll(sort);
+
+        List<Accommodation> accommodations = (List<Accommodation>) resultQuery.getList().get(0);
+        List<Customer> customers = (List<Customer>) resultQuery.getList().get(1);
+        List<Apartment> apartments = (List<Apartment>) resultQuery.getList().get(2);
+
+        List<Accommodation> newAccommodations = new ArrayList<>();
+        List<Customer> newCustomers = new ArrayList<>();
+        List<Apartment> newApartments = new ArrayList<>();
+
+        Date today = new Date(System.currentTimeMillis());
+        today = Date.valueOf(String.valueOf(today));
+
+        for (int k = 0; k < accommodations.size(); k++) {
+
+            if (
+                    (today.equals(accommodations.get(k).getArrival_date()) &&
+                            today.before(accommodations.get(k).getDeparture_date()))
+
+                            ||
+
+                            (today.after(accommodations.get(k).getArrival_date()) &&
+                                    today.equals(accommodations.get(k).getDeparture_date()))
+
+                            ||
+
+                            (today.equals(accommodations.get(k).getArrival_date()) &&
+                                    today.equals(accommodations.get(k).getDeparture_date()))
+
+            ) {
+
+                newCustomers.add(customers.get(k));
+                newApartments.add(apartments.get(k));
+                newAccommodations.add(accommodations.get(k));
+
+            }
+        }
+
+        int count = newAccommodations.size();
+
+        if (newAccommodations.size() < total) {
+            total = newAccommodations.size();
+        }
+
+        if (start <= total) {
+            newAccommodations = new ArrayList<>(newAccommodations.subList(start, total));
+            newApartments = new ArrayList<>(newApartments.subList(start, total));
+            newCustomers = new ArrayList<>(newCustomers.subList(start, total));
+        }
+
+        return new ResultQuery(count, Arrays.asList(newAccommodations, newCustomers, newApartments));
+    }
+
+    @Override
     public Accommodation findById(int id) {
         return accommodationDao.findById(id);
     }

@@ -212,6 +212,19 @@ nav a {
     border-radius: 5px;
 }
 
+.btn-calendar {
+    text-decoration: none;
+    color: #4C6EF5;
+    border: 1px groove #4C6EF5;
+    border-radius: 5px;
+}
+
+.btn-calendar:hover {
+    color: white;
+    background-color: #4C6EF5;
+    border-radius: 5px;
+}
+
 .btn-active {
     color: rgb(237, 237, 243);
     background-color: #5197E6;

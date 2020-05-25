@@ -68,20 +68,35 @@ public class AccommodationController {
 //фильтрация
         if (apart.isPresent() || date.isPresent() || fio.isPresent()) {
 
-            result = accommodationService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
-                    fio.orElse(""), date.orElse(""), apart.orElse(null));
+            if (date.get().equals("today")) {
+                result = accommodationService.searchForCurrentDate(pagination.getStartElem(), pagination.getPage_size(), sorting);
+            } else {
+                result = accommodationService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
+                        fio.orElse(""), date.orElse(""), apart.orElse(null));
+            }
 
             accommodationList = (List<Accommodation>) result.getList().get(0);
         }
-//фильтрация
+
+        //фильтрация
         int total_page = pagination.getTotalPage(result.getCount());
 
         URL.IPInfo(relativeURL + "/list/", request.getRemoteAddr(), RequestMethod.GET);
 
         model.addAttribute("accommodation_list", accommodationList);
-        model.addAttribute("customers", result.getList().get(1));
-        model.addAttribute("apartments", result.getList().get(2));
-        model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
+        model.addAttribute("customers", result.getList().
+
+                get(1));
+        model.addAttribute("apartments", result.getList().
+
+                get(2));
+        model.addAttribute("view", new
+
+                View(page.orElse(1), size.
+
+                orElse(Config.getInstance().
+
+                        getCountElem()), sorting));
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
