@@ -49,7 +49,18 @@ public class AccommodationController {
                           HttpServletRequest request) throws Exception {
 
         String sorting = sort.orElse("id");
-        Pagination pagination = new Pagination(page.orElse(1), size.orElse(Config.getInstance().getCountElem()));
+
+        int page1 = page.orElse(1);
+        int size1 = size.orElse(Config.getInstance().getCountElem());
+
+        if (page1 == 0) {
+            page1 = 1;
+        }
+        if (size1 == 0) {
+            size1 = Config.getInstance().getCountElem();
+        }
+
+        Pagination pagination = new Pagination(page1, size1);
 
         ResultQuery result = accommodationService.
                 findAll(pagination.getStartElem(), pagination.getPage_size(), sorting);
@@ -72,7 +83,7 @@ public class AccommodationController {
                 result = accommodationService.searchForCurrentDate(pagination.getStartElem(), pagination.getPage_size(), sorting);
             } else {
                 result = accommodationService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
-                        fio.orElse(""), date.orElse(""), apart.orElse(null));
+                        fio.orElse(""), date.orElse(""), apart.orElse(0));
             }
 
             accommodationList = (List<Accommodation>) result.getList().get(0);
@@ -90,13 +101,7 @@ public class AccommodationController {
         model.addAttribute("apartments", result.getList().
 
                 get(2));
-        model.addAttribute("view", new
-
-                View(page.orElse(1), size.
-
-                orElse(Config.getInstance().
-
-                        getCountElem()), sorting));
+        model.addAttribute("view", new View(page1, size1, sorting));
         model.addAttribute("current_page", pagination.getCurrent_page());
         model.addAttribute("total_page", total_page);
         model.addAttribute("size", pagination.getPage_size());
@@ -105,7 +110,7 @@ public class AccommodationController {
         model.addAttribute("config", Config.getInstance());
         model.addAttribute("fio", fio.orElse(""));
         model.addAttribute("date", date.orElse(""));
-        model.addAttribute("apart", apart.orElse(null));
+        model.addAttribute("apart", apart.orElse(0));
         return relativeURL;
     }
 
@@ -228,8 +233,8 @@ public class AccommodationController {
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         accommodationService.delete(id);
 
-        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
+        return new ModelAndView(redirectURL + "/?page=" + page.get() + "&size=" + size.get()
                 + "&sort=" + sort.get() + "&fio=" + fio.orElse("") + "&date=" + date.orElse("")
-                + "&apart=" + apart.orElse(null));
+                + "&apart=" + apart.orElse(0));
     }
 }

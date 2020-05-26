@@ -63,13 +63,21 @@
                         <form:input path="description" cssClass="form-control" id="description"/>
                     </div>
 
-                    <form:form modelAttribute="view" method="post" action="${createURL}"
+                    <form:form modelAttribute="myString" method="post" action="${createURL}"
                                cssClass="form">
-                        <form:input path="page" class="custom-control-input" id="page"/>
-                        <form:input path="size" class="custom-control-input" id="size"/>
-                        <form:input path="sort" class="custom-control-input" id="sort"/>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
+
+                        <form:input path="myText" class="custom-control-input" id="myText"/>
+
+                        <form:form modelAttribute="view" method="post" action="${createURL}"
+                                   cssClass="form">
+                            <form:input path="page" class="custom-control-input" id="page"/>
+                            <form:input path="size" class="custom-control-input" id="size"/>
+                            <form:input path="sort" class="custom-control-input" id="sort"/>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form:form>
+
                     </form:form>
+
                 </form:form>
             </div>
         </div>

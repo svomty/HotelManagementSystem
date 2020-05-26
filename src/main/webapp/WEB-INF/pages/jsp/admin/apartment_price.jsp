@@ -129,7 +129,7 @@
                                 <div class="divTableCell">${apartment.description }</div>
                                 <div class="divTableCell">
                                     <spring:url
-                                            value="${urlBase}${urlReturn}update/${apartment.id }?page=${current_page}&size=${size}&sort=${sort}"
+                                            value="${urlBase}${urlReturn}update/${apartment.id }?page=${current_page}&size=${size}&sort=${sort}&type=${type}&place=${place}&room=${room}"
                                             var="updateURL"/>
                                     <a class="btn btn-primary" href="${updateURL }" role="button">
                                         <i style="color: #E2B231" class="fa fa-pencil-square" aria-hidden="true"></i>

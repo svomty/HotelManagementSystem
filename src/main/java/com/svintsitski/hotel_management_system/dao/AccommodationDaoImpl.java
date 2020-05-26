@@ -22,8 +22,13 @@ public class AccommodationDaoImpl implements AccommodationDao {
 
     @Override
     public List<Accommodation> findAll(String sort) {
-        String sql = "SELECT * FROM accommodation " +
-                "ORDER BY " + sort + " ;";
+
+        String sql = "SELECT * FROM accommodation ";
+
+        if (!sort.equals("") || !sort.isEmpty()) {
+            sql += "ORDER BY " + sort;
+        }
+        sql += " ;";
 
         return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Accommodation.class));

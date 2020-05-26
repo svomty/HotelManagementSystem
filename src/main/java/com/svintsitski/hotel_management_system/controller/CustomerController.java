@@ -190,7 +190,7 @@ public class CustomerController {
         foreignCustomerService.delete(id);
         customerService.delete(id);
 
-        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
+        return new ModelAndView(redirectURL + "/?page=" + page.get() + "&size=" + size.get()
                 + "&sort=" + sort.get() + "&fio=" + fio.orElse("") + "&password=" + password.orElse(""));
     }
 }

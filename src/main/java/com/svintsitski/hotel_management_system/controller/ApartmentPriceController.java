@@ -2,6 +2,7 @@ package com.svintsitski.hotel_management_system.controller;
 
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.ApartmentType;
+import com.svintsitski.hotel_management_system.model.enam.MyString;
 import com.svintsitski.hotel_management_system.model.enam.Type;
 import com.svintsitski.hotel_management_system.model.support.Pagination;
 import com.svintsitski.hotel_management_system.model.support.ResultQuery;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,8 +62,16 @@ public class ApartmentPriceController {
 //фильтрация
         if (type.isPresent() || place.isPresent() || room.isPresent()) {
 
+            String type2 = type.orElse("");
+
+            if (type2.toLowerCase().equals("стандарт")) {
+                type2 = "Простой";
+            }
+
+            type = Optional.of(type2);
+
             result = apartmentService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
-                    type.orElse(""), place.orElse(null), room.orElse(null));
+                    type.orElse(""), place.orElse(0), room.orElse(0));
 
             apartmentTypes = (List<ApartmentType>) result.getList();
         }
@@ -81,8 +91,8 @@ public class ApartmentPriceController {
         model.addAttribute("view", new View(page.orElse(1), size.orElse(Config.getInstance().getCountElem()), sorting));
         model.addAttribute("config", Config.getInstance());
         model.addAttribute("type", type.orElse(""));
-        model.addAttribute("place", place.orElse(null));
-        model.addAttribute("room", room.orElse(null));
+        model.addAttribute("place", place.orElse(0));
+        model.addAttribute("room", room.orElse(0));
         return relativeURL;
     }
 
@@ -91,7 +101,9 @@ public class ApartmentPriceController {
                              @RequestParam Optional<Integer> page,
                              @RequestParam Optional<Integer> size,
                              @RequestParam Optional<String> sort,
+                             @RequestParam Optional<String> type,
                              HttpServletRequest request) {
+
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = apartmentService.findById(id);
 
@@ -101,7 +113,9 @@ public class ApartmentPriceController {
         model.addObject("view", view);
 
         model.addObject("apartmentType", apartmentType);
-        model.addObject("types", Type.values());
+        model.addObject("myString", new MyString(type.orElse("")));
+        List<Type> types = Arrays.asList(Type.Люкс, Type.Простой);
+        model.addObject("types", types);
         model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;
@@ -109,15 +123,17 @@ public class ApartmentPriceController {
 
     @GetMapping(value = {"/add/", "/add"})
     public ModelAndView add(HttpServletRequest request,
+                            @RequestParam Optional<String> type,
                             @ModelAttribute("view") View view) {
         ModelAndView model = new ModelAndView();
         ApartmentType apartmentType = new ApartmentType();
 
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
         model.addObject("view", view);
-
+        model.addObject("myString", new MyString(type.orElse("")));
         model.addObject("apartmentType", apartmentType);
-        model.addObject("types", Type.values());
+        List<Type> types = Arrays.asList(Type.Люкс, Type.Простой);
+        model.addObject("types", types);
         model.addObject("config", Config.getInstance());
         model.setViewName(jspAdd);
         return model;
@@ -125,12 +141,11 @@ public class ApartmentPriceController {
 
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("apartmentType") ApartmentType apartmentType,
-                             @ModelAttribute("type") String type,
+                             @ModelAttribute("myString") MyString type,
                              @ModelAttribute("view") View view,
                              HttpServletRequest request) {
 
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
-        apartmentType.setType(Type.findTypeName(type).toString());
 
         if (apartmentService.findById(apartmentType.getId()) != null) {
             apartmentService.update(apartmentType);
@@ -156,6 +171,6 @@ public class ApartmentPriceController {
 
         return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get()
                 + "&sort=" + sort.get() + "&type=" + type.orElse("") + "&place=" + place.orElse(null)
-                + "&room=" + room.orElse(null));
+                + "&room=" + room.orElse(0));
     }
 }

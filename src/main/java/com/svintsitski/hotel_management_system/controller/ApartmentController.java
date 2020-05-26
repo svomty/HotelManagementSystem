@@ -62,7 +62,7 @@ public class ApartmentController {
         if (type.isPresent() || place.isPresent() || room.isPresent()) {
 
             result = apartmentService.filter(pagination.getStartElem(), pagination.getPage_size(), sorting,
-                    type.orElse(""), place.orElse(null), room.orElse(null));
+                    type.orElse(""), place.orElse(0), room.orElse(0));
         }
 //фильтрация
         int full_elem_count = result.getCount();
@@ -79,8 +79,8 @@ public class ApartmentController {
         model.addAttribute("start_page", pagination.getStart_page());
         model.addAttribute("sort", sorting);
         model.addAttribute("type", type.orElse(""));
-        model.addAttribute("place", place.orElse(null));
-        model.addAttribute("room", room.orElse(null));
+        model.addAttribute("place", place.orElse(0));
+        model.addAttribute("room", room.orElse(0));
         model.addAttribute("config", Config.getInstance());
         return relativeURL;
     }
@@ -159,7 +159,7 @@ public class ApartmentController {
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         apartmentService.delete(id);
 
-        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort="
+        return new ModelAndView(redirectURL + "/?page=" + page.get() + "&size=" + size.get() + "&sort="
                 + sort.get() + "&type=" + type.orElse("") + "&place=" + place.orElse("")
                 + "&room=" + room.orElse(""));
     }

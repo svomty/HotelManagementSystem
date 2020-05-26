@@ -2,7 +2,8 @@ package com.svintsitski.hotel_management_system.model.enam;
 
 public enum Type {
     Люкс("Люкс"),
-    Стандарт("Простой");
+    Простой("Простой"),
+    Любой("Любой");
 
     String type;
 
@@ -11,23 +12,10 @@ public enum Type {
     }
 
     public static Type findType(String type) {
-        Type result = Type.Стандарт;
+        Type result = Type.Люкс;
         if (type != null) {
             for (Type t : Type.values()) {
                 if (type.toLowerCase().equals(t.toString().toLowerCase())) {
-                    result = t;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    public static Type findTypeName(String type) {
-        Type result = Type.Стандарт;
-        if (type != null) {
-            for (Type t : Type.values()) {
-                if (type.toLowerCase().equals(t.name().toLowerCase())) {
                     result = t;
                     break;
                 }

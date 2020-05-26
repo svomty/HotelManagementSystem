@@ -139,14 +139,14 @@ public class ApartmentServiceImpl implements ApartmentService {
                     continue;
                 }
             }
-            if (place != null) {
+            if (place != 0) {
                 if (apartmentType.get(k).getPlaces_number() != place) {
                     apartments.remove(k);
                     apartmentType.remove(k--);
                     continue;
                 }
             }
-            if (room != null) {
+            if (room != 0) {
                 if (apartmentType.get(k).getRooms_number() != room) {
                     apartments.remove(k);
                     apartmentType.remove(k--);

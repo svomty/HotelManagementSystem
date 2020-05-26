@@ -188,7 +188,7 @@ public class ReservationController {
         URL.IPInfo(relativeURL + "/delete/", request.getRemoteAddr(), RequestMethod.GET);
         reservationService.delete(id);
 
-        return new ModelAndView(redirectURL + "?page=" + page.get() + "&size=" + size.get() + "&sort="
+        return new ModelAndView(redirectURL + "/?page=" + page.get() + "&size=" + size.get() + "&sort="
                 + sort.get() + "&fio=" + fio.orElse("") + "&date=" + date.orElse("")
                 + "&phone=" + phone.orElse(""));
     }

@@ -81,7 +81,7 @@ public class ExcelReportsGenerator extends AbstractXlsView {
                             accommodations.get(i).getArrival_date().equals(date)) &&
                             accommodations.get(i).getDeparture_date().after(date)) {
 
-                        float price = apartmentTypes.get(i).getPlaces_number() * apartmentTypes.get(i).getPrice();
+                        float price = apartmentTypes.get(i).getPrice();
                         amountPerDay += price;
                         createCell(new String[]{date.toString(), String.valueOf(apartments.get(i).getNumber()),
                                 String.valueOf(price)}, CenteredNormalOnWhite);
@@ -119,7 +119,7 @@ public class ExcelReportsGenerator extends AbstractXlsView {
                             accommodations.get(i).getDeparture_date().after(date)) {
                         if (foreignCustomers.get(i) != null) {
                             if (foreignCustomers.get(i).getCitizenship() != null) {
-                                float price = apartmentTypes.get(i).getPlaces_number() * apartmentTypes.get(i).getPrice();
+                                float price = apartmentTypes.get(i).getPrice();
 
                                 Float a = dailyRevenue.get(foreignCustomers.get(i).getCitizenship().toLowerCase());
 

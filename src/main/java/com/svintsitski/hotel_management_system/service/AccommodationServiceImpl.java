@@ -218,7 +218,7 @@ public class AccommodationServiceImpl implements AccommodationService {
                     continue;
                 }
             }
-            if (apart != null) {
+            if (apart != 0) {
                 if (apartments.get(k).getNumber() != apart) {
                     accommodations.remove(k);
                     customers.remove(k);
