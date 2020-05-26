@@ -147,13 +147,24 @@
 
                         <form:hidden path="identificator" id="identificator"/>
 
-                        <form:form modelAttribute="view" method="post" action="${createURL}"
+                        <form:form modelAttribute="checker" method="post" action="${createURL}"
                                    cssClass="form">
-                            <form:input path="page" class="custom-control-input" id="page"/>
-                            <form:input path="size" class="custom-control-input" id="size"/>
-                            <form:input path="sort" class="custom-control-input" id="sort"/>
-                            <button type="submit" class="btn btn-primary">Сохранить</button>
+
+                            <div class="form-group">
+                                <form:checkbox path="check" class="custom-control-input" id="check"/>
+                                <label class="custom-control-label" for="check">Занять весь апартамент</label>
+                                <form:checkbox path="check" id="check"/>
+                            </div>
+
+                            <form:form modelAttribute="view" method="post" action="${createURL}"
+                                       cssClass="form">
+                                <form:input path="page" class="custom-control-input" id="page"/>
+                                <form:input path="size" class="custom-control-input" id="size"/>
+                                <form:input path="sort" class="custom-control-input" id="sort"/>
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                            </form:form>
                         </form:form>
+
                     </form:form>
 
                 </form:form>

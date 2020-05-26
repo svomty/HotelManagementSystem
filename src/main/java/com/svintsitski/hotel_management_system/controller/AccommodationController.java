@@ -3,11 +3,14 @@ package com.svintsitski.hotel_management_system.controller;
 import com.svintsitski.hotel_management_system.dao.ReservationDao;
 import com.svintsitski.hotel_management_system.model.Config;
 import com.svintsitski.hotel_management_system.model.database.Accommodation;
+import com.svintsitski.hotel_management_system.model.database.Apartment;
+import com.svintsitski.hotel_management_system.model.database.ApartmentType;
 import com.svintsitski.hotel_management_system.model.database.Reservation;
 import com.svintsitski.hotel_management_system.model.enam.Activity;
 import com.svintsitski.hotel_management_system.model.support.*;
 import com.svintsitski.hotel_management_system.service.AccommodationServiceImpl;
 import com.svintsitski.hotel_management_system.service.ApartmentServiceImpl;
+import com.svintsitski.hotel_management_system.service.ApartmentTypeService;
 import com.svintsitski.hotel_management_system.service.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,8 @@ public class AccommodationController {
     private CustomerServiceImpl customerService;
     @Autowired
     private ApartmentServiceImpl apartmentService;
+    @Autowired
+    private ApartmentTypeService apartmentTypeService;
 
     String mainObject = "accommodation";
     String relativeURL = "admin/" + mainObject;
@@ -178,7 +183,8 @@ public class AccommodationController {
         String name = full_name.orElse("");
 
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.GET);
-
+        Checker checker = new Checker();
+        model.addObject("checker", checker);
         model.addObject("arrival_date_filter", dates.get(0));
         model.addObject("full_name", name);
         model.addObject("view", view);
@@ -197,15 +203,41 @@ public class AccommodationController {
     @PostMapping(value = {"/add/", "/add"})
     public ModelAndView save(@ModelAttribute("hotelAccommodation") Accommodation accommodation,
                              @ModelAttribute("view") View view,
+                             @ModelAttribute("checker") Checker checker,
                              @ModelAttribute("identity") Optional<Identity> reservation,
-                             HttpServletRequest request) {
+                             HttpServletRequest request) throws Exception {
 
         URL.IPInfo(relativeURL + "/add/", request.getRemoteAddr(), RequestMethod.POST);
+
+        List apartmentList;
+        apartmentList = apartmentService.findForDate(accommodation.getArrival_date(),
+                accommodation.getDeparture_date(),
+                Activity.Accommodation,
+                0).getList();
+
+        List<Apartment> apartments = (List<Apartment>) apartmentList.get(0);
+        List<ApartmentType> apartmentTypes = (List<ApartmentType>) apartmentList.get(1);
+
+        int index = 0;
+        for (int i = 0; i < apartments.size(); i++) {
+            if (accommodation.getApartment_id() == apartments.get(i).getId()) {
+                index = i;
+            }
+        }
+        int place = apartmentTypes.get(index).getPlaces_number();
 
         if (accommodationService.findById(accommodation.getId()) != null) {
             accommodationService.update(accommodation);
         } else {
-            accommodationService.add(accommodation);
+            if (checker.isCheck()) {
+                System.out.println("888888888888");
+                for (int i = 0; i < place; i++) {
+                    accommodationService.add(accommodation);
+                }
+            } else {
+                System.out.println("777777777777");
+                accommodationService.add(accommodation);
+            }
         }
         if (reservation.isPresent()) {
             int reservationId = reservation.get().getIdentificator();
